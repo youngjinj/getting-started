@@ -1,0 +1,10 @@
+{
+        "cmake.installPrefix": "/home/cubrid/CUBRID",
+        "C_Cpp.dimInactiveRegions": false,
+        "java.configuration.runtimes": [
+                {
+                  "name": "OpenJDK",
+                  "path": "/usr/lib/jvm/java"
+                }
+              ]
+}
