@@ -1,10 +1,37 @@
 {
-        "cmake.installPrefix": "/home/cubrid/CUBRID",
+        "cmake.installPrefix": "/home/youngjinj/CUBRID",
         "C_Cpp.dimInactiveRegions": false,
         "java.configuration.runtimes": [
                 {
                   "name": "OpenJDK",
                   "path": "/usr/lib/jvm/java"
                 }
-              ]
+	],
+	"files.associations": {
+		"dbtype.h": "c",
+		"*.tcc": "cpp",
+		"optional": "cpp",
+		"istream": "cpp",
+		"ostream": "cpp",
+		"ratio": "cpp",
+		"system_error": "cpp",
+		"array": "cpp",
+		"functional": "cpp",
+		"regex": "cpp",
+		"tuple": "cpp",
+		"type_traits": "cpp",
+		"utility": "cpp",
+		"mutex": "c",
+		"random": "cpp",
+		"limits": "cpp",
+		"new": "cpp",
+		"cmath": "cpp",
+		"typeinfo": "c",
+		"unordered_map": "cpp",
+		"fstream": "cpp",
+		"sstream": "cpp",
+		"string_view": "c",
+		"bitset": "cpp",
+		"initializer_list": "cpp"
+	}
 }

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Debug: v11.0, v10.2, v10.1, v9.3, ...
+# Release: 11.0.0.0248, 10.2.0.8797, 10.1.5.7809, 9.3.6.0002, ...
+VERSION=$1
+
+if [ -z $VERSION ]; then
+	VERSION="v11.0"
+fi
+
+if [ -f $HOME/cubrid.sh ]; then
+	. $HOME/cubrid.sh
+	cubrid service stop
+	rm $HOME/cubrid.sh
+fi
+
+rm -rf $HOME/CUBRID
+
+# If release version.
+if [[ ! $VERSION =~ v* ]]; then
+	if [ ! -d $HOME/Release/CUBRID-$VERSION ]; then
+		echo "Error: The release version is not installed."
+		exit 1
+	fi
+	ln -s $HOME/Release/CUBRID-$VERSION $HOME/CUBRID
+	VERSION=`echo $VERSION | awk -F "." '{print "v"$1"."$2}'`
+fi
+
+ln -s $HOME/Environment/.cubrid_$VERSION.sh $HOME/cubrid.sh
+. $HOME/cubrid.sh
+$HOME/Environment/make_cubrid_dir.sh
+
+if [ -d $HOME/CUBRID/databases ] && [ ! -L $HOME/CUBRID/databases ]; then
+	rmdir $HOME/CUBRID/databases
+fi
+
+if [ ! -e $HOME/CUBRID/databases ]; then
+	ln -s $HOME/databases/$VERSION $HOME/CUBRID/databases
+fi
+
+ls -al $HOME/CUBRID
+ls -al $HOME/CUBRID/databases

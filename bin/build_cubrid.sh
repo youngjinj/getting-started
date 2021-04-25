@@ -1,10 +1,10 @@
 #!/bin/bash
 
-BUILD_PATH=$1
+REPO=$1
 
-if [ -z $BUILD_PATH ]; then
-	BUILD_PATH=$PWD
+if [ -z "$REPO" ]; then
+        REPO=$PWD
 fi
 
-cd $BUILD_PATH \
-	&& ./build.sh -m debug -p /home/cubrid/CUBRID build
+cd $REPO \
+&& ./build.sh -m debug -p /home/cubrid/CUBRID build

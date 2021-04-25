@@ -8,7 +8,7 @@
                         "name": "(gdb) csql 연결",
                         "type": "cppdbg",
                         "request": "attach",
-                        "program": "/home/cubrid/CUBRID/bin/csql",
+                        "program": "/home/youngjinj/CUBRID/bin/csql",
                         "processId": "${command:pickProcess}",
                         "MIMode": "gdb",
                         "setupCommands": [
@@ -23,7 +23,7 @@
                         "name": "(gdb) cub_cas 연결",
                         "type": "cppdbg",
                         "request": "attach",
-                        "program": "/home/cubrid/CUBRID/bin/cub_cas",
+                        "program": "/home/youngjinj/CUBRID/bin/cub_cas",
                         "processId": "${command:pickProcess}",
                         "MIMode": "gdb",
                         "setupCommands": [
@@ -33,6 +33,97 @@
                                 "ignoreFailures": true
                             }
                         ]
-                }
+                },
+                {
+                        "name": "(gdb) cub_server 연결",
+                        "type": "cppdbg",
+                        "request": "attach",
+                        "program": "/home/youngjinj/CUBRID/bin/cub_server",
+                        "processId": "${command:pickProcess}",
+                        "MIMode": "gdb",
+                        "setupCommands": [
+                            {
+                                "description": "gdb에 자동 서식 지정 사용",
+                                "text": "-enable-pretty-printing",
+                                "ignoreFailures": true
+                            }
+                        ]
+                },
+		{
+			"name": "(gdb) cubrid 시작",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "/home/youngjinj/CUBRID/bin/cubrid",
+			"args": [ "createdb", "-F", "/home/youngjinj/databases/demodb", "-L", "/home/youngjinj/databases/demodb/log", "--db-volume-size=64M", "--log-volume-size=64M", "demodb", "ko_KR.utf8" ],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+			    {
+				"description": "gdb에 자동 서식 지정 사용",
+				"text": "-enable-pretty-printing",
+				"ignoreFailures": true
+			    }
+			]
+		},
+		{
+			"name": "(gdb) csql 시작",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "/home/youngjinj/CUBRID/bin/csql",
+			"args": [ "-u", "dba", "demodb" ],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+			    {
+				"description": "gdb에 자동 서식 지정 사용",
+				"text": "-enable-pretty-printing",
+				"ignoreFailures": true
+			    }
+			]
+		},
+		{
+			"name": "(gdb) csql -S 시작",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "/home/youngjinj/CUBRID/bin/csql",
+			"args": [ "-u", "dba", "demodb", "-S" ],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+			    {
+				"description": "gdb에 자동 서식 지정 사용",
+				"text": "-enable-pretty-printing",
+				"ignoreFailures": true
+			    }
+			]
+		},
+		{
+			"name": "(gdb) csql -S u2 시작",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "/home/youngjinj/CUBRID/bin/csql",
+			"args": [ "-u", "u2", "demodb", "-S" ],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+			    {
+				"description": "gdb에 자동 서식 지정 사용",
+				"text": "-enable-pretty-printing",
+				"ignoreFailures": true
+			    }
+			]
+		}
         ]
 }
