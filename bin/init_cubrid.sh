@@ -18,17 +18,17 @@ rm -rf $HOME/CUBRID
 
 # If release version.
 if [[ ! $VERSION =~ v* ]]; then
-	if [ ! -d $HOME/Release/CUBRID-$VERSION ]; then
+	if [ ! -d $HOME/release/CUBRID-$VERSION ]; then
 		echo "Error: The release version is not installed."
 		exit 1
 	fi
-	ln -s $HOME/Release/CUBRID-$VERSION $HOME/CUBRID
+	ln -s $HOME/release/CUBRID-$VERSION $HOME/CUBRID
 	VERSION=`echo $VERSION | awk -F "." '{print "v"$1"."$2}'`
 fi
 
-ln -s $HOME/Environment/.cubrid_$VERSION.sh $HOME/cubrid.sh
+ln -s $HOME/env/.cubrid_$VERSION.sh $HOME/cubrid.sh
 . $HOME/cubrid.sh
-$HOME/Environment/make_cubrid_dir.sh
+$HOME/env/env_cubrid_dir.sh
 
 if [ -d $HOME/CUBRID/databases ] && [ ! -L $HOME/CUBRID/databases ]; then
 	rmdir $HOME/CUBRID/databases

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ ! -d $CUBRID_DATABASES ]; then
         mkdir -p $CUBRID_DATABASES
 fi
