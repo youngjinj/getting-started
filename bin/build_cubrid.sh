@@ -7,4 +7,4 @@ if [ -z "$REPO" ]; then
 fi
 
 cd $REPO \
-&& ./build.sh -m debug -p /home/cubrid/CUBRID build
+&& ./build.sh -m debug -p $HOME/CUBRID build
