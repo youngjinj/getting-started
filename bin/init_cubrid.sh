@@ -22,11 +22,11 @@ if [[ ! $VERSION =~ v* ]]; then
 		echo "Error: The release version is not installed."
 		exit 1
 	fi
-	ln -s $HOME/release/CUBRID-$VERSION $HOME/CUBRID
+	ln -sf $HOME/release/CUBRID-$VERSION $HOME/CUBRID
 	VERSION=`echo $VERSION | awk -F "." '{print "v"$1"."$2}'`
 fi
 
-ln -s $HOME/env/.cubrid_$VERSION.sh $HOME/cubrid.sh
+ln -sf $HOME/env/.cubrid_$VERSION.sh $HOME/cubrid.sh
 . $HOME/cubrid.sh
 $HOME/env/env_cubrid_dir.sh
 
@@ -35,7 +35,8 @@ if [ -d $HOME/CUBRID/databases ] && [ ! -L $HOME/CUBRID/databases ]; then
 fi
 
 if [ ! -e $HOME/CUBRID/databases ]; then
-	ln -s $HOME/databases/$VERSION $HOME/CUBRID/databases
+	mkdir -p $HOME/databases/$VERSION
+	ln -sf $HOME/databases/$VERSION $HOME/CUBRID/databases
 fi
 
 ls -al $HOME/CUBRID

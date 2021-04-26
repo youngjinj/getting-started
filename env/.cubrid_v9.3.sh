@@ -1,5 +1,5 @@
 # CUBRID-9.3.6.0002-linux.x86_64
-CUBRID=/home/cubrid/CUBRID
+CUBRID=$HOME/CUBRID
 CUBRID_DATABASES=/home/cubrid/CUBRID/databases
 ld_lib_path=`printenv LD_LIBRARY_PATH`
 if [ "$ld_lib_path" = "" ]
