@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ ! -e .git ]; then
-	exit
-fi
-
 if [ ! -e .vscode ]; then
 	cp -r $HOME/github/backup/.vscode .
 fi
@@ -11,11 +7,11 @@ fi
 $HOME/bin/make_ctags_cscope.sh .
 
 if [ ! -e .gitignore ]; then
-	exit
+	exit 1
 fi
 
 if [ `grep Youngjinj .gitignore | wc -l` != 0 ]; then
-	exit
+	exit 1
 fi
 
 cat << EOF >> .gitignore
