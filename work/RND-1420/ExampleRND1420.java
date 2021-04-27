@@ -19,6 +19,8 @@ public class ExampleRND1420 {
 	private static StringJoiner createHistorySql = null;
 	private static StringJoiner createMainTriggerSql = null;
 	
+	private static StringJoiner insertMainTempSql = null;
+	
 	private static StringJoiner errorCaseSql = null;
 	private static StringJoiner errorCaseBypassSelectSql = null;
 	private static StringJoiner errorCaseBypassInsertSql = null;
@@ -37,6 +39,15 @@ public class ExampleRND1420 {
 		createMainSql.add("  [contents] VARCHAR");
 		createMainSql.add(")");
 		initSqls.add(createMainSql.toString());
+		
+		insertMainTempSql = new StringJoiner(" ");
+		insertMainTempSql.add("INSERT INTO [main_temp] (");
+		insertMainTempSql.add("  [uuid],");
+		insertMainTempSql.add("  [contents]");
+		insertMainTempSql.add(") VALUES (");
+		insertMainTempSql.add("  ?,");
+		insertMainTempSql.add("  ?");
+		insertMainTempSql.add(")");
 
 		createHistorySql = new StringJoiner(" ");
 		createHistorySql.add("CREATE TABLE [history] (");
@@ -69,8 +80,8 @@ public class ExampleRND1420 {
 		errorCaseSql.add("  [contents]");
 		errorCaseSql.add(")");
 		errorCaseSql.add("SELECT");
-		errorCaseSql.add("  SYS_GUID() AS [uuid],");
-		errorCaseSql.add("  SYS_GUID() AS [contests]");
+		errorCaseSql.add("  MD5(RANDOM()) AS [uuid],");
+		errorCaseSql.add("  MD5(RANDOM()) AS [contents]");
 		errorCaseSql.add("FROM");
 		errorCaseSql.add("  db_root");
 		errorCaseSql.add("WHERE");
@@ -85,8 +96,8 @@ public class ExampleRND1420 {
 		
 		errorCaseBypassSelectSql = new StringJoiner(" ");
 		errorCaseBypassSelectSql.add("SELECT");
-		errorCaseBypassSelectSql.add("  SYS_GUID() AS [uuid],");
-		errorCaseBypassSelectSql.add("  SYS_GUID() AS [contests]");
+		errorCaseBypassSelectSql.add("  MD5(RANDOM()) AS [uuid],");
+		errorCaseBypassSelectSql.add("  MD5(RANDOM()) AS [contents]");
 		errorCaseBypassSelectSql.add("FROM");
 		errorCaseBypassSelectSql.add("  db_root");
 		errorCaseBypassSelectSql.add("WHERE");
@@ -120,7 +131,7 @@ public class ExampleRND1420 {
 			e.printStackTrace();
 		}
 		
-		String ip = "192.168.37.128";
+		String ip = "localhost";
 		String port = "33000";
 		String db = "demodb";
 		String user = "dba";
@@ -140,7 +151,7 @@ public class ExampleRND1420 {
 			
 			connection.commit();
 			
-			/**
+			/**/
 			// Error Case:
 			try (PreparedStatement preparedStatement = connection.prepareStatement(errorCaseSql.toString())) {
 				for (int i = 0; i < BIND_COUNT; i++) {
@@ -152,11 +163,12 @@ public class ExampleRND1420 {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
+				System.out.println("Rollback");
 				throw e;
 			}
 			/**/
 			
-			/**/
+			/**
 			// How to bypass Error Case - 1:
 			try (PreparedStatement preparedStatement1 = connection.prepareStatement(errorCaseBypassSelectSql.toString());
 				 PreparedStatement preparedStatement2 = connection.prepareStatement(errorCaseBypassInsertSql.toString())) {
@@ -165,7 +177,7 @@ public class ExampleRND1420 {
 					try (ResultSet resultSet = preparedStatement1.executeQuery()) {
 						while (resultSet.next()) {
 							preparedStatement2.setString(1, resultSet.getString("uuid"));
-							preparedStatement2.setString(2, resultSet.getString("contests"));
+							preparedStatement2.setString(2, resultSet.getString("contents"));
 							preparedStatement2.addBatch();
 							preparedStatement2.clearParameters();
 						}
@@ -175,9 +187,12 @@ public class ExampleRND1420 {
 				connection.commit();
 			} catch (SQLException e) {
 				connection.rollback();
+				System.out.println("Rollback");
 				throw e;
 			}
 			/**/
+			
+			System.out.println("Success");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

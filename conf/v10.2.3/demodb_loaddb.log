@@ -1,0 +1,25 @@
+
+Start schema loading.
+Total        1 statements executed.Total        2 statements executed.Total        3 statements executed.Total        4 statements executed.Total        5 statements executed.Total        6 statements executed.Total        7 statements executed.Total        8 statements executed.Total        9 statements executed.Total       10 statements executed.Total       11 statements executed.Total       12 statements executed.Total       13 statements executed.Total       14 statements executed.Total       15 statements executed.Total       16 statements executed.Total       17 statements executed.Total       18 statements executed.Total       19 statements executed.Total       20 statements executed.Total       21 statements executed.Total       22 statements executed.Total       23 statements executed.Total       24 statements executed.Total       25 statements executed.Total       26 statements executed.Total       27 statements executed.Total       28 statements executed.Total       29 statements executed.Total       30 statements executed.Total       31 statements executed.Total       32 statements executed.Total       33 statements executed.Total       34 statements executed.Total       35 statements executed.Total       36 statements executed.Total       37 statements executed.Total       38 statements executed.Total       39 statements executed.Total       40 statements executed.Total       41 statements executed.Total       42 statements executed.Total       43 statements executed.Total       44 statements executed.Total       45 statements executed.Total       46 statements executed.Total       47 statements executed.Total       48 statements executed.Total       49 statements executed.Total       50 statements executed.Total       51 statements executed.      52 statements executed. Commit transaction at line 174
+Total       52 statements executed.Total       52 statements executed.
+Schema loading from /home/youngjinj/CUBRID/demo/demodb_schema finished.
+Statistics for Catalog classes have been updated.
+
+
+Start object loading.
+
+*** Checking syntax ***
+
+
+*** Inserting objects ***
+
+
+*** Committing the transaction ***
+game 10240 instances committed
+Total    19202 object(s) inserted, 0 object(s) failed.
+
+*** Committing the transaction ***
+
+*** Committing the transaction ***
+
+*** Closing the database ***

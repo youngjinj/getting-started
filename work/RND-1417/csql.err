@@ -1,0 +1,447 @@
+
+Time: 04/26/21 14:13:34.747 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1711
+trying to connect 'demodb@localhost'
+
+Time: 04/26/21 14:13:34.748 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1733
+ping server with handshake
+
+Time: 04/26/21 14:13:34.748 - NOTIFICATION *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1138  CODE = -971 Tran = -1, EID = 1
+Program 'csql' (pid 758286) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 04/26/21 14:13:34.748 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1187
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host cubrid pid 758286 }
+
+Time: 04/26/21 14:13:34.765 - ERROR *** file Unknown from server, line -1 ERROR CODE = -1106 Tran = 1, EID = 2
+Multiple rows in source table match the same row in destination table.
+
+Time: 04/26/21 14:13:34.765 - SYNTAX ERROR *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/compat/db_vdb.c, line 919 ERROR CODE = -492 Tran = 1, EID = 3
+Multiple rows in source table match the same row in destination table.
+
+*** The previous error message is the last one. ***
+
+
+Time: 04/26/21 14:20:02.470 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.0.8797-d56a158/src/transaction/boot_cl.c, line 1701
+trying to connect 'demodb@localhost'
+
+Time: 04/26/21 14:20:02.470 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.0.8797-d56a158/src/transaction/boot_cl.c, line 1723
+ping server with handshake
+
+Time: 04/26/21 14:20:02.470 - NOTIFICATION *** file /home/youngjinj/source/cubrid-10.2.0.8797-d56a158/src/transaction/boot_cl.c, line 1130  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 802161) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 04/26/21 14:20:02.470 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.0.8797-d56a158/src/transaction/boot_cl.c, line 1180
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj pid 802161 }
+
+Time: 04/26/21 14:20:02.486 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.0.8797-d56a158/src/communication/network_interface_cl.c, line 6420
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 04/26/21 14:20:02.489 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.0.8797-d56a158/src/communication/network_interface_cl.c, line 6420
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 04/26/21 14:20:02.490 - ERROR *** file Unknown from server, line -1 ERROR CODE = -1106, Tran = 1, EID = 2
+Multiple rows in source table match the same row in destination table.
+
+Time: 04/26/21 14:20:02.490 - ERROR *** file Unknown from server, line -1 ERROR CODE = -550, Tran = 1, EID = 3
+Unknown savepoint name UmsP_1
+
+Time: 04/26/21 14:20:02.490 - SYNTAX ERROR *** file /home/youngjinj/source/cubrid-10.2.0.8797-d56a158/src/compat/db_vdb.c, line 941 ERROR CODE = -492, Tran = 1, EID = 4
+Multiple rows in source table match the same row in destination table.
+
+*** The previous error message is the last one. ***
+
+
+Time: 04/26/21 14:28:18.623 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.3.8881-2510ce1/src/transaction/boot_cl.c, line 1701
+trying to connect 'demodb@localhost'
+
+Time: 04/26/21 14:28:18.623 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.3.8881-2510ce1/src/transaction/boot_cl.c, line 1723
+ping server with handshake
+
+Time: 04/26/21 14:28:18.623 - NOTIFICATION *** file /home/youngjinj/source/cubrid-10.2.3.8881-2510ce1/src/transaction/boot_cl.c, line 1130  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 853327) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 04/26/21 14:28:18.623 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.3.8881-2510ce1/src/transaction/boot_cl.c, line 1180
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj pid 853327 }
+
+Time: 04/26/21 14:28:18.639 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.3.8881-2510ce1/src/communication/network_interface_cl.c, line 6420
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 04/26/21 14:28:18.642 - DEBUG *** file /home/youngjinj/source/cubrid-10.2.3.8881-2510ce1/src/communication/network_interface_cl.c, line 6420
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 04/26/21 14:28:18.643 - ERROR *** file Unknown from server, line -1 ERROR CODE = -1106, Tran = 1, EID = 2
+Multiple rows in source table match the same row in destination table.
+
+Time: 04/26/21 14:28:18.643 - ERROR *** file Unknown from server, line -1 ERROR CODE = -550, Tran = 1, EID = 3
+Unknown savepoint name UmsP_1
+
+Time: 04/26/21 14:28:18.643 - SYNTAX ERROR *** file /home/youngjinj/source/cubrid-10.2.3.8881-2510ce1/src/compat/db_vdb.c, line 941 ERROR CODE = -492, Tran = 1, EID = 4
+Multiple rows in source table match the same row in destination table.
+
+*** The previous error message is the last one. ***
+
+
+Time: 04/26/21 14:43:00.897 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1711
+trying to connect 'demodb@localhost'
+
+Time: 04/26/21 14:43:00.897 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1733
+ping server with handshake
+
+Time: 04/26/21 14:43:00.897 - NOTIFICATION *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1138  CODE = -971 Tran = -1, EID = 1
+Program 'csql' (pid 859284) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 04/26/21 14:43:00.898 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1187
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host cubrid pid 859284 }
+
+Time: 04/26/21 14:43:05.914 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:10.921 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:15.928 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:20.934 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:25.939 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:30.944 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:35.951 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:40.958 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:45.962 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:50.968 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:43:55.971 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:00.979 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:05.985 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:10.992 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:15.998 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:21.006 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:26.014 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:31.022 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:36.028 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:41.034 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:46.041 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:44:56.396 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:01.402 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:06.409 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:11.415 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:16.421 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:21.427 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:26.433 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:31.441 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:36.443 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:41.449 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:46.454 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:51.460 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:45:56.467 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:01.474 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:06.481 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:11.489 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:16.495 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:21.501 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:26.508 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:31.515 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:36.521 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:41.528 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:46.535 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:51.540 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:46:56.547 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:01.552 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:08.287 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:13.294 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:18.299 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:23.307 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:28.316 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:33.323 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:38.330 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:43.336 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:48.345 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:47:50.044 - ERROR *** file Unknown from server, line -1 ERROR CODE = -1106 Tran = 1, EID = 2
+Multiple rows in source table match the same row in destination table.
+
+Time: 04/26/21 14:47:50.045 - SYNTAX ERROR *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/compat/db_vdb.c, line 919 ERROR CODE = -492 Tran = 1, EID = 3
+Multiple rows in source table match the same row in destination table.
+
+Time: 04/26/21 14:47:55.051 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:00.060 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:05.066 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:10.071 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:15.077 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:20.086 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:25.087 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:30.094 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:35.100 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:40.102 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:45.111 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:50.118 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:48:55.125 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:00.131 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:05.136 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:10.144 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:15.146 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:20.152 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:25.158 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:33.431 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1711
+trying to connect 'demodb@localhost'
+
+Time: 04/26/21 14:49:33.432 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1733
+ping server with handshake
+
+Time: 04/26/21 14:49:33.432 - NOTIFICATION *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1138  CODE = -971 Tran = -1, EID = 1
+Program 'csql' (pid 861108) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 04/26/21 14:49:33.432 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1187
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host cubrid pid 861108 }
+
+Time: 04/26/21 14:49:40.673 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:45.678 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:50.684 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:49:55.690 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:00.695 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:05.702 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:10.707 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:15.713 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:20.718 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:25.725 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:35.490 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:40.496 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:42.247 - ERROR *** file Unknown from server, line -1 ERROR CODE = -1106 Tran = 1, EID = 2
+Multiple rows in source table match the same row in destination table.
+
+Time: 04/26/21 14:50:47.253 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:50:51.510 - SYNTAX ERROR *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/compat/db_vdb.c, line 919 ERROR CODE = -492 Tran = 1, EID = 3
+Multiple rows in source table match the same row in destination table.
+
+Time: 04/26/21 14:50:56.516 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:01.523 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:06.529 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:11.535 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:16.541 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:21.548 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:26.552 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:31.558 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:36.581 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:41.587 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:46.593 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:51.601 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:51:56.609 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:01.615 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:06.621 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:11.628 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:16.635 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:21.643 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:26.651 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:31.659 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:36.666 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:41.672 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:46.679 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:51.685 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:52:56.690 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:01.698 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:06.705 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:11.713 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:16.720 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:21.726 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:26.732 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:31.740 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:36.746 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:41.754 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:46.759 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:51.768 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:53:56.772 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:01.779 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:06.786 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:11.793 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:16.801 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:21.809 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:26.817 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:31.823 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:36.823 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:41.831 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:46.838 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:51.845 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:54:56.854 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:01.859 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:06.865 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:11.873 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:16.881 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:21.889 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:26.897 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:31.903 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:36.903 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:41.909 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:46.914 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:51.920 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:55:56.927 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:01.934 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:06.941 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:11.948 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:16.955 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:21.961 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:26.968 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:31.973 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:36.975 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:41.982 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:56:46.987 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/connection/tcp.c, line 1428
+The css_peer_alive() is calling.
+Time: 04/26/21 14:58:48.440 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1711
+trying to connect 'demodb@localhost'
+
+Time: 04/26/21 14:58:48.441 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1733
+ping server with handshake
+
+Time: 04/26/21 14:58:48.441 - NOTIFICATION *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1138  CODE = -971 Tran = -1, EID = 1
+Program 'csql' (pid 863155) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 04/26/21 14:58:48.441 - DEBUG *** file /home/youngjinj/source/cubrid-10.1.5.7809-8a6a188/src/transaction/boot_cl.c, line 1187
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host cubrid pid 863155 }
