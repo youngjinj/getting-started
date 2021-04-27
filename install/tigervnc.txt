@@ -1,0 +1,27 @@
+sudo dnf groupinstall -y "Server with GUI"
+sudo systemctl set-default graphical
+sudo reboot
+
+sudo vi /etc/gdm/custom.conf
+#WaylandEnable=false → WaylandEnable=false
+
+sudo dnf install -y tigervnc-server tigervnc-server-module
+
+# root
+vncpasswd
+
+sudo cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/
+
+vi /etc/tigervnc/vncserver.users
+:1=root
+
+vi /etc/tigervnc/vncserver-config-defaults
+session=gnome
+geometry=1280x1024
+
+/etc/systemd/system/vncserver@.service.d/10-restart.conf
+[Service]
+Restart=always
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now vncserver@:1.service
