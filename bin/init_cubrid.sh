@@ -11,7 +11,6 @@ fi
 if [ -f $HOME/cubrid.sh ]; then
 	. $HOME/cubrid.sh
 	cubrid service stop
-	rm $HOME/cubrid.sh
 fi
 
 rm -rf $HOME/CUBRID

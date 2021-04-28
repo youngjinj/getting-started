@@ -6,12 +6,12 @@ if [ -z $REPO ]; then
 	exit
 fi
 
-if [ -e $HOME/GitHub/$REPO ]; then
+if [ -e $HOME/github/$REPO ]; then
 	echo "ERROR: Same name exists."
 	exit
 fi
 
-cd $HOME/GitHub \
+cd $HOME/github \
 && git clone https://github.com/youngjinj/cubrid.git $REPO \
 && cd $REPO \
 && git remote add upstream https://github.com/CUBRID/cubrid.git \

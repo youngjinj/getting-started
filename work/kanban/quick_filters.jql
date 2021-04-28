@@ -1,0 +1,36 @@
+/* Only My Issues */
+assignee = currentUser()
+
+/* Only CUBRID */
+project = CBRD
+
+/* Only Manuals */
+project = CUBRIDMAN
+
+/* Except Sub-task */
+issuetype != Sub-task 
+
+/* Fix Version/s: 11.0 P1 */
+fixVersion in ("11.0 Patch 1", "11.0 Patch 2", "elderberry")
+AND fixVersion in ("11.0 Patch 1", "11.0 Patch 2")
+AND fixVersion in ("11.0 Patch 1", "elderberry")
+AND fixVersion in ("11.0 Patch 1")
+OR fixVersion is empty
+
+/* Fix Version/s: 11.0 P2 */
+fixVersion in ("11.0 Patch 2", "elderberry", "11.0 Patch 1")
+AND fixVersion in ("11.0 Patch 2", "elderberry")
+AND fixVersion in ("11.0 Patch 2", "11.0 Patch 1")
+AND fixVersion in ("11.0 Patch 2")
+
+/* Fix Version/s: elderberry */
+fixVersion in ("elderberry", "11.0 Patch 1", "11.0 Patch 2")
+AND fixVersion in ("elderberry", "11.0 Patch 1")
+AND fixVersion in ("elderberry", "11.0 Patch 2")
+AND fixVersion in ("elderberry")
+
+/* Fix Version/s: None */
+fixVersion is empty
+
+/* Fix Version/s: Not None */
+fixVersion is not EMPTY 

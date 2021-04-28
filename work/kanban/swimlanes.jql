@@ -1,0 +1,19 @@
+/* Byung-Wook Kim */
+assignee = byungwook.kim
+OR assignee was byungwook.kim and assignee changed after startOfMonth(-6) and status in (resolved)
+
+/* Se-Hun Park */
+assignee = shpark
+OR assignee was shpark and assignee changed after startOfMonth(-6) and status in (resolved)
+
+/* Hyung-Gyu Ryoo */
+assignee = hgryoo
+OR assignee was hgryoo and assignee changed after startOfMonth(-6) and status in (resolved)
+
+/* Chun-Taek Shim */
+assignee = ctshim
+OR assignee was ctshim and assignee changed after startOfMonth(-6) and status in (resolved)
+
+/* Young-Jin joo */
+assignee = youngjinj
+OR assignee was youngjinj and assignee changed after startOfMonth(-6) and status in (resolved)
