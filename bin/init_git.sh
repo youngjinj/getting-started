@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git checkout ${PWD##/*/}
+
 if [ ! -e .vscode ]; then
 	cp -r $HOME/github/backup/.vscode .
 fi

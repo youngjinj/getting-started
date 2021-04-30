@@ -1,0 +1,19 @@
+/* Confirmed / To Do / Open: #FFFFFF*/
+issue.property[development].prs = 0
+AND issue.property[development].openprs = 0
+AND status not in ("In Progress", "REVIEW IN PROGRESS", REVIEWED)
+
+/* In Progress: #FFFFFF */
+issue.property[development].prs = 0
+AND issue.property[development].openprs = 0
+AND status in ("In Progress")
+
+/* Review in Progress: #CC0000 */
+issue.property[development].prs > 0
+AND issue.property[development].openprs > 0
+AND status in ("In Progress", "REVIEW IN PROGRESS", REVIEWED, Resolved)
+
+/* Reviewd (Merged or Declined), Resolved: #009900 */
+issue.property[development].prs > 0
+AND issue.property[development].openprs = 0
+AND status in ("In Progress", "REVIEW IN PROGRESS", REVIEWED, Resolved)
