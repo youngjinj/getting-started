@@ -1,19 +1,24 @@
 /* Byung-Wook Kim */
 assignee = byungwook.kim
+OR reporter = byungwook.kim
 OR assignee was byungwook.kim and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
 
 /* Se-Hun Park */
 assignee = shpark
+OR reporter = shpark
 OR assignee was shpark and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
 
 /* Hyung-Gyu Ryoo */
 assignee = hgryoo
+OR reporter = hgryoo
 OR assignee was hgryoo and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
 
 /* Chun-Taek Shim */
 assignee = ctshim
+OR reporter = ctshim
 OR assignee was ctshim and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
 
 /* Young-Jin joo */
 assignee = youngjinj
+OR reporter = youngjinj
 OR assignee was youngjinj and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
