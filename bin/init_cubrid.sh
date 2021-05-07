@@ -16,7 +16,7 @@ fi
 rm -rf $HOME/CUBRID
 
 # If release version.
-if [[ ! $VERSION =~ v* ]]; then
+if [ `echo $VERSION | grep -e "^[^v].*" | wc -l` > 0 ]; then
 	if [ ! -d $HOME/release/CUBRID-$VERSION ]; then
 		echo "Error: The release version is not installed."
 		exit 1

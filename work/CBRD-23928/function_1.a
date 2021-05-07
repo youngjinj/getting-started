@@ -1,0 +1,101 @@
+	.file	"function.c"
+	.text
+	.section	.rodata.str1.8,"aMS",@progbits,1
+	.align 8
+.LC0:
+	.string	"[main] parser->has_internal_error : %d\n"
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC1:
+	.string	"[main] parser has error."
+.LC2:
+	.string	"[main] end."
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB22:
+	.cfi_startproc
+	pushq	%r12
+	.cfi_def_cfa_offset 16
+	.cfi_offset 12, -16
+	pushq	%rbp
+	.cfi_def_cfa_offset 24
+	.cfi_offset 6, -24
+	pushq	%rbx
+	.cfi_def_cfa_offset 32
+	.cfi_offset 3, -32
+	movl	%edi, %ebp
+	movq	%rsi, %r12
+	movl	$1, %esi
+	movl	$16, %edi
+	call	calloc
+	movq	%rax, %rbx
+	cmpl	$1, %ebp
+	jg	.L8
+	testq	%rax, %rax
+	jne	.L3
+.L4:
+	movl	$.LC2, %edi
+	call	puts
+	movl	$0, %eax
+.L1:
+	popq	%rbx
+	.cfi_remember_state
+	.cfi_def_cfa_offset 24
+	popq	%rbp
+	.cfi_def_cfa_offset 16
+	popq	%r12
+	.cfi_def_cfa_offset 8
+	ret
+.L8:
+	.cfi_restore_state
+	movq	8(%r12), %rdi
+	movl	$10, %edx
+	movl	$0, %esi
+	call	strtol
+	andl	$1, %eax
+	movzbl	8(%rbx), %edx
+	andl	$-2, %edx
+	orl	%eax, %edx
+	movb	%dl, 8(%rbx)
+	movzbl	%al, %esi
+	movl	$.LC0, %edi
+	movl	$0, %eax
+	call	printf
+.L3:
+	cmpq	$0, (%rbx)
+	je	.L9
+.L5:
+	movl	$.LC1, %edi
+	call	puts
+	movl	$1, %eax
+	jmp	.L1
+.L9:
+	testb	$1, 8(%rbx)
+	je	.L4
+	jmp	.L5
+	.cfi_endproc
+.LFE22:
+	.size	main, .-main
+	.globl	pt_has_error
+	.type	pt_has_error, @function
+pt_has_error:
+.LFB23:
+	.cfi_startproc
+	movl	$0, %eax
+	testq	%rdi, %rdi
+	je	.L10
+	movl	$1, %eax
+	cmpq	$0, (%rdi)
+	je	.L14
+.L10:
+	ret
+.L14:
+	movzbl	8(%rdi), %eax
+	andl	$1, %eax
+	jmp	.L10
+	.cfi_endproc
+.LFE23:
+	.size	pt_has_error, .-pt_has_error
+	.ident	"GCC: (GNU) 8.3.1 20191121 (Red Hat 8.3.1-5)"
+	.section	.note.GNU-stack,"",@progbits

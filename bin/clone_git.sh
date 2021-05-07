@@ -24,8 +24,17 @@ if [[ $CLONE_NAME =~ pr-* ]]; then
 	PR_NUMBER=`echo $CLONE_NAME | awk -F "-" '{print $NF}'`
 
 	cd $HOME/github/$CLONE_NAME \
-		&& git fetch upstream pull/$PR_NUMBER/head:$CLONE_NAME \
-		&& git checkout $CLONE_NAME
+		&& git config --add remote.upstream.fetch +refs/pull/$PR_NUMBER/head:refs/remotes/upstream/pr/$PR_NUMBER \
+		&& git fetch upstream \
+		&& git checkout -b $CLONE_NAME upstream/pr/$PR_NUMBER
+fi
+
+if [[ $CLONE_NAME =~ release-* ]]; then
+	RELEASE_VERSION=`echo $CLONE_NAME | awk -F "-" '{print $NF}'`
+
+	cd $HOME/github/$CLONE_NAME \
+		&& git fetch upstream \
+		&& git checkout -t upstream/release/$RELEASE_VERSION
 fi
 
 cd $HOME/github/$CLONE_NAME \

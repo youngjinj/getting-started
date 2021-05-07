@@ -1,6 +1,12 @@
 #!/bin/bash
 
-git checkout ${PWD##/*/}
+CURRENT_BRANCH=`git branch | grep "^*" | awk '{print $NF}'`
+
+if [ $CURRENT_BRANCH == "development" ]; then
+	if [ `git branch -a | grep "${PWD##/*/}$" | wc -l` > 0 ]; then
+		git checkout ${PWD##/*/}
+	fi
+fi
 
 if [ ! -e .vscode ]; then
 	cp -r $HOME/github/backup/.vscode .

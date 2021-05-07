@@ -1,5 +1,6 @@
 /* Only My Issues */
 assignee = currentUser()
+OR assignee was currentUser() and assignee changed after startOfMonth(-6) and status in (resolved, closed, done)
 
 /* Only CUBRID */
 project = CBRD
@@ -10,24 +11,24 @@ project = CUBRIDMAN
 /* Except Sub-task */
 issuetype != Sub-task 
 
-/* Fix Version/s: 11.0 P1 */
-fixVersion in ("11.0 Patch 1", "11.0 Patch 2", "elderberry")
-AND fixVersion in ("11.0 Patch 1", "11.0 Patch 2")
-AND fixVersion in ("11.0 Patch 1", "elderberry")
-AND fixVersion in ("11.0 Patch 1")
-OR fixVersion is empty
+/* Planned: 11.0 Patch 1 */
+"Planned Version(s)" in ("11.0 Patch 1", "11.0 Patch 2", "elderberry")
+AND "Planned Version(s)" in ("11.0 Patch 1", "11.0 Patch 2")
+AND "Planned Version(s)" in ("11.0 Patch 1", "elderberry")
+AND "Planned Version(s)" in ("11.0 Patch 1")
+OR "Planned Version(s)" is empty
 
-/* Fix Version/s: 11.0 P2 */
-fixVersion in ("11.0 Patch 2", "elderberry", "11.0 Patch 1")
-AND fixVersion in ("11.0 Patch 2", "elderberry")
-AND fixVersion in ("11.0 Patch 2", "11.0 Patch 1")
-AND fixVersion in ("11.0 Patch 2")
+/* Planned: 11.0 Patch 2 */
+"Planned Version(s)" in ("11.0 Patch 2", "elderberry", "11.0 Patch 1")
+AND "Planned Version(s)" in ("11.0 Patch 2", "elderberry")
+AND "Planned Version(s)" in ("11.0 Patch 2", "11.0 Patch 1")
+AND "Planned Version(s)" in ("11.0 Patch 2")
 
-/* Fix Version/s: elderberry */
-fixVersion in ("elderberry", "11.0 Patch 1", "11.0 Patch 2")
-AND fixVersion in ("elderberry", "11.0 Patch 1")
-AND fixVersion in ("elderberry", "11.0 Patch 2")
-AND fixVersion in ("elderberry")
+/* Planned: elderberry */
+"Planned Version(s)" in ("elderberry", "11.0 Patch 1", "11.0 Patch 2")
+AND "Planned Version(s)" in ("elderberry", "11.0 Patch 1")
+AND "Planned Version(s)" in ("elderberry", "11.0 Patch 2")
+AND "Planned Version(s)" in ("elderberry")
 
 /* Fix Version/s: None */
 fixVersion is empty

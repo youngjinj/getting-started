@@ -34,8 +34,8 @@ int main()
   
   v1 = create_person ("홍길동", 30, "서울시 용산구 한남동");
   // person_free_self (v1);
-  // person_free_self_v (&v1);
-  person_free_r ((PERSON *) v1, true);
+  person_free_self_v (&v1);
+  // person_free_r ((PERSON *) v1, true);
   
   
   if (v1 == NULL)

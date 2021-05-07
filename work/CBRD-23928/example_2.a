@@ -1,0 +1,129 @@
+	.file	"example.c"
+	.text
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC0:
+	.string	"Input count : "
+.LC1:
+	.string	"%d"
+.LC2:
+	.string	"INput count : %d\n"
+.LC3:
+	.string	"Sum : %d\n"
+	.section	.text.startup,"ax",@progbits
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+.LFB11:
+	.cfi_startproc
+	subq	$24, %rsp
+	.cfi_def_cfa_offset 32
+	movl	$.LC0, %edi
+	xorl	%eax, %eax
+	call	printf
+	leaq	12(%rsp), %rsi
+	movl	$.LC1, %edi
+	xorl	%eax, %eax
+	call	__isoc99_scanf
+	movl	12(%rsp), %esi
+	movl	$.LC2, %edi
+	xorl	%eax, %eax
+	call	printf
+	movl	12(%rsp), %eax
+	testl	%eax, %eax
+	jle	.L11
+	xorl	%edx, %edx
+	xorl	%ecx, %ecx
+	.p2align 4,,10
+	.p2align 3
+.L3:
+	addl	%edx, %ecx
+	addl	$1, %edx
+	cmpl	%edx, %eax
+	jne	.L3
+	xorl	%edx, %edx
+	xorl	%esi, %esi
+	.p2align 4,,10
+	.p2align 3
+.L4:
+	addl	%edx, %esi
+	addl	$1, %edx
+	cmpl	%edx, %eax
+	jne	.L4
+	addl	%ecx, %esi
+	xorl	%edx, %edx
+	xorl	%ecx, %ecx
+	.p2align 4,,10
+	.p2align 3
+.L6:
+	addl	%edx, %ecx
+	addl	$1, %edx
+	cmpl	%edx, %eax
+	jne	.L6
+	addl	%esi, %ecx
+	xorl	%edx, %edx
+	xorl	%esi, %esi
+	.p2align 4,,10
+	.p2align 3
+.L8:
+	addl	%edx, %esi
+	addl	$1, %edx
+	cmpl	%edx, %eax
+	jne	.L8
+	addl	%ecx, %esi
+	xorl	%edx, %edx
+	xorl	%ecx, %ecx
+	.p2align 4,,10
+	.p2align 3
+.L10:
+	addl	%edx, %ecx
+	addl	$1, %edx
+	cmpl	%edx, %eax
+	jne	.L10
+.L2:
+	addl	%ecx, %esi
+	movl	$.LC3, %edi
+	xorl	%eax, %eax
+	call	printf
+	xorl	%eax, %eax
+	addq	$24, %rsp
+	.cfi_remember_state
+	.cfi_def_cfa_offset 8
+	ret
+.L11:
+	.cfi_restore_state
+	xorl	%esi, %esi
+	xorl	%ecx, %ecx
+	jmp	.L2
+	.cfi_endproc
+.LFE11:
+	.size	main, .-main
+	.text
+	.p2align 4,,15
+	.globl	function
+	.type	function, @function
+function:
+.LFB12:
+	.cfi_startproc
+	testl	%edi, %edi
+	jle	.L26
+	xorl	%edx, %edx
+	xorl	%eax, %eax
+	.p2align 4,,10
+	.p2align 3
+.L25:
+	addl	%edx, %eax
+	addl	$1, %edx
+	cmpl	%edx, %edi
+	jne	.L25
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L26:
+	xorl	%eax, %eax
+	ret
+	.cfi_endproc
+.LFE12:
+	.size	function, .-function
+	.ident	"GCC: (GNU) 8.3.1 20191121 (Red Hat 8.3.1-5)"
+	.section	.note.GNU-stack,"",@progbits
