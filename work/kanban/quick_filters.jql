@@ -1,6 +1,6 @@
 /* Only My Issues */
 assignee = currentUser()
-OR assignee was currentUser() and assignee changed after startOfMonth(-6) and status in (resolved, closed, done)
+OR assignee was currentUser() and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
 
 /* Only CUBRID */
 project = CBRD

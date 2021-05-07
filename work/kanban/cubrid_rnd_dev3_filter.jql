@@ -4,14 +4,14 @@ assignee in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and status not in
 /* 개발 3팀 팀원이 reporter인 open, to, do, confirmed 상태에서 아직 assignee이 지정 안 된 이슈 */
 or reporter in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and assignee = mhoh and status in (open, "to do", confirmed)
 
-/* Review를 마치고 Merge 한 상태로 QA에서 처리하고 있는 이슈 (6개월 이내) */
-or assignee was in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and assignee changed after startOfMonth(-6) and status in (resolved)
+/* Review를 마치고 Merge 한 상태로 QA에서 처리하고 있는 이슈 (3개월 이내) */
+or assignee was in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
 
-/* 개발 3팀 팀원이 assignee인 resolved 상태 이슈 (12개월 이내) */
-or assignee in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and status in (resolved) and updated > startOfMonth(-12)
+/* 개발 3팀 팀원이 assignee인 resolved 상태 이슈 (6개월 이내) */
+or assignee in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and status in (resolved) and updated > startOfMonth(-6)
 
 /* 주석 제거 */
 assignee in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and status not in (closed, done, resolved)
 or reporter in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and assignee = mhoh and status in (open, "to do", confirmed)
-or assignee was in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and assignee changed after startOfMonth(-6) and status in (resolved)
-or assignee in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and status in (resolved) and updated > startOfMonth(-12)
+or assignee was in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and assignee changed after startOfMonth(-3) and status in (resolved, closed, done)
+or assignee in (byungwook.kim, shpark, ctshim, hgryoo, youngjinj) and status in (resolved) and updated > startOfMonth(-6)
