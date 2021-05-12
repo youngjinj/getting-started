@@ -18,31 +18,26 @@ typedef struct Person PERSON;
 
 PERSON * create_person (const char * name, const int age, const char * address);
 
-void person_free_self (PERSON * p);
-void person_free (PERSON * p, bool self);
+void person_free_self (PERSON ** p);
+void person_free (PERSON ** p, bool self);
 
 void person_free_self_v (void ** v);
 void person_free_v (void ** v, bool self);
-
-#ifdef __cplusplus
-void person_free_r (PERSON * & p, bool self);
-#endif
 
 int main()
 {
   void * v1;
   v1 = create_person ("홍길동1", 31, "서울시 용산구 한남동");
 
-  // person_free_self (v1);
-  person_free_self_v (&v1);
-  // person_free_r ((PERSON *) v1, true);
+  person_free_self ((PERSON **) &v1);
+  // person_free_self_v (&v1);
   
   if (v1 == NULL)
     {
       printf("v1 is null\n");
     }
   
-  Person * p1;
+  PERSON * p1;
   p1 = create_person ("홍길동2", 32, "서울시 용산구 한남동");
 
   person_free_self_v ((void **) &p1);
@@ -72,20 +67,25 @@ create_person (const char * name, const int age, const char * address)
 }
 
 void
-person_free_self (PERSON * p)
+person_free_self (PERSON ** p)
 {
-  if (p != NULL)
+  if ((* p) != NULL)
     {
       person_free (p, true);
     }
 }
 
 void
-person_free (PERSON * p, bool self)
+person_free (PERSON ** p, bool self)
 {
+  if ((* p)->name)
+    {
+      printf("[free] 이름: %s\n", (* p)->name);
+    }
+
   if (self)
     {
-      free_and_init (p);
+      free_and_init ((* p));
     }
 }
 
@@ -109,14 +109,5 @@ person_free_v (void ** v, bool self)
   if (self)
     {
       free_and_init ((* v));
-    }
-}
-
-void
-person_free_r (PERSON * & p, bool self)
-{
-  if (self)
-    {
-      free_and_init (p);
     }
 }

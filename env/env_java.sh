@@ -13,9 +13,9 @@ else
 fi
 
 if [ ! -z $CLASSPATH ]; then
-	CLASSPATH=.:$CUBRID/jdbc/cubrid_jdbc.jar:$CLASSPATH
+	CLASSPATH=.:$CUBRID/jdbc/cubrid_jdbc.jar:$CUBRID/java/lib/cubrid-jdbc-11.0.0.0248.jar:$CLASSPATH
 else
-	CLASSPATH=.:$CUBRID/jdbc/cubrid_jdbc.jar
+	CLASSPATH=.:$CUBRID/jdbc/cubrid_jdbc.jar:$CUBRID/java/lib/cubrid-jdbc-11.0.0.0248.jar
 fi
 
 if [ ! -z $LD_LIBRARY_PATH ]; then
