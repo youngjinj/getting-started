@@ -1,0 +1,27 @@
+gef> gef config
+
+# heap-analysis-helper.check_free_null (bool) = False
+gef>
+gef config heap-analysis-helper.check_free_null False
+
+gef>
+gef config context.layout
+
+# context.layout (str) = "legend regs stack code args source memory threads trace extra"
+gef>
+gef config context.layout "legend regs stack code args memory -threads trace source extra"
+
+gef>
+gef save
+
+# /home/youngjinj/.gef.rc
+gef>
+gef restore
+
+# gef-extras
+gef>
+gef config gef.extra_plugins_dir /home/youngjinj/github/gef-extras/scripts
+gef config pcustom.struct_path /home/youngjinj/github/gef-extras/structs
+gef config syscall-args.path /home/youngjinj/github/gef-extras/syscall-tables
+gef config context.libc_args True
+gef config context.libc_args_path /home/youngjinj/github/gef-extras/glibc-function-args

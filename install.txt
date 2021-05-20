@@ -34,6 +34,14 @@ sudo yum install -y boost148 boost148-devel # v9.3
 
 sudo ln -s boost148/boost/ boost
 
+sudo yum repolist --a
+sudo yum-config-manager --set-enable debuginfo
+sudo yum debuginfo-install -y glibc-2.28-127.el8.x86_64
+sudo yum debuginfo-install -y libgcc-8.3.1-5.1.el8.x86_64
+sudo yum debuginfo-install -y libstdc++-8.3.1-5.1.el8.x86_64
+sudo yum debuginfo-install -y ncurses-libs-6.1-7.20180224.el8.x86_64
+sudo yum debuginfo-install -y sssd-client-2.3.0-9.el8.x86_64
+
 sudo update-alternatives --install /bin/python python /bin/python2.7 1
 sudo update-alternatives --install /bin/python python /bin/python3.6 2
 sudo update-alternatives --config python

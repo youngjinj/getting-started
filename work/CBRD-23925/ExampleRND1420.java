@@ -19,8 +19,6 @@ public class ExampleRND1420 {
 	private static StringJoiner createHistorySql = null;
 	private static StringJoiner createMainTriggerSql = null;
 	
-	private static StringJoiner insertMainTempSql = null;
-	
 	private static StringJoiner errorCaseSql = null;
 	private static StringJoiner errorCaseBypassSelectSql = null;
 	private static StringJoiner errorCaseBypassInsertSql = null;
@@ -40,15 +38,6 @@ public class ExampleRND1420 {
 		createMainSql.add(")");
 		initSqls.add(createMainSql.toString());
 		
-		insertMainTempSql = new StringJoiner(" ");
-		insertMainTempSql.add("INSERT INTO [main_temp] (");
-		insertMainTempSql.add("  [uuid],");
-		insertMainTempSql.add("  [contents]");
-		insertMainTempSql.add(") VALUES (");
-		insertMainTempSql.add("  ?,");
-		insertMainTempSql.add("  ?");
-		insertMainTempSql.add(")");
-
 		createHistorySql = new StringJoiner(" ");
 		createHistorySql.add("CREATE TABLE [history] (");
 		createHistorySql.add("  [seq] BIGINT AUTO_INCREMENT PRIMARY KEY,");
