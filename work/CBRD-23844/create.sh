@@ -1,3 +1,3 @@
 #!/bin/bash
 
-csql -S -u dba demodb -i create.sql
+csql -u dba demodb -i create.sql

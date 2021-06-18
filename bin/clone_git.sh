@@ -29,6 +29,12 @@ if [[ $CLONE_NAME =~ pr-* ]]; then
 		&& git checkout -b $CLONE_NAME upstream/pr/$PR_NUMBER
 fi
 
+if [[ $CLONE_NAME =~ CBRD-* ]]; then
+	git checkout $CLONE_NAME \
+	&& git fetch upstream \
+	&& git merge upstream/develop
+fi
+
 if [[ $CLONE_NAME =~ release-* ]]; then
 	RELEASE_VERSION=`echo $CLONE_NAME | awk -F "-" '{print $NF}'`
 

@@ -5,7 +5,7 @@
 VERSION=$1
 
 if [ -z $VERSION ]; then
-	VERSION="v11.0"
+	VERSION="v11.1"
 fi
 
 if [ -f $HOME/cubrid.sh ]; then

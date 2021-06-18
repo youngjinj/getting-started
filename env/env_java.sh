@@ -12,7 +12,20 @@ else
 	PATH=$JAVA_HOME/bin
 fi
 
-for CUBRID_JDBC in `ls $CUBRID/java/lib/*`; do
+for CUBRID_JDBC in `ls $CUBRID/java/*.jar`; do
+        if [ ! -z $CLASSPATH ]; then
+                if [ `echo $CLASSPATH | grep $CUBRID_JDBC | wc -l` -eq 0 ]; then
+                        CLASSPATH=$CUBRID_JDBC:$CLASSPATH
+                else
+                        CLASSPATH=$CUBRID_JDBC
+                fi
+        else
+                CLASSPATH=$CUBRID_JDBC
+        fi
+done
+
+if [ -d $CUBRID/java/lib ]; then
+for CUBRID_JDBC in `ls $CUBRID/java/lib/*.jar`; do
 	if [ ! -z $CLASSPATH ]; then
 		if [ `echo $CLASSPATH | grep $CUBRID_JDBC | wc -l` -eq 0 ]; then
 			CLASSPATH=$CUBRID_JDBC:$CLASSPATH
@@ -23,6 +36,7 @@ for CUBRID_JDBC in `ls $CUBRID/java/lib/*`; do
 		CLASSPATH=$CUBRID_JDBC
 	fi
 done
+fi
 
 CLASSPATH=.:$CUBRID/jdbc/cubrid_jdbc.jar:$CLASSPATH
 

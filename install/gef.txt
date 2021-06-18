@@ -1,15 +1,20 @@
 gef> gef config
 
 # heap-analysis-helper.check_free_null (bool) = False
-gef>
-gef config heap-analysis-helper.check_free_null False
 
 gef>
 gef config context.layout
 
 # context.layout (str) = "legend regs stack code args source memory threads trace extra"
+# context.nb_lines_backtrace (int) = 10
+# context.nb_lines_code (int) = 6
 gef>
-gef config context.layout "legend regs stack code args memory -threads trace source extra"
+gef config context.layout "legend regs stack code args source memory threads trace extra"
+gef config context.nb_lines_backtrace 10
+gef config context.nb_lines_code 6
+# gef config context.layout "-legend -regs -stack -code args -threads trace memory source extra"
+# gef config context.nb_lines_backtrace 5
+gef config context.nb_lines_code 16
 
 gef>
 gef save

@@ -2,7 +2,7 @@ source /home/youngjinj/github/gef/gef.py
 
 set follow-fork-mode child
 
-handle SIGPIPE nostop
+# handle SIGPIPE nostop
 
 # set print array on
 # set print elements 0
