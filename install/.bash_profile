@@ -7,14 +7,11 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
-
-export PATH
+unset SSH_ASKPASS
 
 alias podman="sudo podman"
-alias yum="sudo yum"
 
-export MAKEFLAGS="-j 12"
+export MAKEFLAGS="-j 6"
 
 . $HOME/env/env_locale.sh
 
@@ -23,5 +20,5 @@ export MAKEFLAGS="-j 12"
 . $HOME/env/env_java.sh
 
 if [ ! -z $CUBRID ]; then
-        . $HOME/env/env_cubrid_dir.sh
+	. $HOME/env/env_cubrid_dir.sh
 fi
