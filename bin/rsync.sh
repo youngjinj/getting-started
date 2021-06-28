@@ -9,11 +9,11 @@ SRC=$1
 DEST=$2
 
 if [ `echo $DEST | rev | cut -c -1` != "/" ]; then
-	$DEST=$DEST/
+	DEST=$DEST/
 fi
 
-if [[ $DEST ~= *$SRC ]]; then
-	$DEST=$DEST$SRC
+if [[ $DEST =~ *$SRC ]]; then
+	DEST=$DEST$SRC
 fi
 
 echo "rsync -avhP --delete --delete-excluded $SRC $DEST"
