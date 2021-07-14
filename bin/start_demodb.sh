@@ -1,9 +1,9 @@
 #!/bin/bash
 
-VERSION=`ls -al $CUBRID_DATABASES | awk -F '/' '{printf $NF}'`
+VERSION=`ls -al ${CUBRID_DATABASES} | awk -F '/' '{printf $NF}'`
 
-if [ -d $HOME/github/backup/conf/$VERSION ]; then
-	cp -v $HOME/github/backup/conf/$VERSION/* $CUBRID/conf/	
+if [ -d ${HOME}/github/getting-started/cubrid/conf/${VERSION} ]; then
+	cp -v ${HOME}/github/getting-started/cubrid/conf/${VERSION}/* ${CUBRID}/conf/	
 fi
 
 cubrid service restart

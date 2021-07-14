@@ -2,17 +2,17 @@
 
 CURRENT_BRANCH=`git branch | grep "^*" | awk '{print $NF}'`
 
-if [ $CURRENT_BRANCH == "development" ]; then
+if [ "${CURRENT_BRANCH}" == "development" ]; then
 	if [ `git branch -a | grep "${PWD##/*/}$" | wc -l` > 0 ]; then
 		git checkout ${PWD##/*/}
 	fi
 fi
 
 if [ ! -e .vscode ]; then
-	cp -r $HOME/github/backup/.vscode .
+	cp -r ${HOME}/github/getting-started/install/vscode/.vscode .
 fi
 
-$HOME/bin/make_ctags_cscope.sh .
+${HOME}/github/getting-started/bin/make_ctags_cscope.sh .
 
 if [ ! -e .gitignore ]; then
 	exit 1
@@ -22,7 +22,7 @@ if [ `grep Youngjinj .gitignore | wc -l` != 0 ]; then
 	exit 1
 fi
 
-cat << EOF >> .gitignore
+cat <<EOF >> .gitignore
 
 ## Youngjinj
 .gitignore
