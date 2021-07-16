@@ -1,0 +1,2 @@
+sed -i 's/option(WITH_CMSERVER "Build with Manager server" ON)/option(WITH_CMSERVER "Build with Manager server" OFF)/' ~/github/cubrid/CMakeLists.txt
+rm -rf ~/github/cubrid/build_x86_64_debug

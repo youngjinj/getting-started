@@ -1,12 +1,12 @@
 #!/bin/bash
 
-REPO=$1
+TARGET_PATH=$1
 
-if [ -z ${REPO} ]; then
-	REPO=${PWD}
+if [ -z ${TARGET_PATH} ]; then
+	TARGET_PATH=${PWD}
 fi
 
-cd ${REPO} \
-	&& ctags -R ${REPO} \
-	&& find ${REPO} \( -name '*.c' -o -name '*.cpp' -o -name '*.cc' -o -name '*.h' -o -name '*.s' -o -name    '*.S' \) -print > cscope.files \
-	&& cscope -b -i cscope.files
+cd ${TARGET_PATH} \
+	&& ctags -R ${TARGET_PATH} \
+	&& find ${TARGET_PATH} \( -name '*.c' -o -name '*.cpp' -o -name '*.cc' -o -name '*.h' -o -name '*.s' -o -name    '*.S' \) -print > ${TARGET_PATH}/cscope.files \
+	&& cscope -b -i ${TARGET_PATH}/cscope.files

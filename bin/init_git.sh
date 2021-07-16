@@ -1,36 +1,27 @@
 #!/bin/bash
 
+TARGET_PATH=$1
+
+if [ -z ${TARGET_PATH} ]; then
+        TARGET_PATH=${PWD}
+fi
+
+CANONICAL_PATH=`readlink -f $(dirname ${BASH_SOURCE})`
+
 CURRENT_BRANCH=`git branch | grep "^*" | awk '{print $NF}'`
 
-if [ "${CURRENT_BRANCH}" == "development" ]; then
-	if [ `git branch -a | grep "${PWD##/*/}$" | wc -l` > 0 ]; then
+if [ "${CURRENT_BRANCH}" == "develop" ]; then
+	if [ `git branch -a | grep "${PWD##/*/}" | wc -l` != 0 ]; then
 		git checkout ${PWD##/*/}
 	fi
 fi
 
-if [ ! -e .vscode ]; then
-	cp -r ${HOME}/github/getting-started/install/vscode/.vscode .
+if [ ! -e ${TARGET_PATH}/.vscode ]; then
+	cp -r ${CANONICAL_PATH}/../install/vscode/.vscode ${TARGET_PATH}
+
+	CORE_COUNT=`grep -c processor /proc/cpuinfo | awk '{print $NF/2}'`
+
+	sed -i "s/\"cmake.parallelJobs\": 6/\"cmake.parallelJobs\": ${CORE_COUNT}/" ${TARGET_PATH}/.vscode/settings.json
 fi
 
-${HOME}/github/getting-started/bin/make_ctags_cscope.sh .
-
-if [ ! -e .gitignore ]; then
-	exit 1
-fi
-
-if [ `grep Youngjinj .gitignore | wc -l` != 0 ]; then
-	exit 1
-fi
-
-cat <<EOF >> .gitignore
-
-## Youngjinj
-.gitignore
-build/
-.vscode/
-cscope.files
-cscope.out
-tags
-csql.access
-csql.err
-EOF
+${CANONICAL_PATH}/make_ctags_cscope.sh ${TARGET_PATH}
