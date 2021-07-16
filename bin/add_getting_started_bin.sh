@@ -12,7 +12,7 @@ cat <<EOF >> ${HOME}/.custom_profile
 
 # Getting Started
 if [ -d "${HOME}/github/getting-started/bin" ]; then
-	PATH=${HOME}/github/getting-started/bin:${PATH}
+	PATH=\${HOME}/github/getting-started/bin:\${PATH}
 	export PATH
 fi
 EOF
