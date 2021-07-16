@@ -8,7 +8,7 @@ if [ `grep "Getting Started" ${HOME}/.custom_profile | wc -l` != 0 ]; then
 	exit
 fi
 
-cat <<EOF >> ${TARGET_PATH}/.gitignore
+cat <<EOF >> ${HOME}/.custom_profile
 
 # Getting Started
 if [ -d "${HOME}/github/getting-started/bin" ]; then
