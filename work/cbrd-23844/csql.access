@@ -1,6 +1,0 @@
-
-Time: 05/26/21 13:17:58.693 - NOTIFICATION *** file /home/youngjinj/github/cubrid_23844/src/transaction/boot_sr.c, line 3315  CODE = -972, Tran = -1, EID = 4
-Program '/home/youngjinj/CUBRID/bin/csql' (pid 2331051) was connected from the host 'youngjinj'. (transaction index 1)
-
-*** The previous error message is the last one. ***
-

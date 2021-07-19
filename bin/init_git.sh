@@ -19,7 +19,8 @@ fi
 if [ ! -e ${TARGET_PATH}/.vscode ]; then
 	cp -r ${CANONICAL_PATH}/../install/vscode/.vscode ${TARGET_PATH}
 
-	CORE_COUNT=`grep -c processor /proc/cpuinfo | awk '{print $NF/2}'`
+	# CORE_COUNT=`grep -c processor /proc/cpuinfo | awk '{print $NF/2}'`
+	CORE_COUNT=$(nproc)
 
 	sed -i "s/\"cmake.parallelJobs\": 6/\"cmake.parallelJobs\": ${CORE_COUNT}/" ${TARGET_PATH}/.vscode/settings.json
 fi

@@ -7,6 +7,7 @@ if [ $# != 1 ]; then
 fi
 
 CLONE_NAME=$1
+CLONE_NAME=${CLONE_NAME,,}
 
 CANONICAL_PATH=`readlink -f $(dirname ${BASH_SOURCE})`
 
@@ -37,13 +38,13 @@ if [[ ${CLONE_NAME} =~ pr-* ]]; then
 		&& git checkout -b ${CLONE_NAME} upstream/pr/${PR_NUMBER}
 fi
 
-if [[ ${CLONE_NAME} =~ CBRD-* ]]; then
-	git checkout ${CLONE_NAME} \
+if [[ ${CLONE_NAME} =~ cbrd-* ]]; then
+	git checkout ${CLONE_NAME^^} \
 	&& git fetch upstream \
 	&& git merge upstream/develop
 fi
 
-if [[ ${CLONE_NAME} =~ release-* ]]; then
+if [[ ${CLONE_NAME,,} =~ release-* ]]; then
 	RELEASE_VERSION=`echo ${CLONE_NAME} | awk -F "-" '{print $NF}'`
 
 	cd ${TARGET_CLONE_PATH} \
