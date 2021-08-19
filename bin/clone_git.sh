@@ -20,14 +20,20 @@ fi
 
 ${CANONICAL_PATH}/global_config_git.sh
 
-git clone https://github.com/youngjinj/cubrid.git ${TARGET_CLONE_PATH}
+# git clone https://github.com/youngjinj/cubrid.git ${TARGET_CLONE_PATH}
+git clone --recursive git@github.com:youngjinj/cubrid.git ${TARGET_CLONE_PATH} \
 
 cd ${TARGET_CLONE_PATH} \
 	&& git remote add upstream https://github.com/CUBRID/cubrid.git \
-	&& git fetch upstream \
-	&& git merge upstream/develop \
-	&& git remote set-url origin https://youngjinj@github.com/youngjinj/cubrid.git \
-	&& git push
+	&& rm -rf ${TARGET_CLONE_PATH}/cubridmanager \
+	&& git rm cubridmanager \
+	&& git fetch upstream
+	
+	# && git merge upstream/develop \
+	# && git push
+
+	# && git remote set-url origin https://youngjinj@github.com/youngjinj/cubrid.git \
+	# && git push
 
 if [[ ${CLONE_NAME} =~ pr-* ]]; then
 	PR_NUMBER=`echo ${CLONE_NAME} | awk -F "-" '{print $NF}'`

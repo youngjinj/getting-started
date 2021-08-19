@@ -19,6 +19,14 @@ set print union on
 
 set logging overwrite on
 
+# Could not load shared library symbols ...
+set solib-search-path /home/youngjinj/CUBRID/lib
+set substitute-path /nlwp/CUBRID1102 /home/youngjinj/CUBRID
+set substitute-path /nlwp/CUBRID /home/youngjinj/CUBRID
+set substitute-path /home/jenkins/workspace/cubrid_release_11.0 /home/youngjinj/github/develop
+# set pagination on
+# set listsize 20
+
 define pt_node_trace
   set $pt_node = $arg0
   

@@ -16,6 +16,8 @@ gef config context.nb_lines_code 6
 # gef config context.nb_lines_backtrace 5
 gef config context.nb_lines_code 16
 
+# gef config context.layout "-legend -regs stack -code args source memory threads trace extra"
+
 gef>
 gef save
 
@@ -30,3 +32,19 @@ gef config pcustom.struct_path /home/youngjinj/github/gef-extras/structs
 gef config syscall-args.path /home/youngjinj/github/gef-extras/syscall-tables
 gef config context.libc_args True
 gef config context.libc_args_path /home/youngjinj/github/gef-extras/glibc-function-args
+
+# Traceback (most recent call last):
+#   File "/home/youngjinj/github/gef-extras/scripts/ida_interact.py", line 3, in <module>
+#     import rpyc
+# ModuleNotFoundError: No module named 'rpyc'
+sudo pip3 install rpyc
+
+# [*] Command `set-permission` is missing, reason  →  Missing `keystone-engine` package, install with: `pip install keystone-engine`.
+# [*] Command `unicorn-emulate` is missing, reason  →  Missing `unicorn` package for Python. Install with `pip install unicorn`.
+# [*] Command `capstone-disassemble` is missing, reason  →  Missing `capstone` package for Python. Install with `pip install capstone`.
+# [*] Command `ropper` is missing, reason  →  Missing `ropper` package for Python, install with: `pip install ropper`.
+# [*] Command `assemble` is missing, reason  →  Missing `keystone-engine` package for Python, install with: `pip install keystone-engine`.
+sudo pip3 install keystone-engine
+sudo pip3 install unicorn
+sudo pip3 install capstone
+sudo pip3 install ropper

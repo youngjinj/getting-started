@@ -1,13 +1,18 @@
+[assemble]
+default_architecture = X86
+default_mode = 64
+
 [context]
 clear_screen = True
 enable = True
 grow_stack_down = False
 ignore_registers = 
-layout = legend regs stack code args source memory threads trace extra
+layout = -legend -regs stack -code args source memory threads trace extra
 libc_args = True
 libc_args_path = /home/youngjinj/github/gef-extras/glibc-function-args
 nb_lines_backtrace = 10
-nb_lines_code = 16
+nb_lines_backtrace_before = 2
+nb_lines_code = 6
 nb_lines_code_prev = 3
 nb_lines_stack = 8
 nb_lines_threads = -1
@@ -18,6 +23,7 @@ show_opcodes_size = 0
 show_registers_raw = False
 show_source_code_variable_values = True
 show_stack_raw = False
+use_capstone = False
 
 [dereference]
 max_recursion = 7
@@ -35,7 +41,7 @@ disable_color = False
 extra_plugins_dir = /home/youngjinj/github/gef-extras/scripts
 follow_child = True
 readline_compat = False
-tempdir = /home/youngjinj/CUBRID/tmp/gef
+tempdir = /tmp/gef
 use-windbg-prompt = False
 
 [got]
@@ -63,8 +69,14 @@ host = 127.0.0.1
 port = 1337
 sync_cursor = False
 
+[ida-rpyc]
+host = 127.0.0.1
+port = 18812
+sync_cursor = False
+
 [pattern]
 length = 1024
+period = 4
 
 [pcustom]
 max_depth = 4
@@ -77,7 +89,7 @@ structure_type = bold red
 ps_command = /usr/bin/ps auxww
 
 [retdec]
-path = /home/youngjinj/CUBRID/tmp/gef
+path = /tmp/gef
 retdec_path = 
 
 [syscall-args]
@@ -106,6 +118,10 @@ table_heading = blue
 max_tracing_recursion = 1
 tracefile_prefix = ./gef-trace-
 
+[unicorn-emulate]
+show_disassembly = False
+verbose = False
+
 [vereference]
 max_recursion = 7
 
@@ -119,8 +135,12 @@ lookup = scan
 grep = search-pattern
 xref = search-pattern
 flags = edit-flags
+mprotect = set-permission
+emulate = unicorn-emulate
+cs-dis = capstone-disassemble
 sc-search = shellcode search
 sc-get = shellcode get
+asm = assemble
 ps = process-search
 start = entry-break
 nb = name-break
@@ -170,4 +190,8 @@ t = stepi
 p = nexti
 kp = info stack
 uf = disassemble
+ida-rpyc goto = ida-rpyc jump
+ida-rpyc bp = ida-rpyc breakpoints
+ida-rpyc cmt = ida-rpyc comments
+ida-rpyc hl = ida-rpyc highlight
 
