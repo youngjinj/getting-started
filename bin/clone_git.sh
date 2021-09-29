@@ -20,14 +20,15 @@ fi
 
 ${CANONICAL_PATH}/global_config_git.sh
 
-# git clone https://github.com/youngjinj/cubrid.git ${TARGET_CLONE_PATH}
-git clone --recursive git@github.com:youngjinj/cubrid.git ${TARGET_CLONE_PATH} \
+git clone https://github.com/youngjinj/cubrid.git ${TARGET_CLONE_PATH}
+# git clone --recursive git@github.com:youngjinj/cubrid.git ${TARGET_CLONE_PATH} \
 
 cd ${TARGET_CLONE_PATH} \
 	&& git remote add upstream https://github.com/CUBRID/cubrid.git \
-	&& rm -rf ${TARGET_CLONE_PATH}/cubridmanager \
-	&& git rm cubridmanager \
 	&& git fetch upstream
+
+	# && rm -rf ${TARGET_CLONE_PATH}/cubridmanager \
+	# && git rm cubridmanager \
 	
 	# && git merge upstream/develop \
 	# && git push

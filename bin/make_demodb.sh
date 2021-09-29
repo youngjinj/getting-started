@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IS_LOAD=0
+IS_LOAD=1
 
 . $HOME/cubrid.sh
 
