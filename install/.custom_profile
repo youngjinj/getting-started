@@ -8,8 +8,8 @@ source scl_source enable devtoolset-8
 
 export MAKEFLAGS="-j $(nproc)"
 
-alias build_cubrid="${PWD}/build.sh -t 64 -m debug -p ${HOME}/CUBRID build"
-alias build_cubrid_release="${PWD}/build.sh -t 64 -m release -p ${HOME}/CUBRID build"
+alias build_cubrid="./build.sh -t 64 -m debug -p ${HOME}/CUBRID build"
+alias build_cubrid_release="./build.sh -t 64 -m release -p ${HOME}/CUBRID build"
 alias csql_S_demodb="csql -u dba demodb -S"
 alias csql_C_demodb="csql -u dba demodb"
 
