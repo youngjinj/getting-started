@@ -10,6 +10,8 @@ export MAKEFLAGS="-j $(nproc)"
 
 alias build_cubrid="${PWD}/build.sh -t 64 -m debug -p ${HOME}/CUBRID build"
 alias build_cubrid_release="${PWD}/build.sh -t 64 -m release -p ${HOME}/CUBRID build"
+alias csql_S_demodb="csql -u dba demodb -S"
+alias csql_C_demodb="csql -u dba demodb"
 
 # java
 JDK_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.el7_9.x86_64
