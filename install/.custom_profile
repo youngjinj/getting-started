@@ -1,12 +1,15 @@
 #!/bin/bash
 
-export LANG=ko_KR.utf8
-export LANGUAGE ko_KR
-export LC_ALL=ko_KR.utf8
+export LANG="ko_KR.utf8"
+export LANGUAGE="ko_KR"
+export LC_ALL="ko_KR.utf8"
 
 source scl_source enable devtoolset-8
 
-export MAKEFLAGS="-j 6"
+export MAKEFLAGS="-j $(nproc)"
+
+alias build_cubrid="${PWD}/build.sh -t 64 -m debug -p ${HOME}/CUBRID build"
+alias build_cubrid_release="${PWD}/build.sh -t 64 -m release -p ${HOME}/CUBRID build"
 
 # java
 JDK_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.el7_9.x86_64
@@ -79,11 +82,24 @@ export CLASSPATH
 export PATH
 export LD_LIBRARY_PATH
 
-unset SSH_ASKPASS
-
+# Getting Started
 if [ -d "${HOME}/github/getting-started/bin" ]; then
-        PATH=${HOME}/github/getting-started/bin:${PATH}
+	PATH=${HOME}/github/getting-started/bin:${PATH}
 	export PATH
 fi
 
-. ~/cubrid.sh
+# CTP (CUBRID Test Program)
+CTP_HOME=${HOME}/github/cubrid-testtools/CTP
+init_path=${HOME}/CTP/shell/init_path
+PATH=${CTP_HOME}/bin:${CTP_HOME}/common/script:${PATH}
+export CTP_HOME
+export init_path
+export PATH
+
+# CUBRID
+if [ -e ${HOME}/cubrid.sh ] && [ -e `readlink -f ${HOME}/cubrid.sh` ]; then
+	source ${HOME}/cubrid.sh
+fi
+
+CUBRID_MSG_LANG=en_US.utf8
+export CUBRID_MSG_LANG

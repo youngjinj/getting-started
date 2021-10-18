@@ -1,6 +1,6 @@
 {
         "cmake.installPrefix": "/home/youngjinj/CUBRID",
-        "cmake.parallelJobs": 6,
+        "cmake.parallelJobs": 80,
         "C_Cpp.dimInactiveRegions": false,
         "java.configuration.runtimes": [
                 {

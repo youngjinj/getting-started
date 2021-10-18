@@ -1,4 +1,4 @@
-source /home/youngjinj/github/gef/gef.py
+# source /home/youngjinj/github/gef/gef.py
 
 set follow-fork-mode child
 set detach-on-fork off 

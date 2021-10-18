@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -z $1 ]; then
+	COMMAND="ls"
+else
+	COMMAND=$1
+fi
+
 TEMP_FILE_ARRAY=(        \
 	"csql.err"       \
 	"csql.access"    \
@@ -8,6 +14,5 @@ TEMP_FILE_ARRAY=(        \
 )
 
 for TEMP_FILE in "${TEMP_FILE_ARRAY[@]}"; do
-	find $HOME -name $TEMP_FILE
-	find $HOME -name $TEMP_FILE -exec rm -i {} \;
+	find $HOME -name $TEMP_FILE -exec $COMMAND {} \;
 done
