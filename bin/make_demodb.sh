@@ -1,7 +1,5 @@
 #!/bin/bash
 
-IS_LOAD=1
-
 . $HOME/cubrid.sh
 
 if [ -z "$CUBRID" ]; then
@@ -27,10 +25,21 @@ cubrid createdb \
 	demodb \
 	ko_KR.utf8
 
-if [ $IS_LOAD == 1 ]; then
-	cubrid loaddb \
-		-u dba \
-		-s $CUBRID/demo/demodb_schema \
-		-d $CUBRID/demo/demodb_objects \
-		demodb
-fi
+for OPTION in "$@"; do
+	echo $OPTION
+
+	case $OPTION in
+		"loaddb")
+			cubrid loaddb \
+				-u dba \
+				-s $CUBRID/demo/demodb_schema \
+				-d $CUBRID/demo/demodb_objects \
+				demodb
+			;;
+		"javasp")
+
+			;;
+		*)
+			;;
+	esac
+done
