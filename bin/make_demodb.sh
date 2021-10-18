@@ -26,8 +26,6 @@ cubrid createdb \
 	ko_KR.utf8
 
 for OPTION in "$@"; do
-	echo $OPTION
-
 	case $OPTION in
 		"loaddb")
 			cubrid loaddb \
