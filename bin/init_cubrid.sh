@@ -48,8 +48,8 @@ if [ -d ${HOME}/CUBRID/databases ] && [ ! -L ${HOME}/CUBRID/databases ]; then
 fi
 
 if [ ! -e ${HOME}/CUBRID/databases ]; then
-	mkdir -p ${HOME}/databases/${VERSION}
-	ln -sf ${HOME}/databases/${VERSION} ${HOME}/CUBRID/databases
+	mkdir -p ${HOME}/databases
+	ln -sf ${HOME}/databases ${HOME}/CUBRID/databases
 fi
 
 ls -al ${HOME}/CUBRID
