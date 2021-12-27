@@ -16,3 +16,5 @@ TEMP_FILE_ARRAY=(        \
 for TEMP_FILE in "${TEMP_FILE_ARRAY[@]}"; do
 	find $HOME -name $TEMP_FILE -exec $COMMAND {} \;
 done
+
+find $HOME/github -name "core.*" -exec $COMMAND {} \;

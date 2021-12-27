@@ -69,7 +69,7 @@ set cindent
 set autoindent
 set smartindent
 
-set number
+"set number
 set ruler
 
 set cursorline

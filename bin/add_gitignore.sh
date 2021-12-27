@@ -17,7 +17,6 @@ fi
 cat <<EOF >> ${TARGET_PATH}/.gitignore
 
 ## Youngjinj
-.gitignore
 build/
 .vscode/
 cscope.files

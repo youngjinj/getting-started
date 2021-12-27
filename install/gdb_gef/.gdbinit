@@ -1,9 +1,14 @@
 # source /home/youngjinj/github/gef/gef.py
 
+# createdb (cub_admin) debug
 set follow-fork-mode child
-set detach-on-fork off 
 
-handle SIGPIPE nostop
+# execute query (csql) debug
+# set follow-fork-mode parent
+
+# set detach-on-fork off 
+
+# handle SIGPIPE nostop
 
 # set print array on
 # set print elements 0
