@@ -4,7 +4,7 @@
 set follow-fork-mode child
 
 # execute query (csql) debug
-# set follow-fork-mode parent
+#set follow-fork-mode parent
 
 # set detach-on-fork off 
 
