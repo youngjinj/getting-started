@@ -1,6 +1,9 @@
 {
         "cmake.installPrefix": "/home/youngjinj/CUBRID",
         "cmake.parallelJobs": 80,
+	"cmake.configureSettings": {
+		"WITH_CCI" : true
+	},
         "C_Cpp.dimInactiveRegions": false,
 	// "editor.formatOnPaste": true,
 	"editor.fontSize": 14,
