@@ -4,6 +4,7 @@
 	"cmake.configureSettings": {
 		"WITH_CCI" : true
 	},
+	"cmake.cmakePath": "cmake3",
         "C_Cpp.dimInactiveRegions": false,
 	// "editor.formatOnPaste": true,
 	"editor.fontSize": 14,
