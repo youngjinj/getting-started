@@ -43,7 +43,7 @@ if [[ ${CLONE_NAME} =~ pr-* ]]; then
 		&& git config --add remote.upstream.fetch +refs/pull/${PR_NUMBER}/head:refs/remotes/upstream/pr/${PR_NUMBER} \
 		&& git fetch upstream \
 		&& git merge upstream/develop \
-		&& git checkout -b ${CLONE_NAME} upstream/pr/${PR_NUMBER}
+		&& git checkout -b ${CLONE_NAME} upstream/pr/${PR_NUMBER} \
 		&& git submodule init \
 		&& git submodule update
 fi
