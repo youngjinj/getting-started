@@ -34,6 +34,14 @@ for OPTION in "$@"; do
 				-d $CUBRID/demo/demodb_objects \
 				demodb
 			;;
+		"loaddb-compat")
+			cubrid loaddb \
+				-u dba \
+				-s $CUBRID/demo/demodb_schema \
+				-d $CUBRID/demo/demodb_objects \
+				--no-user-specified-name \
+				demodb
+			;;
 		"javasp")
 
 			;;
