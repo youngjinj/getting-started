@@ -12,6 +12,9 @@ int main()
     memset(test,0,sizeof(test));
     int rc ;
 
+    rc = snprintf(test,sizeof(test)-1,"%s",NULL);
+    printf("test=%s, rc=%d\n", test, rc);
+
     rc = snprintf(test,3, "%c%c", 'c','d');
     printf("test=%s, rc=%d\n", test, rc);
 

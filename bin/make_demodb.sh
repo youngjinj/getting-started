@@ -13,6 +13,8 @@ fi
 if [ $(cat $CUBRID/databases/databases.txt | grep demodb | wc -l) -gt 0 ]; then
 	cubrid deletedb demodb
 	rm -rf $CUBRID/databases/demodb
+else
+	rm -rf $CUBRID/databases/demodb
 fi
 
 mkdir -p $CUBRID/databases/demodb/log
