@@ -8,10 +8,28 @@ source scl_source enable devtoolset-8
 
 export MAKEFLAGS="-j $(nproc)"
 
-alias build_cubrid="./build.sh -t 64 -m debug -p ${HOME}/CUBRID build"
-alias build_cubrid_release="./build.sh -t 64 -m release -p ${HOME}/CUBRID build"
-alias csql_S_demodb="csql -u dba demodb -S"
-alias csql_C_demodb="csql -u dba demodb"
+alias vi=vim
+alias build_cubrid="./build.sh -t 64 -m debug -g ninja -p ${HOME}/CUBRID build"
+alias build_cubrid_release="./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID build"
+alias build_cubrid_release_dist="./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID -z tarball build dist"
+alias ninja_cubrid="cd build_x86_64_debug && ninja && ninja install && cd .."
+alias ninja_cubrid_release="cd build_x86_64_release && ninja && ninja install && cd .."
+
+ulimit -Sc 0
+
+# git auto-complete
+# $ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+if [ -f ~/.git-completion.bash ]; then
+        . ~/.git-completion.bash
+fi
+
+# CUBRID
+if [ -e ${HOME}/cubrid.sh ] && [ -e `readlink -f ${HOME}/cubrid.sh` ]; then
+        source ${HOME}/cubrid.sh
+fi
+
+CUBRID_MSG_LANG=en_US.utf8
+export CUBRID_MSG_LANG
 
 # java
 JDK_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.el7_9.x86_64
@@ -22,6 +40,37 @@ JDK_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.el7_9.x86_64
 # JDK_HOME=/usr/lib/jvm/adoptopenjdk-11-hotspot
 
 JAVA_HOME=${JDK_HOME}
+
+export JDK_HOME
+export JAVA_HOME
+
+# java
+TEMP_LD_LIBRARY_PATH=${JAVA_HOME}/jre/lib/amd64:${JAVA_HOME}/jre/lib/amd64/server
+
+# java-11
+# TEMP_LD_LIBRARY_PATH=${JAVA_HOME}/lib:${JAVA_HOME}/lib/server
+
+# Length of string is non-zero.
+if [ -n "${LD_LIBRARY_PATH}" ]; then
+        if [ `echo ${LD_LIBRARY_PATH} | grep ${TEMP_LD_LIBRARY_PATH} | wc -l` == 0 ]; then
+                LD_LIBRARY_PATH=${TEMP_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}
+        fi
+# Length of string is zero.
+else
+        LD_LIBRARY_PATH=${TEMP_LD_LIBRARY_PATH}
+fi
+
+TEMP_PATH=${JAVA_HOME}/bin
+
+# Length of string is non-zero.
+if [ -n "${PATH}" ]; then
+        if [ `echo ${PATH} | grep ${TEMP_PATH} | wc -l` == 0 ]; then
+                PATH=${TEMP_PATH}:${PATH}
+        fi
+# Length of string is zero.
+else
+        PATH=${TEMP_PATH}
+fi
 
 DEFAULT_CLASSPATH=".:tools.jar"
 
@@ -59,49 +108,45 @@ if [ -d "${CUBRID}/java/lib" ]; then
 	done
 fi
 
-PATH=${JAVA_HOME}/bin:${PATH}
-
-# java
-TEMP_LD_LIBRARY_PATH=${JAVA_HOME}/jre/lib/amd64:${JAVA_HOME}/jre/lib/amd64/server
-
-# java-11
-# TEMP_LD_LIBRARY_PATH=${JAVA_HOME}/lib:${JAVA_HOME}/lib/server
-
-# Length of string is non-zero.
-if [ -n "${LD_LIBRARY_PATH}" ]; then
-	if [ `echo ${LD_LIBRARY_PATH} | grep ${TEMP_LD_LIBRARY_PATH} | wc -l` == 0 ]; then
-		LD_LIBRARY_PATH=${TEMP_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}
-	fi
-# Length of string is zero.
-else
-	LD_LIBRARY_PATH=${TEMP_LD_LIBRARY_PATH}
-fi
-
-export JDK_HOME
-export JAVA_HOME
-export CLASSPATH
-
-export PATH
 export LD_LIBRARY_PATH
-
-# Getting Started
-if [ -d "${HOME}/github/getting-started/bin" ]; then
-	PATH=${HOME}/github/getting-started/bin:${PATH}
-	export PATH
-fi
+export PATH
+export CLASSPATH
 
 # CTP (CUBRID Test Program)
 CTP_HOME=${HOME}/github/cubrid-testtools/CTP
 init_path=${HOME}/CTP/shell/init_path
-PATH=${CTP_HOME}/bin:${CTP_HOME}/common/script:${PATH}
+
+TEMP_PATH=${CTP_HOME}/bin:${CTP_HOME}/common/script
+
+# Length of string is non-zero.
+if [ -n "${PATH}" ]; then
+        if [ `echo ${PATH} | grep ${TEMP_PATH} | wc -l` == 0 ]; then
+                PATH=${TEMP_PATH}:${PATH}
+        fi
+# Length of string is zero.
+else
+        PATH=${TEMP_PATH}
+fi
+
 export CTP_HOME
 export init_path
 export PATH
 
-# CUBRID
-if [ -e ${HOME}/cubrid.sh ] && [ -e `readlink -f ${HOME}/cubrid.sh` ]; then
-	source ${HOME}/cubrid.sh
+# Getting Started
+TEMP_PATH=${HOME}/github/getting-started/bin
+
+if [ -d "${HOME}/github/getting-started/bin" ]; then
+        # Length of string is non-zero.
+        if [ -n "${PATH}" ]; then
+                if [ `echo ${PATH} | grep ${TEMP_PATH} | wc -l` == 0 ]; then
+                        PATH=${TEMP_PATH}:${PATH}
+                fi
+        # Length of string is zero.
+        else
+                PATH=${TEMP_PATH}
+        fi
+
+        export PATH
 fi
 
-CUBRID_MSG_LANG=en_US.utf8
-export CUBRID_MSG_LANG
+export PATH
