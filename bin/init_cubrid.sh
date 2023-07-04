@@ -1,12 +1,6 @@
 #!/bin/bash
 
-# Debug: v11.0, v10.2, v10.1, v9.3, ...
-# Release: 11.0.0.0248, 10.2.0.8797, 10.1.5.7809, 9.3.6.0002, ...
 VERSION=$1
-
-if [ -z ${VERSION} ]; then
-	VERSION="v11.2"
-fi
 
 if [ -f ${HOME}/cubrid.sh ]; then
 	. ${HOME}/cubrid.sh
@@ -22,10 +16,9 @@ if [[ `echo ${VERSION} | grep -e "^[^v].*" | wc -l` > 0 ]]; then
 		exit 1
 	fi
 	ln -sf ${HOME}/release/CUBRID-${VERSION} ${HOME}/CUBRID
-	VERSION=`echo $VERSION | awk -F "." '{print "v"$1"."$2}'`
 fi
 
-ln -sf ${HOME}/github/getting-started/cubrid/.cubrid_${VERSION}.sh ${HOME}/cubrid.sh
+# ln -sf ${HOME}/github/getting-started/cubrid/.cubrid_${VERSION}.sh ${HOME}/cubrid.sh
 
 source ${HOME}/cubrid.sh
 
@@ -43,6 +36,12 @@ if [ ! -d ${CUBRID_TMP} ]; then
         mkdir -p ${CUBRID_TMP}
 fi
 
+ls -al ${HOME}/CUBRID
+
+if [ -n ${VERSION} ]; then
+	exit
+fi
+
 if [ -d ${HOME}/CUBRID/databases ] && [ ! -L ${HOME}/CUBRID/databases ]; then
 	rmdir ${HOME}/CUBRID/databases
 fi
@@ -52,5 +51,4 @@ if [ ! -e ${HOME}/CUBRID/databases ]; then
 	ln -sf ${HOME}/databases ${HOME}/CUBRID/databases
 fi
 
-ls -al ${HOME}/CUBRID
 ls -al ${HOME}/CUBRID/databases
