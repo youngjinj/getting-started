@@ -22,8 +22,6 @@ mkdir -p $CUBRID/databases/demodb/log
 cubrid createdb \
 	-F $CUBRID/databases/demodb \
 	-L $CUBRID/databases/demodb/log \
-	--db-volume-size=64M \
-	--log-volume-size=64M \
 	demodb \
 	ko_KR.utf8
 
