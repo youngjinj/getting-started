@@ -1,0 +1,143 @@
+
+Time: 03/26/22 03:08:37.266 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_cl.c, line 1693
+trying to connect 'demodb@localhost'
+
+Time: 03/26/22 03:08:37.266 - ERROR *** file /home/youngjinj/github/CBRD-23844/src/connection/connection_cl.c, line 766 ERROR CODE = -353, Tran = -1, EID = 1
+Cannot make connection to master server on host "localhost".... No such file or directory
+
+Time: 03/26/22 03:08:37.266 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_cl.c, line 1745
+error -353. try to connect to next host
+
+Time: 03/26/22 03:08:37.267 - ERROR *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_cl.c, line 1777 ERROR CODE = -677, Tran = -1, EID = 2
+Failed to connect to database server, 'demodb', on the following host(s): localhost
+
+Time: 03/26/22 03:08:37.267 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_cl.c, line 1127
+boot_restart_client: boot_client_initialize_css () error -353
+
+Time: 03/26/22 03:08:39.084 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_cl.c, line 1181
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 277322 }
+
+Time: 03/26/22 03:08:39.174 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 03/26/22 03:08:39.176 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 03/26/22 03:08:39.178 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_manager.c, line 1049
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 03/26/22 03:08:39.402 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 689
+RECOVERY: start with 125|14616 and stop at -1
+Time: 03/26/22 03:08:39.402 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 730  CODE = -1128, Tran = -1, EID = 1
+Log recovery is started.
+
+Time: 03/26/22 03:08:39.402 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 734  CODE = -1296, Tran = -1, EID = 2
+Log recovery: ANALYSIS Phase is started.
+
+Time: 03/26/22 03:08:39.402 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 2558
+logpb_recovery_analysis: log page 125, checksum -777468779
+
+Time: 03/26/22 03:08:39.402 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 739  CODE = -1300, Tran = -1, EID = 3
+Log recovery: ANALYSIS Phase is finished.
+
+Time: 03/26/22 03:08:39.402 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 775  CODE = -1297, Tran = -1, EID = 4
+Log recovery: REDO Phase is started. Log pages to redo: 1, Log records to redo: 1.
+
+Time: 03/26/22 03:08:39.402 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 4063  CODE = -1299, Tran = -1, EID = 5
+Log recovery: REDO Phase is being finished up.
+
+Time: 03/26/22 03:08:39.403 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 780  CODE = -1300, Tran = -1, EID = 6
+Log recovery: REDO Phase is finished.
+
+Time: 03/26/22 03:08:39.403 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 4644  CODE = -1298, Tran = -1, EID = 7
+Log recovery: UNDO Phase is started. Log pages to undo: 0, transactions to undo: 1.
+
+Time: 03/26/22 03:08:39.403 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 5085  CODE = -1299, Tran = -1, EID = 8
+Log recovery: UNDO Phase is being finished up.
+
+Time: 03/26/22 03:08:39.403 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 793  CODE = -1300, Tran = -1, EID = 9
+Log recovery: UNDO Phase is finished.
+
+Time: 03/26/22 03:08:39.403 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_page_buffer.c, line 6858  CODE = -977, Tran = -1, EID = 10
+Checkpoint started (previous checkpoint page id: 125, previous redo page id: 125).
+
+Time: 03/26/22 03:08:39.403 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_page_buffer.c, line 6860
+start checkpoint
+
+Time: 03/26/22 03:08:39.407 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/page_buffer.c, line 10023
+flushing page 0|0 to disk without logging.
+
+Time: 03/26/22 03:08:39.409 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_page_buffer.c, line 7291  CODE = -978, Tran = -1, EID = 11
+Checkpoint finished (checkpoint page id: 125, checkpoint redo page id: 125, flushed page count: 0).
+
+Time: 03/26/22 03:08:39.409 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_page_buffer.c, line 7293
+end checkpoint
+
+Time: 03/26/22 03:08:39.410 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_recovery.c, line 865  CODE = -1129, Tran = -1, EID = 12
+Log recovery is finished.
+
+Time: 03/26/22 03:08:39.411 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 03/26/22 03:08:39.413 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 03/26/22 03:08:39.415 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/transaction/log_manager.c, line 1484
+log_initialize_internal: end of log initializaton, append_lsa = (125|14784) 
+
+Time: 03/26/22 03:08:39.436 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 13
+Stand-alone vacuum execution is started.
+
+Time: 03/26/22 03:08:39.436 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 03/26/22 03:08:39.436 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 14
+Stand-alone vacuum execution is ended.
+
+Time: 03/26/22 03:08:39.436 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 03/26/22 03:08:39.436 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/query/partition.c, line 715
+creating partition cache
+
+Time: 03/26/22 03:08:39.436 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 15
+Server status is UP.
+
+Time: 03/26/22 03:08:44.760 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 17
+Started to update statistics (class "dba.tä", oid : 0|204|4).
+
+Time: 03/26/22 03:08:44.760 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 18
+Finished to update statistics (class "dba.tä", oid : 0|204|4, error code : 0).
+
+Time: 03/26/22 03:08:53.183 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-23844/src/parser/query_result.c, line 377 ERROR CODE = -494, Tran = 1, EID = 19
+Semantic: before ' (i int); '
+Class dba.tÄ already exists. create class [dba.tÄ] ( i integer )  reuse_oid 
+
+Time: 03/26/22 03:08:53.183 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-23844/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 20
+before ' (i int); '
+Class dba.tÄ already exists.
+
+Time: 03/26/22 03:09:35.376 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/page_buffer.c, line 10023
+flushing page 0|193 to disk without logging.
+
+Time: 03/26/22 03:09:35.376 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/page_buffer.c, line 10023
+flushing page 0|1345 to disk without logging.
+
+Time: 03/26/22 03:09:35.376 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/page_buffer.c, line 10023
+flushing page 0|1473 to disk without logging.
+
+Time: 03/26/22 03:09:35.376 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/page_buffer.c, line 10023
+flushing page 0|1665 to disk without logging.
+
+Time: 03/26/22 03:09:35.418 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 03/26/22 03:09:35.419 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = 1, EID = 21
+Server status is DOWN.
+
+Time: 03/26/22 03:09:35.419 - DEBUG *** file /home/youngjinj/github/CBRD-23844/src/query/partition.c, line 750
+deleting partition cache

@@ -4,14 +4,14 @@
 set follow-fork-mode child
 
 # execute query (csql) debug
-#set follow-fork-mode parent
+set follow-fork-mode parent
 
 # set detach-on-fork off 
 
 # handle SIGPIPE nostop
 
 # set print array on
-# set print elements 0
+set print elements 0
 # set print null-stop
 set print pretty on
 # set print sevenbit-strings off
@@ -20,6 +20,7 @@ set print union on
 # set print object on
 # set print static-members on
 # set print vtbl on
+# set pagination off
 
 # set print repeats 0
 
@@ -32,6 +33,8 @@ set logging overwrite on
 # set substitute-path /home/jenkins/workspace/cubrid_release_11.0 /home/youngjinj/github/develop
 # set pagination on
 # set listsize 20
+
+# set substitute-path /home/perl/CUBRID /home/youngjinj/CUBRID
 
 define pt_node_trace
   set $pt_node = $arg0
@@ -135,3 +138,17 @@ define parser_String_blocks_trace
     set $i = $i + 1
   end
 end
+
+define lc_names_print_all
+  set $i = 0
+  while $i < locator_Mht_classnames->size
+    set $he = locator_Mht_classnames->table[$i]
+      while $he != 0
+        p (char *) $he->key
+        p (LOCATOR_CLASSNAME_ENTRY *) $he->data
+        p *(LOCATOR_CLASSNAME_ENTRY *) $he->data
+        set $he = $he->next
+        end
+    set $i = $i + 1
+    end
+  end

@@ -1,0 +1,6 @@
+
+Time: 03/26/22 03:08:39.436 - NOTIFICATION *** file /home/youngjinj/github/CBRD-23844/src/transaction/boot_sr.c, line 3326  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 277322) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+

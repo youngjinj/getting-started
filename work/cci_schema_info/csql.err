@@ -1,0 +1,66 @@
+
+Time: 07/06/22 18:19:31.023 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 07/06/22 18:19:31.024 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 07/06/22 18:19:31.024 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 1645) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 07/06/22 18:19:31.024 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 1645 }
+
+Time: 07/06/22 18:20:15.218 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/parser/query_result.c, line 377 ERROR CODE = -494, Tran = 1, EID = 2
+Semantic: before '  (c1 int); '
+Class dba.t1 already exists. create class [dba.t1] ( c1 integer )  reuse_oid 
+
+Time: 07/06/22 18:20:15.218 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 3
+before '  (c1 int); '
+Class dba.t1 already exists.
+
+Time: 07/06/22 18:20:43.545 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 07/06/22 18:21:40.871 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 07/06/22 18:21:40.871 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 07/06/22 18:21:40.871 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 3379) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 07/06/22 18:21:40.871 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 3379 }
+
+Time: 07/06/22 18:23:45.459 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 2
+In line 1, column 16 before ' (1, 1), (2, 2), (3, ); '
+Syntax error: unexpected 'valuse'
+
+Time: 07/06/22 18:23:47.206 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 3
+In line 1, column 16 before ' (1, 1), (2, 2), (3, 3); '
+Syntax error: unexpected 'valuse'
+
+Time: 07/06/22 18:23:51.355 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/parser/query_result.c, line 377 ERROR CODE = -494, Tran = 1, EID = 4
+Semantic: before '  values (1, 1), (2, 2), (3, 3); '
+The number of attributes(1) and values(2) are not equal. insert into [dba.t1] [dba.t1] ([dba.t1].c1) values (1, 1), (...
+
+Time: 07/06/22 18:23:51.355 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 5
+before '  values (1, 1), (2, 2), (3, 3); '
+The number of attributes(1) and values(2) are not equal.
+
+Time: 07/06/22 18:23:51.355 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 6
+before '  values (1, 1), (2, 2), (3, 3); '
+The number of attributes(1) and values(2) are not equal.
+
+Time: 07/06/22 18:23:51.356 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 7
+before '  values (1, 1), (2, 2), (3, 3); '
+The number of attributes(1) and values(2) are not equal.
+
+Time: 07/06/22 18:24:31.169 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 8
+In line 1, column 51 before ' c2 = 3); '
+Syntax error: unexpected ',', expecting ')'
+
+*** The previous error message is the last one. ***
+

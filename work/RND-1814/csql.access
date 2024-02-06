@@ -1,0 +1,90 @@
+
+Time: 03/16/23 14:47:57.728 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 4
+Program 'csql' (pid 33244) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 15:16:51.926 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 49244) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 15:16:57.705 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 49323) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 15:18:36.160 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 49914) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 15:19:07.626 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 50102) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 15:23:34.880 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 51689) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 15:54:21.218 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 62615) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 15:54:24.368 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 62640) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 16:19:58.125 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 70189) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 17:07:22.537 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 88665) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 17:07:32.006 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 88726) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 17:58:29.817 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 109586) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 18:03:07.799 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 111918) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 18:04:02.474 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 112526) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+
+
+Time: 03/16/23 18:10:25.500 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 3324  CODE = -972, Tran = -1, EID = 16
+Program 'csql' (pid 116322) was connected from the host 'youngjinj204'. (transaction index 1)
+
+*** The previous error message is the last one. ***
+

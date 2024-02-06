@@ -1,0 +1,66 @@
+
+Time: 08/23/22 15:12:48.810 - ERROR *** file /home/youngjinj/github/develop/src/base/databases_file.c, line 1078 ERROR CODE = -676, Tran = -1, EID = 1
+Database 'demodb', cannot be found in the database location file, 'databases.txt'
+
+Time: 08/23/22 15:12:48.810 - ERROR *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 908 ERROR CODE = -116, Tran = -1, EID = 2
+Database "demodb" is unknown, or the file "databases.txt" cannot be accessed.
+
+*** The previous error message is the last one. ***
+
+
+Time: 08/23/22 15:12:55.533 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 83611 }
+
+Time: 08/23/22 15:12:55.628 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 08/23/22 15:12:55.630 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/log_manager.c, line 1044
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 08/23/22 15:12:55.868 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 08/23/22 15:12:55.869 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 08/23/22 15:12:55.871 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/log_manager.c, line 1479
+log_initialize_internal: end of log initializaton, append_lsa = (140|14704) 
+
+Time: 08/23/22 15:12:55.893 - NOTIFICATION *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 08/23/22 15:12:55.893 - DEBUG *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 08/23/22 15:12:55.894 - NOTIFICATION *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 08/23/22 15:12:55.894 - DEBUG *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 08/23/22 15:12:55.894 - DEBUG *** file /home/youngjinj/github/develop/src/query/partition.c, line 715
+creating partition cache
+
+Time: 08/23/22 15:12:55.894 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 08/23/22 15:13:00.957 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 5
+before '  frm game; '
+No tables used.
+
+Time: 08/23/22 15:13:00.957 - SYNTAX ERROR *** file /home/youngjinj/github/develop/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 6
+In line 1, column 10 before ' game; '
+Syntax error: unexpected 'frm', expecting ';'
+
+Time: 08/23/22 20:26:03.659 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 08/23/22 20:26:03.660 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = 1, EID = 7
+Server status is DOWN.
+
+Time: 08/23/22 20:26:03.660 - DEBUG *** file /home/youngjinj/github/develop/src/query/partition.c, line 750
+deleting partition cache

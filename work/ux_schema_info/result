@@ -1,0 +1,2359 @@
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CLASS                                                               #
+#                                                                              #
+################################################################################
+
+  NAME | TYPE | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+--------------------------------------------------------------------------------
+  db_class | 0 | (null)
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+--------------------------------------------------------------------------------
+  db_class | 0 | (null)
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+--------------------------------------------------------------------------------
+  user_1st.table_1st | 2 | user_1st > table_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_1st
+--------------------------------------------------------------------------------
+  user_1st.table_1st | 2 | user_1st > table_1st
+  user_2nd.table_1st | 2 | user_2nd > table_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_1st
+--------------------------------------------------------------------------------
+  user_2nd.table_1st | 2 | user_2nd > table_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CLASS (PATTERN)                                                     #
+#                                                                              #
+################################################################################
+
+  NAME | TYPE | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+  db_synonym | 0 | (null)
+  db_server | 0 | (null)
+  db_charset | 0 | (null)
+  db_collation | 0 | (null)
+  db_stored_procedure_args | 0 | (null)
+  db_stored_procedure | 0 | (null)
+  db_partition | 0 | (null)
+  db_trig | 0 | (null)
+  db_auth | 0 | (null)
+  db_index_key | 0 | (null)
+  db_index | 0 | (null)
+  db_meth_file | 0 | (null)
+  db_meth_arg_setdomain_elm | 0 | (null)
+  db_meth_arg | 0 | (null)
+  db_method | 0 | (null)
+  db_attr_setdomain_elm | 0 | (null)
+  db_attribute | 0 | (null)
+  db_vclass | 0 | (null)
+  db_direct_super_class | 0 | (null)
+  db_class | 0 | (null)
+  dual | 0 | (null)
+  db_ha_apply_info | 0 | (null)
+  db_serial | 0 | (null)
+  db_authorizations | 0 | (null)
+  db_authorization | 0 | (null)
+  db_user | 0 | (null)
+  db_root | 0 | (null)
+  user_1st.table_1st | 2 | user_1st > table_1st
+  user_1st.table_2nd | 2 | user_1st > table_2nd
+  user_1st.view_1st | 1 | user_1st > view_1st
+  user_1st.view_2nd | 1 | user_1st > view_2nd
+  user_1st.table_3rd | 2 | user_1st > table_3rd (method)
+  user_1st.table_4th | 2 | user_1st > table_4th (super)
+  user_1st.table_5th | 2 | user_1st > table_5th (inherit)
+  user_1st.table_6th | 2 | user_1st > table_6th (inherit)
+  user_1st.table_7th | 2 | user_1st > table_7th (hash)
+  user_1st.table_7th__p__p0 | 2 | (null)
+  user_1st.table_7th__p__p1 | 2 | (null)
+  user_1st.table_7th__p__p2 | 2 | (null)
+  user_1st.table_7th__p__p3 | 2 | (null)
+  user_1st.table_8th | 2 | user_1st > table_8th
+  user_1st.table_9th | 2 | user_1st > table_9th
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table%
+--------------------------------------------------------------------------------
+  user_1st.table_1st | 2 | user_1st > table_1st
+  user_1st.table_2nd | 2 | user_1st > table_2nd
+  user_1st.table_3rd | 2 | user_1st > table_3rd (method)
+  user_1st.table_4th | 2 | user_1st > table_4th (super)
+  user_1st.table_5th | 2 | user_1st > table_5th (inherit)
+  user_1st.table_6th | 2 | user_1st > table_6th (inherit)
+  user_1st.table_7th | 2 | user_1st > table_7th (hash)
+  user_1st.table_7th__p__p0 | 2 | (null)
+  user_1st.table_7th__p__p1 | 2 | (null)
+  user_1st.table_7th__p__p2 | 2 | (null)
+  user_1st.table_7th__p__p3 | 2 | (null)
+  user_1st.table_8th | 2 | user_1st > table_8th
+  user_1st.table_9th | 2 | user_1st > table_9th
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %\_1%
+--------------------------------------------------------------------------------
+  user_1st.table_1st | 2 | user_1st > table_1st
+  user_1st.view_1st | 1 | user_1st > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %1st
+--------------------------------------------------------------------------------
+  user_1st.table_1st | 2 | user_1st > table_1st
+  user_1st.view_1st | 1 | user_1st > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd%
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%
+--------------------------------------------------------------------------------
+  user_2nd.table_1st | 2 | user_2nd > table_1st
+  user_2nd.table_2nd | 2 | user_2nd > table_2nd
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+  user_2nd.view_2nd | 1 | user_2nd > view_2nd
+  user_2nd.table_3rd | 2 | user_2nd > table_3rd (method)
+  user_2nd.table_4th | 2 | user_2nd > table_4th (super)
+  user_2nd.table_5th | 2 | user_2nd > table_5th (inherit)
+  user_2nd.table_6th | 2 | user_2nd > table_6th (inherit)
+  user_2nd.table_7th | 2 | user_2nd > table_7th (hash)
+  user_2nd.table_7th__p__p0 | 2 | (null)
+  user_2nd.table_7th__p__p1 | 2 | (null)
+  user_2nd.table_7th__p__p2 | 2 | (null)
+  user_2nd.table_7th__p__p3 | 2 | (null)
+  user_2nd.table_8th | 2 | user_2nd > table_8th
+  user_2nd.table_9th | 2 | user_2nd > table_9th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table%
+--------------------------------------------------------------------------------
+  user_2nd.table_1st | 2 | user_2nd > table_1st
+  user_2nd.table_2nd | 2 | user_2nd > table_2nd
+  user_2nd.table_3rd | 2 | user_2nd > table_3rd (method)
+  user_2nd.table_4th | 2 | user_2nd > table_4th (super)
+  user_2nd.table_5th | 2 | user_2nd > table_5th (inherit)
+  user_2nd.table_6th | 2 | user_2nd > table_6th (inherit)
+  user_2nd.table_7th | 2 | user_2nd > table_7th (hash)
+  user_2nd.table_7th__p__p0 | 2 | (null)
+  user_2nd.table_7th__p__p1 | 2 | (null)
+  user_2nd.table_7th__p__p2 | 2 | (null)
+  user_2nd.table_7th__p__p3 | 2 | (null)
+  user_2nd.table_8th | 2 | user_2nd > table_8th
+  user_2nd.table_9th | 2 | user_2nd > table_9th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%\_1%
+--------------------------------------------------------------------------------
+  user_2nd.table_1st | 2 | user_2nd > table_1st
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%1st
+--------------------------------------------------------------------------------
+  user_2nd.table_1st | 2 | user_2nd > table_1st
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_VCLASS                                                              #
+#                                                                              #
+################################################################################
+
+  NAME | TYPE | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+--------------------------------------------------------------------------------
+  db_class | 0 | (null)
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+--------------------------------------------------------------------------------
+  db_class | 0 | (null)
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : view_1st
+--------------------------------------------------------------------------------
+  user_1st.view_1st | 1 | user_1st > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : view_1st
+--------------------------------------------------------------------------------
+  user_1st.view_1st | 1 | user_1st > view_1st
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.view_1st
+--------------------------------------------------------------------------------
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_VCLASS (PATTERN)                                                    #
+#                                                                              #
+################################################################################
+
+  NAME | TYPE | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+  db_synonym | 0 | (null)
+  db_server | 0 | (null)
+  db_charset | 0 | (null)
+  db_collation | 0 | (null)
+  db_stored_procedure_args | 0 | (null)
+  db_stored_procedure | 0 | (null)
+  db_partition | 0 | (null)
+  db_trig | 0 | (null)
+  db_auth | 0 | (null)
+  db_index_key | 0 | (null)
+  db_index | 0 | (null)
+  db_meth_file | 0 | (null)
+  db_meth_arg_setdomain_elm | 0 | (null)
+  db_meth_arg | 0 | (null)
+  db_method | 0 | (null)
+  db_attr_setdomain_elm | 0 | (null)
+  db_attribute | 0 | (null)
+  db_vclass | 0 | (null)
+  db_direct_super_class | 0 | (null)
+  db_class | 0 | (null)
+  user_1st.view_1st | 1 | user_1st > view_1st
+  user_1st.view_2nd | 1 | user_1st > view_2nd
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : view%
+--------------------------------------------------------------------------------
+  user_1st.view_1st | 1 | user_1st > view_1st
+  user_1st.view_2nd | 1 | user_1st > view_2nd
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %\_1%
+--------------------------------------------------------------------------------
+  user_1st.view_1st | 1 | user_1st > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %1st
+--------------------------------------------------------------------------------
+  user_1st.view_1st | 1 | user_1st > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd%
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%
+--------------------------------------------------------------------------------
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+  user_2nd.view_2nd | 1 | user_2nd > view_2nd
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.view%
+--------------------------------------------------------------------------------
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+  user_2nd.view_2nd | 1 | user_2nd > view_2nd
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%\_1%
+--------------------------------------------------------------------------------
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%1st
+--------------------------------------------------------------------------------
+  user_2nd.view_1st | 1 | user_2nd > view_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_QUERY_SPEC                                                          #
+#                                                                              #
+################################################################################
+
+  QUERY_SPEC
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+--------------------------------------------------------------------------------
+  SELECT [c].[class_name] AS [class_name], CAST ([c].[owner].[name] AS VARCHAR(255)) AS [owner_name], CASE [c].[class_type] WHEN 0 THEN 'CLASS' WHEN 1 THEN 'VCLASS' ELSE 'UNKNOW' END AS [class_type], CASE WHEN MOD([c].[is_system_class], 2) = 1 THEN 'YES' ELSE 'NO' END AS [is_system_class], CASE [c].[tde_algorithm] WHEN 0 THEN 'NONE' WHEN 1 THEN 'AES' WHEN 2 THEN 'ARIA' END AS [tde_algorithm], CASE WHEN [c].[sub_classes] IS NULL THEN 'NO' ELSE NVL ((SELECT 'YES' FROM [_db_partition] AS [p] WHERE [p].[class_of] = [c] AND [p].[pname] IS NULL), 'NO') END AS [partitioned], CASE WHEN MOD ([c].[is_system_class] / 8, 2) = 1 THEN 'YES' ELSE 'NO' END AS [is_reuse_oid_class], [coll].[coll_name] AS [collation], [c].[comment] AS [comment] FROM [_db_class] AS [c], [_db_collation] AS [coll] WHERE [c].[collation_id] = [coll].[coll_id] AND (CURRENT_USER = 'DBA' OR {[c].[owner].[name]} SUBSETEQ (SELECT SET {CURRENT_USER} + COALESCE (SUM (SET {[t].[g].[name]}), SET {}) FROM [db_user] AS [u], TABLE ([u].[groups]) AS [t] ([g]) WHERE [u].[name] = CURRENT_USER) OR {[c]} SUBSETEQ (SELECT SUM (SET {[au].[class_of]}) FROM [_db_auth] AS [au] WHERE {[au].[grantee].[name]} SUBSETEQ (SELECT SET {CURRENT_USER} + COALESCE (SUM (SET {[t].[g].[name]}), SET {}) FROM [db_user] AS [u], TABLE ([u].[groups]) AS [t] ([g]) WHERE [u].[name] = CURRENT_USER) AND [au].[auth_type] = 'SELECT'))
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+--------------------------------------------------------------------------------
+  SELECT [c].[class_name] AS [class_name], CAST ([c].[owner].[name] AS VARCHAR(255)) AS [owner_name], CASE [c].[class_type] WHEN 0 THEN 'CLASS' WHEN 1 THEN 'VCLASS' ELSE 'UNKNOW' END AS [class_type], CASE WHEN MOD([c].[is_system_class], 2) = 1 THEN 'YES' ELSE 'NO' END AS [is_system_class], CASE [c].[tde_algorithm] WHEN 0 THEN 'NONE' WHEN 1 THEN 'AES' WHEN 2 THEN 'ARIA' END AS [tde_algorithm], CASE WHEN [c].[sub_classes] IS NULL THEN 'NO' ELSE NVL ((SELECT 'YES' FROM [_db_partition] AS [p] WHERE [p].[class_of] = [c] AND [p].[pname] IS NULL), 'NO') END AS [partitioned], CASE WHEN MOD ([c].[is_system_class] / 8, 2) = 1 THEN 'YES' ELSE 'NO' END AS [is_reuse_oid_class], [coll].[coll_name] AS [collation], [c].[comment] AS [comment] FROM [_db_class] AS [c], [_db_collation] AS [coll] WHERE [c].[collation_id] = [coll].[coll_id] AND (CURRENT_USER = 'DBA' OR {[c].[owner].[name]} SUBSETEQ (SELECT SET {CURRENT_USER} + COALESCE (SUM (SET {[t].[g].[name]}), SET {}) FROM [db_user] AS [u], TABLE ([u].[groups]) AS [t] ([g]) WHERE [u].[name] = CURRENT_USER) OR {[c]} SUBSETEQ (SELECT SUM (SET {[au].[class_of]}) FROM [_db_auth] AS [au] WHERE {[au].[grantee].[name]} SUBSETEQ (SELECT SET {CURRENT_USER} + COALESCE (SUM (SET {[t].[g].[name]}), SET {}) FROM [db_user] AS [u], TABLE ([u].[groups]) AS [t] ([g]) WHERE [u].[name] = CURRENT_USER) AND [au].[auth_type] = 'SELECT'))
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : view_1st
+--------------------------------------------------------------------------------
+  select [user_1st.table_1st].[column_1st], [user_1st.table_1st].[column_2nd] from [user_1st.table_1st] [user_1st.table_1st]
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : view_1st
+--------------------------------------------------------------------------------
+  select [user_1st.table_1st].[column_1st], [user_1st.table_1st].[column_2nd] from [user_1st.table_1st] [user_1st.table_1st]
+  select [user_2nd.table_1st].[column_1st], [user_2nd.table_1st].[column_2nd] from [user_2nd.table_1st] [user_2nd.table_1st]
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.view_1st
+--------------------------------------------------------------------------------
+  select [user_2nd.table_1st].[column_1st], [user_2nd.table_1st].[column_2nd] from [user_2nd.table_1st] [user_2nd.table_1st]
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_ATTRIBUTE                                                           #
+#                                                                              #
+################################################################################
+
+  NAME | DOMAIN | SCALE | PRECISION | INDEXED | NON_NULL | SHARED | UNIQUE | DEFAULT | ATTR_ORDER | CLASS_NAME | SOURCE_CLASS | IS_KEY | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+   attr_name : class_name
+--------------------------------------------------------------------------------
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_class | db_class | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+   attr_name : class_name
+--------------------------------------------------------------------------------
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_class | db_class | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 1 | user_2nd > table_1st > column_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 1 | user_2nd > table_1st > column_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_ATTRIBUTE (PATTERN)                                                 #
+#                                                                              #
+################################################################################
+
+  NAME | DOMAIN | SCALE | PRECISION | INDEXED | NON_NULL | SHARED | UNIQUE | DEFAULT | ATTR_ORDER | CLASS_NAME | SOURCE_CLASS | IS_KEY | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : (null)
+--------------------------------------------------------------------------------
+  attr_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  attr_type | 2 | 0 | 8 | 0 | 0 | 0 | 0 | NULL | 4 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  data_type | 2 | 0 | 9 | 0 | 0 | 0 | 0 | NULL | 5 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  prec | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 6 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  scale | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 7 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  code_set | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 8 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  domain_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 9 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  domain_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 10 | db_attr_setdomain_elm | db_attr_setdomain_elm | 0 | 
+  attr_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_attribute | db_attribute | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_attribute | db_attribute | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_attribute | db_attribute | 0 | 
+  attr_type | 2 | 0 | 8 | 0 | 0 | 0 | 0 | NULL | 4 | db_attribute | db_attribute | 0 | 
+  def_order | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 5 | db_attribute | db_attribute | 0 | 
+  from_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 6 | db_attribute | db_attribute | 0 | 
+  from_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 7 | db_attribute | db_attribute | 0 | 
+  from_attr_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 8 | db_attribute | db_attribute | 0 | 
+  data_type | 2 | 0 | 9 | 0 | 0 | 0 | 0 | NULL | 9 | db_attribute | db_attribute | 0 | 
+  prec | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 10 | db_attribute | db_attribute | 0 | 
+  scale | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 11 | db_attribute | db_attribute | 0 | 
+  charset | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 12 | db_attribute | db_attribute | 0 | 
+  collation | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 13 | db_attribute | db_attribute | 0 | 
+  domain_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 14 | db_attribute | db_attribute | 0 | 
+  domain_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 15 | db_attribute | db_attribute | 0 | 
+  default_value | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 16 | db_attribute | db_attribute | 0 | 
+  is_nullable | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 17 | db_attribute | db_attribute | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 18 | db_attribute | db_attribute | 0 | 
+  grantor_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_auth | db_auth | 0 | 
+  grantee_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_auth | db_auth | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_auth | db_auth | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_auth | db_auth | 0 | 
+  auth_type | 2 | 0 | 7 | 0 | 0 | 0 | 0 | NULL | 5 | db_auth | db_auth | 0 | 
+  is_grantable | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 6 | db_auth | db_auth | 0 | 
+  owner | 19 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 1 | db_authorization | db_authorization | 0 | 
+  grants | 0 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 2 | db_authorization | db_authorization | 0 | 
+  charset_id | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | db_charset | db_charset | 0 | 
+  charset_name | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 2 | db_charset | db_charset | 0 | 
+  default_collation | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 3 | db_charset | db_charset | 0 | 
+  char_size | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 4 | db_charset | db_charset | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_class | db_class | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_class | db_class | 0 | 
+  class_type | 2 | 0 | 6 | 0 | 0 | 0 | 0 | NULL | 3 | db_class | db_class | 0 | 
+  is_system_class | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 4 | db_class | db_class | 0 | 
+  tde_algorithm | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 5 | db_class | db_class | 0 | 
+  partitioned | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 6 | db_class | db_class | 0 | 
+  is_reuse_oid_class | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 7 | db_class | db_class | 0 | 
+  collation | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 8 | db_class | db_class | 0 | 
+  comment | 2 | 0 | 2048 | 0 | 0 | 0 | 0 | NULL | 9 | db_class | db_class | 0 | 
+  coll_id | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | db_collation | db_collation | 0 | 
+  coll_name | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 2 | db_collation | db_collation | 0 | 
+  charset_name | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 3 | db_collation | db_collation | 0 | 
+  is_builtin | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 4 | db_collation | db_collation | 0 | 
+  has_expansions | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 5 | db_collation | db_collation | 0 | 
+  contractions | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 6 | db_collation | db_collation | 0 | 
+  uca_strength | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 7 | db_collation | db_collation | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_direct_super_class | db_direct_super_class | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_direct_super_class | db_direct_super_class | 0 | 
+  super_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_direct_super_class | db_direct_super_class | 0 | 
+  super_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_direct_super_class | db_direct_super_class | 0 | 
+  db_name | 2 | 0 | 255 | 1 | 1 | 0 | 1 | NULL | 1 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  db_creation_time | 22 | 3 | 23 | 0 | 0 | 0 | 0 | NULL | 2 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  copied_log_path | 2 | 0 | 4096 | 1 | 1 | 0 | 1 | NULL | 3 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  committed_lsa_pageid | 21 | 0 | 19 | 0 | 1 | 0 | 0 | NULL | 4 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  committed_lsa_offset | 8 | 0 | 10 | 0 | 1 | 0 | 0 | NULL | 5 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  committed_rep_pageid | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 6 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  committed_rep_offset | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 7 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  append_lsa_pageid | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 8 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  append_lsa_offset | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 9 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  eof_lsa_pageid | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 10 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  eof_lsa_offset | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 11 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  final_lsa_pageid | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 12 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  final_lsa_offset | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 13 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  required_lsa_pageid | 21 | 0 | 19 | 0 | 1 | 0 | 0 | NULL | 14 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  required_lsa_offset | 8 | 0 | 10 | 0 | 1 | 0 | 0 | NULL | 15 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  log_record_time | 22 | 3 | 23 | 0 | 0 | 0 | 0 | NULL | 16 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  log_commit_time | 22 | 3 | 23 | 0 | 0 | 0 | 0 | NULL | 17 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  last_access_time | 22 | 3 | 23 | 0 | 0 | 0 | 0 | NULL | 18 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  status | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 19 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  insert_counter | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 20 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  update_counter | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 21 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  delete_counter | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 22 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  schema_counter | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 23 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  commit_counter | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 24 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  fail_counter | 21 | 0 | 19 | 0 | 0 | 0 | 0 | NULL | 25 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  start_time | 22 | 3 | 23 | 0 | 0 | 0 | 0 | NULL | 26 | db_ha_apply_info | db_ha_apply_info | 0 | 
+  index_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_index | db_index | 0 | 
+  is_unique | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 2 | db_index | db_index | 0 | 
+  is_reverse | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 3 | db_index | db_index | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_index | db_index | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 5 | db_index | db_index | 0 | 
+  key_count | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 6 | db_index | db_index | 0 | 
+  is_primary_key | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 7 | db_index | db_index | 0 | 
+  is_foreign_key | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 8 | db_index | db_index | 0 | 
+  filter_expression | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 9 | db_index | db_index | 0 | 
+  have_function | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 10 | db_index | db_index | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 11 | db_index | db_index | 0 | 
+  status | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 12 | db_index | db_index | 0 | 
+  index_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_index_key | db_index_key | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_index_key | db_index_key | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_index_key | db_index_key | 0 | 
+  key_attr_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_index_key | db_index_key | 0 | 
+  key_order | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 5 | db_index_key | db_index_key | 0 | 
+  asc_desc | 2 | 0 | 4 | 0 | 0 | 0 | 0 | NULL | 6 | db_index_key | db_index_key | 0 | 
+  key_prefix_length | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 7 | db_index_key | db_index_key | 0 | 
+  func | 2 | 0 | 1023 | 0 | 0 | 0 | 0 | NULL | 8 | db_index_key | db_index_key | 0 | 
+  meth_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_meth_arg | db_meth_arg | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_meth_arg | db_meth_arg | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_meth_arg | db_meth_arg | 0 | 
+  meth_type | 2 | 0 | 8 | 0 | 0 | 0 | 0 | NULL | 4 | db_meth_arg | db_meth_arg | 0 | 
+  index_of | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 5 | db_meth_arg | db_meth_arg | 0 | 
+  data_type | 2 | 0 | 9 | 0 | 0 | 0 | 0 | NULL | 6 | db_meth_arg | db_meth_arg | 0 | 
+  prec | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 7 | db_meth_arg | db_meth_arg | 0 | 
+  scale | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 8 | db_meth_arg | db_meth_arg | 0 | 
+  code_set | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 9 | db_meth_arg | db_meth_arg | 0 | 
+  domain_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 10 | db_meth_arg | db_meth_arg | 0 | 
+  domain_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 11 | db_meth_arg | db_meth_arg | 0 | 
+  meth_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  meth_type | 2 | 0 | 8 | 0 | 0 | 0 | 0 | NULL | 4 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  index_of | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 5 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  data_type | 2 | 0 | 9 | 0 | 0 | 0 | 0 | NULL | 6 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  prec | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 7 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  scale | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 8 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  code_set | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 9 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  domain_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 10 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  domain_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 11 | db_meth_arg_setdomain_elm | db_meth_arg_setdomain_elm | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_meth_file | db_meth_file | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_meth_file | db_meth_file | 0 | 
+  path_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_meth_file | db_meth_file | 0 | 
+  from_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_meth_file | db_meth_file | 0 | 
+  from_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 5 | db_meth_file | db_meth_file | 0 | 
+  meth_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_method | db_method | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_method | db_method | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_method | db_method | 0 | 
+  meth_type | 2 | 0 | 8 | 0 | 0 | 0 | 0 | NULL | 4 | db_method | db_method | 0 | 
+  from_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 5 | db_method | db_method | 0 | 
+  from_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 6 | db_method | db_method | 0 | 
+  from_meth_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 7 | db_method | db_method | 0 | 
+  func_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 8 | db_method | db_method | 0 | 
+  class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_partition | db_partition | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_partition | db_partition | 0 | 
+  partition_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_partition | db_partition | 0 | 
+  partition_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_partition | db_partition | 0 | 
+  partition_type | 2 | 0 | 32 | 0 | 0 | 0 | 0 | NULL | 5 | db_partition | db_partition | 0 | 
+  partition_expr | 2 | 0 | 2048 | 0 | 0 | 0 | 0 | NULL | 6 | db_partition | db_partition | 0 | 
+  partition_values | 0 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 7 | db_partition | db_partition | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 8 | db_partition | db_partition | 0 | 
+  triggers | 0 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 1 | db_root | db_root | 0 | 
+  charset | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | db_root | db_root | 0 | 
+  lang | 2 | 0 | 1073741823 | 0 | 0 | 0 | 0 | NULL | 3 | db_root | db_root | 0 | 
+  timezone_checksum | 2 | 0 | 1073741823 | 0 | 0 | 0 | 0 | NULL | 4 | db_root | db_root | 0 | 
+  unique_name | 2 | 0 | 1073741823 | 1 | 1 | 0 | 1 | NULL | 1 | db_serial | db_serial | 1 | 
+  name | 2 | 0 | 1073741823 | 1 | 0 | 0 | 1 | NULL | 2 | db_serial | db_serial | 0 | 
+  owner | 19 | 0 | 0 | 1 | 0 | 0 | 1 | NULL | 3 | db_serial | db_serial | 0 | 
+  current_val | 7 | 0 | 38 | 0 | 1 | 0 | 0 | 1 | 4 | db_serial | db_serial | 0 | 
+  increment_val | 7 | 0 | 38 | 0 | 1 | 0 | 0 | 1 | 5 | db_serial | db_serial | 0 | 
+  max_val | 7 | 0 | 38 | 0 | 1 | 0 | 0 | NULL | 6 | db_serial | db_serial | 0 | 
+  min_val | 7 | 0 | 38 | 0 | 1 | 0 | 0 | NULL | 7 | db_serial | db_serial | 0 | 
+  cyclic | 8 | 0 | 10 | 0 | 0 | 0 | 0 | 0 | 8 | db_serial | db_serial | 0 | 
+  started | 8 | 0 | 10 | 0 | 0 | 0 | 0 | 0 | 9 | db_serial | db_serial | 0 | 
+  class_name | 2 | 0 | 1073741823 | 0 | 0 | 0 | 0 | NULL | 10 | db_serial | db_serial | 0 | 
+  att_name | 2 | 0 | 1073741823 | 0 | 0 | 0 | 0 | NULL | 11 | db_serial | db_serial | 0 | 
+  cached_num | 8 | 0 | 10 | 0 | 0 | 0 | 0 | 0 | 12 | db_serial | db_serial | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 13 | db_serial | db_serial | 0 | 
+  link_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_server | db_server | 0 | 
+  host | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_server | db_server | 0 | 
+  port | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 3 | db_server | db_server | 0 | 
+  db_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_server | db_server | 0 | 
+  user_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 5 | db_server | db_server | 0 | 
+  properties | 2 | 0 | 2048 | 0 | 0 | 0 | 0 | NULL | 6 | db_server | db_server | 0 | 
+  owner | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 7 | db_server | db_server | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 8 | db_server | db_server | 0 | 
+  sp_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_stored_procedure | db_stored_procedure | 0 | 
+  sp_type | 2 | 0 | 16 | 0 | 0 | 0 | 0 | NULL | 2 | db_stored_procedure | db_stored_procedure | 0 | 
+  return_type | 2 | 0 | 16 | 0 | 0 | 0 | 0 | NULL | 3 | db_stored_procedure | db_stored_procedure | 0 | 
+  arg_count | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 4 | db_stored_procedure | db_stored_procedure | 0 | 
+  lang | 2 | 0 | 16 | 0 | 0 | 0 | 0 | NULL | 5 | db_stored_procedure | db_stored_procedure | 0 | 
+  target | 2 | 0 | 4096 | 0 | 0 | 0 | 0 | NULL | 6 | db_stored_procedure | db_stored_procedure | 0 | 
+  owner | 2 | 0 | 256 | 0 | 0 | 0 | 0 | NULL | 7 | db_stored_procedure | db_stored_procedure | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 8 | db_stored_procedure | db_stored_procedure | 0 | 
+  sp_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_stored_procedure_args | db_stored_procedure_args | 0 | 
+  index_of | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | db_stored_procedure_args | db_stored_procedure_args | 0 | 
+  arg_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_stored_procedure_args | db_stored_procedure_args | 0 | 
+  data_type | 2 | 0 | 16 | 0 | 0 | 0 | 0 | NULL | 4 | db_stored_procedure_args | db_stored_procedure_args | 0 | 
+  mode | 2 | 0 | 6 | 0 | 0 | 0 | 0 | NULL | 5 | db_stored_procedure_args | db_stored_procedure_args | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 6 | db_stored_procedure_args | db_stored_procedure_args | 0 | 
+  synonym_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_synonym | db_synonym | 0 | 
+  synonym_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_synonym | db_synonym | 0 | 
+  is_public_synonym | 2 | 0 | 3 | 0 | 0 | 0 | 0 | NULL | 3 | db_synonym | db_synonym | 0 | 
+  target_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_synonym | db_synonym | 0 | 
+  target_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 5 | db_synonym | db_synonym | 0 | 
+  comment | 2 | 0 | 2048 | 0 | 0 | 0 | 0 | NULL | 6 | db_synonym | db_synonym | 0 | 
+  trigger_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_trig | db_trig | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_trig | db_trig | 0 | 
+  target_class_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 3 | db_trig | db_trig | 0 | 
+  target_owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 4 | db_trig | db_trig | 0 | 
+  target_attr_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 5 | db_trig | db_trig | 0 | 
+  target_attr_type | 2 | 0 | 8 | 0 | 0 | 0 | 0 | NULL | 6 | db_trig | db_trig | 0 | 
+  action_type | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 7 | db_trig | db_trig | 0 | 
+  action_time | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 8 | db_trig | db_trig | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 9 | db_trig | db_trig | 0 | 
+  name | 2 | 0 | 1073741823 | 1 | 0 | 0 | 1 | NULL | 1 | db_user | db_user | 0 | 
+  id | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | db_user | db_user | 0 | 
+  password | 19 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 3 | db_user | db_user | 0 | 
+  direct_groups | 19 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 4 | db_user | db_user | 0 | 
+  groups | 19 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 5 | db_user | db_user | 0 | 
+  authorization | 19 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 6 | db_user | db_user | 0 | 
+  triggers | 19 | 0 | 0 | 0 | 0 | 0 | 0 | NULL | 7 | db_user | db_user | 0 | 
+  comment | 2 | 0 | 1024 | 0 | 0 | 0 | 0 | NULL | 8 | db_user | db_user | 0 | 
+  vclass_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 1 | db_vclass | db_vclass | 0 | 
+  owner_name | 2 | 0 | 255 | 0 | 0 | 0 | 0 | NULL | 2 | db_vclass | db_vclass | 0 | 
+  vclass_def | 2 | 0 | 1073741823 | 0 | 0 | 0 | 0 | NULL | 3 | db_vclass | db_vclass | 0 | 
+  comment | 2 | 0 | 2048 | 0 | 0 | 0 | 0 | NULL | 4 | db_vclass | db_vclass | 0 | 
+  dummy | 2 | 0 | 1 | 0 | 0 | 0 | 0 | NULL | 1 | dual | dual | 0 | 
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_1st | user_1st.table_1st | 0 | user_1st > table_1st > column_2nd
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_2nd | user_1st.table_2nd | 1 | user_1st > table_2nd > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_2nd | user_1st.table_2nd | 0 | user_1st > table_2nd > column_2nd
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_3rd | user_1st.table_3rd | 0 | user_1st > table_3rd > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_4th | user_1st.table_4th | 0 | user_1st > table_4th > column_1st
+  column_1st_s | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_5th | user_1st.table_4th | 0 | user_1st > table_4th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_5th | user_1st.table_5th | 0 | user_1st > table_5th > column_1st
+  column_1st_ss | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_6th | user_1st.table_4th | 0 | user_1st > table_4th > column_1st
+  column_1st_s | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_6th | user_1st.table_5th | 0 | user_1st > table_5th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 3 | user_1st.table_6th | user_1st.table_6th | 0 | user_1st > table_6th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p0 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p1 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p2 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p3 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_8th | user_1st.table_8th | 1 | user_1st > table_8th > column_1st (pk)
+  column_2nd | 8 | 0 | 10 | 1 | 0 | 0 | 1 | NULL | 2 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_2nd (unique)
+  column_3rd | 8 | 0 | 10 | 1 | 1 | 0 | 0 | NULL | 3 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_3rd (not null)
+  column_4th | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 4 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_4th
+  column_5th | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 5 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_5th
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_9th | user_1st.table_9th | 1 | user_1st > table_9th > column_1st (pk)
+  column_2nd | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 2 | user_1st.table_9th | user_1st.table_9th | 0 | user_1st > table_9th > column_2nd (fk)
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.view_1st | user_1st.view_1st | 0 | user_1st > view_1st > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.view_1st | user_1st.view_1st | 0 | user_1st > view_1st > column_2nd
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.view_2nd | user_1st.view_2nd | 0 | user_1st > view_2nd > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.view_2nd | user_1st.view_2nd | 0 | user_1st > view_2nd > column_2nd
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : (null)
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_1st | user_1st.table_1st | 0 | user_1st > table_1st > column_2nd
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_2nd | user_1st.table_2nd | 1 | user_1st > table_2nd > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_3rd | user_1st.table_3rd | 0 | user_1st > table_3rd > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_4th | user_1st.table_4th | 0 | user_1st > table_4th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_5th | user_1st.table_5th | 0 | user_1st > table_5th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 3 | user_1st.table_6th | user_1st.table_6th | 0 | user_1st > table_6th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p0 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p1 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p2 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p3 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_8th | user_1st.table_8th | 1 | user_1st > table_8th > column_1st (pk)
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_9th | user_1st.table_9th | 1 | user_1st > table_9th > column_1st (pk)
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.view_1st | user_1st.view_1st | 0 | user_1st > view_1st > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.view_2nd | user_1st.view_2nd | 0 | user_1st > view_2nd > column_1st
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table%
+   attr_name : column%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_1st | user_1st.table_1st | 0 | user_1st > table_1st > column_2nd
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_2nd | user_1st.table_2nd | 1 | user_1st > table_2nd > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_2nd | user_1st.table_2nd | 0 | user_1st > table_2nd > column_2nd
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_3rd | user_1st.table_3rd | 0 | user_1st > table_3rd > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_4th | user_1st.table_4th | 0 | user_1st > table_4th > column_1st
+  column_1st_s | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_5th | user_1st.table_4th | 0 | user_1st > table_4th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_5th | user_1st.table_5th | 0 | user_1st > table_5th > column_1st
+  column_1st_ss | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_6th | user_1st.table_4th | 0 | user_1st > table_4th > column_1st
+  column_1st_s | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_1st.table_6th | user_1st.table_5th | 0 | user_1st > table_5th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 3 | user_1st.table_6th | user_1st.table_6th | 0 | user_1st > table_6th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p0 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p1 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p2 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_7th__p__p3 | user_1st.table_7th | 0 | user_1st > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_8th | user_1st.table_8th | 1 | user_1st > table_8th > column_1st (pk)
+  column_2nd | 8 | 0 | 10 | 1 | 0 | 0 | 1 | NULL | 2 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_2nd (unique)
+  column_3rd | 8 | 0 | 10 | 1 | 1 | 0 | 0 | NULL | 3 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_3rd (not null)
+  column_4th | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 4 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_4th
+  column_5th | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 5 | user_1st.table_8th | user_1st.table_8th | 0 | user_1st > table_8th > column_5th
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_9th | user_1st.table_9th | 1 | user_1st > table_9th > column_1st (pk)
+  column_2nd | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 2 | user_1st.table_9th | user_1st.table_9th | 0 | user_1st > table_9th > column_2nd (fk)
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %\_1%
+   attr_name : %\_1%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.view_1st | user_1st.view_1st | 0 | user_1st > view_1st > column_1st
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %1st
+   attr_name : %1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 1 | user_1st > table_1st > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.view_1st | user_1st.view_1st | 0 | user_1st > view_1st > column_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd%
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 1 | user_2nd > table_1st > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_2nd | user_2nd.table_2nd | 1 | user_2nd > table_2nd > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_3rd | user_2nd.table_3rd | 0 | user_2nd > table_3rd > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_4th | user_2nd.table_4th | 0 | user_2nd > table_4th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_2nd.table_5th | user_2nd.table_5th | 0 | user_2nd > table_5th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 3 | user_2nd.table_6th | user_2nd.table_6th | 0 | user_2nd > table_6th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p0 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p1 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p2 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p3 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_8th | user_2nd.table_8th | 1 | user_2nd > table_8th > column_1st (pk)
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_9th | user_2nd.table_9th | 1 | user_2nd > table_9th > column_1st (pk)
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.view_1st | user_2nd.view_1st | 0 | user_2nd > view_1st > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.view_2nd | user_2nd.view_2nd | 0 | user_2nd > view_2nd > column_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table%
+   attr_name : column%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 1 | user_2nd > table_1st > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_2nd.table_1st | user_2nd.table_1st | 0 | user_2nd > table_1st > column_2nd
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_2nd | user_2nd.table_2nd | 1 | user_2nd > table_2nd > column_1st
+  column_2nd | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_2nd.table_2nd | user_2nd.table_2nd | 0 | user_2nd > table_2nd > column_2nd
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_3rd | user_2nd.table_3rd | 0 | user_2nd > table_3rd > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_4th | user_2nd.table_4th | 0 | user_2nd > table_4th > column_1st
+  column_1st_s | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_5th | user_2nd.table_4th | 0 | user_2nd > table_4th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_2nd.table_5th | user_2nd.table_5th | 0 | user_2nd > table_5th > column_1st
+  column_1st_ss | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_6th | user_2nd.table_4th | 0 | user_2nd > table_4th > column_1st
+  column_1st_s | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 2 | user_2nd.table_6th | user_2nd.table_5th | 0 | user_2nd > table_5th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 3 | user_2nd.table_6th | user_2nd.table_6th | 0 | user_2nd > table_6th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p0 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p1 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p2 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_7th__p__p3 | user_2nd.table_7th | 0 | user_2nd > table_7th > column_1st
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_8th | user_2nd.table_8th | 1 | user_2nd > table_8th > column_1st (pk)
+  column_2nd | 8 | 0 | 10 | 1 | 0 | 0 | 1 | NULL | 2 | user_2nd.table_8th | user_2nd.table_8th | 0 | user_2nd > table_8th > column_2nd (unique)
+  column_3rd | 8 | 0 | 10 | 1 | 1 | 0 | 0 | NULL | 3 | user_2nd.table_8th | user_2nd.table_8th | 0 | user_2nd > table_8th > column_3rd (not null)
+  column_4th | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 4 | user_2nd.table_8th | user_2nd.table_8th | 0 | user_2nd > table_8th > column_4th
+  column_5th | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 5 | user_2nd.table_8th | user_2nd.table_8th | 0 | user_2nd > table_8th > column_5th
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_9th | user_2nd.table_9th | 1 | user_2nd > table_9th > column_1st (pk)
+  column_2nd | 8 | 0 | 10 | 1 | 0 | 0 | 0 | NULL | 2 | user_2nd.table_9th | user_2nd.table_9th | 0 | user_2nd > table_9th > column_2nd (fk)
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%\_1%
+   attr_name : %\_1%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 1 | user_2nd > table_1st > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.view_1st | user_2nd.view_1st | 0 | user_2nd > view_1st > column_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%1st
+   attr_name : %1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 1 | 1 | 0 | 1 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 1 | user_2nd > table_1st > column_1st
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.view_1st | user_2nd.view_1st | 0 | user_2nd > view_1st > column_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CLASS_ATTRIBUTE                                                     #
+#                                                                              #
+################################################################################
+
+  NAME | DOMAIN | SCALE | PRECISION | INDEXED | NON_NULL | SHARED | UNIQUE | DEFAULT | ATTR_ORDER | CLASS_NAME | SOURCE_CLASS | IS_KEY | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+   attr_name : class_name
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+   attr_name : class_name
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CLASS_ATTRIBUTE (PATTERN)                                           #
+#                                                                              #
+################################################################################
+
+  NAME | DOMAIN | SCALE | PRECISION | INDEXED | NON_NULL | SHARED | UNIQUE | DEFAULT | ATTR_ORDER | CLASS_NAME | SOURCE_CLASS | IS_KEY | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : (null)
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_2nd | user_1st.table_2nd | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : (null)
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_2nd | user_1st.table_2nd | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table%
+   attr_name : column%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_2nd | user_1st.table_2nd | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %\_1%
+   attr_name : %\_1%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %1st
+   attr_name : %1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_1st.table_1st | user_1st.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd%
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 0 | 
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_2nd | user_2nd.table_2nd | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table%
+   attr_name : column%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 0 | 
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_2nd | user_2nd.table_2nd | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%\_1%
+   attr_name : %\_1%
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%1st
+   attr_name : %1st
+--------------------------------------------------------------------------------
+  column_1st | 8 | 0 | 10 | 0 | 0 | 0 | 0 | NULL | 1 | user_2nd.table_1st | user_2nd.table_1st | 0 | 
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_METHOD                                                              #
+#                                                                              #
+################################################################################
+
+  NAME | RET_DOMAIN | ARG_DOMAIN
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_3rd
+--------------------------------------------------------------------------------
+  method_2nd | 21 |  
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : db_user
+--------------------------------------------------------------------------------
+  set_password | 0 | 
+  set_password_encoded | 0 | 
+  set_password_encoded_sha1 | 0 | 
+  add_member | 0 | 
+  drop_member | 0 | 
+  print_authorizations | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : dba.db_user
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_3rd
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_3rd
+--------------------------------------------------------------------------------
+  method_2nd | 21 |  
+--------------------------------------------------------------------------------
+
+NAME | RET_DOMAIN | ARG_DOMAIN
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CLASS_METHOD                                                        #
+#                                                                              #
+################################################################################
+
+  NAME | RET_DOMAIN | ARG_DOMAIN
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_3rd
+--------------------------------------------------------------------------------
+  method_1st | 8 |  
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : db_user
+--------------------------------------------------------------------------------
+  add_user | 0 | 
+  drop_user | 0 | 
+  find_user | 2 | 
+  login | 0 | 
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : dba.db_user
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_3rd
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_3rd
+--------------------------------------------------------------------------------
+  method_1st | 8 |  
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_METHOD_FILE                                                         #
+#                                                                              #
+################################################################################
+
+  METHOD_FILE
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_3rd
+--------------------------------------------------------------------------------
+  $home/method
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : db_user
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : dba.db_user
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_3rd
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_3rd
+--------------------------------------------------------------------------------
+  $home/method
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_SUPERCLASS                                                          #
+#                                                                              #
+################################################################################
+
+  CLASS_NAME | TYPE
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_5th
+--------------------------------------------------------------------------------
+  user_1st.table_4th | 2
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_6th
+--------------------------------------------------------------------------------
+  user_1st.table_5th | 2
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_5th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_5th
+--------------------------------------------------------------------------------
+  user_2nd.table_4th | 2
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_SUBCLASS                                                            #
+#                                                                              #
+################################################################################
+
+  CLASS_NAME | TYPE
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_4th
+--------------------------------------------------------------------------------
+  user_1st.table_5th | 2
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_5th
+--------------------------------------------------------------------------------
+  user_1st.table_6th | 2
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_7th
+--------------------------------------------------------------------------------
+  user_1st.table_7th__p__p0 | 2
+  user_1st.table_7th__p__p1 | 2
+  user_1st.table_7th__p__p2 | 2
+  user_1st.table_7th__p__p3 | 2
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_4th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_4th
+--------------------------------------------------------------------------------
+  user_2nd.table_5th | 2
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CONSTRAINT                                                          #
+#                                                                              #
+################################################################################
+
+  TYPE | NAME | ATTR_NAME | NUM_PAGES | NUM_KEYS | PRIMARY_KEY | KEY_ORDER | ASC_DESC
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_8th
+--------------------------------------------------------------------------------
+  0 | u_table_8th_column_2nd | column_2nd | 0 | 0 | 0 | 1 | A
+  1 | index_1st | column_3rd | 0 | 0 | 0 | 1 | A
+  1 | index_1st | column_4th | 0 | 0 | 0 | 2 | A
+  1 | index_2nd | column_4th | 0 | 0 | 0 | 1 | A
+  1 | index_3rd | column_5th | 0 | 0 | 0 | 1 | D
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_9th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : _db_class
+--------------------------------------------------------------------------------
+  1 | i__db_class_unique_name | unique_name | 0 | 0 | 0 | 1 | A
+  1 | i__db_class_class_name_owner | class_name | 0 | 0 | 0 | 1 | A
+  1 | i__db_class_class_name_owner | owner | 0 | 0 | 0 | 2 | A
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : dba._db_class
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_8th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_8th
+--------------------------------------------------------------------------------
+  0 | u_table_8th_column_2nd | column_2nd | 0 | 0 | 0 | 1 | A
+  1 | index_1st | column_3rd | 0 | 0 | 0 | 1 | A
+  1 | index_1st | column_4th | 0 | 0 | 0 | 2 | A
+  1 | index_2nd | column_4th | 0 | 0 | 0 | 1 | A
+  1 | index_3rd | column_5th | 0 | 0 | 0 | 1 | D
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_9th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_TRIGGER                                                             #
+#                                                                              #
+################################################################################
+
+  NAME | STATUS | EVENT | TARGET_CLASS | TARGET_ATTR | ACTION_TIME | ACTION | PRIORITY | CONDITION_TIME | CONDITION | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_1st
+--------------------------------------------------------------------------------
+  user_2nd.trigger_1st | ACTIVE | INSERT | user_2nd.table_1st |  | AFTER | insert into [user_2nd.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_2nd > trigger_1st (insert)
+  user_2nd.trigger_2nd | ACTIVE | UPDATE | user_2nd.table_1st |  | AFTER | update [user_2nd.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_2nd > trigger_2nd (update)
+  user_2nd.trigger_3rd | ACTIVE | DELETE | user_2nd.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_2nd > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_TRIGGER (PATTERN)                                                   #
+#                                                                              #
+################################################################################
+
+  NAME | STATUS | EVENT | TARGET_CLASS | TARGET_ATTR | ACTION_TIME | ACTION | PRIORITY | CONDITION_TIME | CONDITION | REMARKS
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+  user_1st.trigger_3rd | ACTIVE | DELETE | user_1st.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_1st > trigger_3rd (delete)
+  user_1st.trigger_2nd | ACTIVE | UPDATE | user_1st.table_1st |  | AFTER | update [user_1st.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_1st > trigger_2nd (update)
+  user_1st.trigger_1st | ACTIVE | INSERT | user_1st.table_1st |  | AFTER | insert into [user_1st.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_1st > trigger_1st (insert)
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table%
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %\_1%
+--------------------------------------------------------------------------------
+  user_1st.trigger_1st | ACTIVE | INSERT | user_1st.table_1st |  | AFTER | insert into [user_1st.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_1st > trigger_1st (insert)
+  user_1st.trigger_2nd | ACTIVE | UPDATE | user_1st.table_1st |  | AFTER | update [user_1st.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_1st > trigger_2nd (update)
+  user_1st.trigger_3rd | ACTIVE | DELETE | user_1st.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_1st > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %1st
+--------------------------------------------------------------------------------
+  user_1st.trigger_1st | ACTIVE | INSERT | user_1st.table_1st |  | AFTER | insert into [user_1st.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_1st > trigger_1st (insert)
+  user_1st.trigger_2nd | ACTIVE | UPDATE | user_1st.table_1st |  | AFTER | update [user_1st.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_1st > trigger_2nd (update)
+  user_1st.trigger_3rd | ACTIVE | DELETE | user_1st.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_1st > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd%
+--------------------------------------------------------------------------------
+  user_2nd.trigger_1st | ACTIVE | INSERT | user_2nd.table_1st |  | AFTER | insert into [user_2nd.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_2nd > trigger_1st (insert)
+  user_2nd.trigger_2nd | ACTIVE | UPDATE | user_2nd.table_1st |  | AFTER | update [user_2nd.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_2nd > trigger_2nd (update)
+  user_2nd.trigger_3rd | ACTIVE | DELETE | user_2nd.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_2nd > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%
+--------------------------------------------------------------------------------
+  user_2nd.trigger_1st | ACTIVE | INSERT | user_2nd.table_1st |  | AFTER | insert into [user_2nd.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_2nd > trigger_1st (insert)
+  user_2nd.trigger_2nd | ACTIVE | UPDATE | user_2nd.table_1st |  | AFTER | update [user_2nd.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_2nd > trigger_2nd (update)
+  user_2nd.trigger_3rd | ACTIVE | DELETE | user_2nd.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_2nd > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table%
+--------------------------------------------------------------------------------
+  user_2nd.trigger_1st | ACTIVE | INSERT | user_2nd.table_1st |  | AFTER | insert into [user_2nd.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_2nd > trigger_1st (insert)
+  user_2nd.trigger_2nd | ACTIVE | UPDATE | user_2nd.table_1st |  | AFTER | update [user_2nd.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_2nd > trigger_2nd (update)
+  user_2nd.trigger_3rd | ACTIVE | DELETE | user_2nd.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_2nd > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%\_1%
+--------------------------------------------------------------------------------
+  user_2nd.trigger_1st | ACTIVE | INSERT | user_2nd.table_1st |  | AFTER | insert into [user_2nd.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_2nd > trigger_1st (insert)
+  user_2nd.trigger_2nd | ACTIVE | UPDATE | user_2nd.table_1st |  | AFTER | update [user_2nd.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_2nd > trigger_2nd (update)
+  user_2nd.trigger_3rd | ACTIVE | DELETE | user_2nd.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_2nd > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.%1st
+--------------------------------------------------------------------------------
+  user_2nd.trigger_1st | ACTIVE | INSERT | user_2nd.table_1st |  | AFTER | insert into [user_2nd.table_2nd] values ([obj].[column_1st], [obj].[column_2nd]) | 0.000000 |  |  | user_2nd > trigger_1st (insert)
+  user_2nd.trigger_2nd | ACTIVE | UPDATE | user_2nd.table_1st |  | AFTER | update [user_2nd.table_2nd] set [column_2nd]=[obj].[column_2nd] where [column_1st]=[obj].[column_1st] | 0.000000 |  |  | user_2nd > trigger_2nd (update)
+  user_2nd.trigger_3rd | ACTIVE | DELETE | user_2nd.table_1st |  | BEFORE | REJECT | 0.000000 |  |  | user_2nd > trigger_3rd (delete)
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CLASS_PRIVILEGE                                                     #
+#                                                                              #
+################################################################################
+
+  CLASS_NAME | PRIVILEGE | GRANTABLE
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+--------------------------------------------------------------------------------
+  db_class | SELECT | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | YES
+  user_1st.table_1st | INSERT | YES
+  user_1st.table_1st | UPDATE | YES
+  user_1st.table_1st | DELETE | YES
+  user_1st.table_1st | ALTER | YES
+  user_1st.table_1st | INDEX | YES
+  user_1st.table_1st | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : table_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_1st
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | NO
+  user_1st.table_1st | INSERT | NO
+  user_1st.table_1st | UPDATE | NO
+  user_1st.table_1st | DELETE | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_2nd
+--------------------------------------------------------------------------------
+  user_1st.table_2nd | SELECT | YES
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_1st
+--------------------------------------------------------------------------------
+  user_2nd.table_1st | SELECT | YES
+  user_2nd.table_1st | INSERT | YES
+  user_2nd.table_1st | UPDATE | YES
+  user_2nd.table_1st | DELETE | YES
+  user_2nd.table_1st | ALTER | YES
+  user_2nd.table_1st | INDEX | YES
+  user_2nd.table_1st | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CLASS_PRIVILEGE (PATTERN)                                           #
+#                                                                              #
+################################################################################
+
+  CLASS_NAME | PRIVILEGE | GRANTABLE
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+  db_root | SELECT | NO
+  db_root | EXECUTE | NO
+  db_user | SELECT | NO
+  db_user | EXECUTE | NO
+  db_authorization | SELECT | NO
+  db_authorization | EXECUTE | NO
+  db_authorizations | SELECT | NO
+  db_authorizations | EXECUTE | NO
+  db_serial | SELECT | NO
+  db_ha_apply_info | SELECT | NO
+  dual | SELECT | NO
+  db_direct_super_class | SELECT | NO
+  db_class | SELECT | NO
+  db_vclass | SELECT | NO
+  db_attribute | SELECT | NO
+  db_attr_setdomain_elm | SELECT | NO
+  db_method | SELECT | NO
+  db_meth_arg | SELECT | NO
+  db_meth_arg_setdomain_elm | SELECT | NO
+  db_meth_file | SELECT | NO
+  db_index | SELECT | NO
+  db_index_key | SELECT | NO
+  db_auth | SELECT | NO
+  db_trig | SELECT | NO
+  db_partition | SELECT | NO
+  db_stored_procedure | SELECT | NO
+  db_stored_procedure_args | SELECT | NO
+  db_collation | SELECT | NO
+  db_charset | SELECT | NO
+  db_server | SELECT | NO
+  db_synonym | SELECT | NO
+  user_1st.table_1st | SELECT | YES
+  user_1st.table_1st | INSERT | YES
+  user_1st.table_1st | UPDATE | YES
+  user_1st.table_1st | DELETE | YES
+  user_1st.table_1st | ALTER | YES
+  user_1st.table_1st | INDEX | YES
+  user_1st.table_1st | EXECUTE | YES
+  user_1st.table_2nd | SELECT | YES
+  user_1st.table_2nd | INSERT | YES
+  user_1st.table_2nd | UPDATE | YES
+  user_1st.table_2nd | DELETE | YES
+  user_1st.table_2nd | ALTER | YES
+  user_1st.table_2nd | INDEX | YES
+  user_1st.table_2nd | EXECUTE | YES
+  user_1st.view_1st | SELECT | YES
+  user_1st.view_1st | INSERT | YES
+  user_1st.view_1st | UPDATE | YES
+  user_1st.view_1st | DELETE | YES
+  user_1st.view_1st | ALTER | YES
+  user_1st.view_1st | INDEX | YES
+  user_1st.view_1st | EXECUTE | YES
+  user_1st.view_2nd | SELECT | YES
+  user_1st.view_2nd | INSERT | YES
+  user_1st.view_2nd | UPDATE | YES
+  user_1st.view_2nd | DELETE | YES
+  user_1st.view_2nd | ALTER | YES
+  user_1st.view_2nd | INDEX | YES
+  user_1st.view_2nd | EXECUTE | YES
+  user_1st.table_3rd | SELECT | YES
+  user_1st.table_3rd | INSERT | YES
+  user_1st.table_3rd | UPDATE | YES
+  user_1st.table_3rd | DELETE | YES
+  user_1st.table_3rd | ALTER | YES
+  user_1st.table_3rd | INDEX | YES
+  user_1st.table_3rd | EXECUTE | YES
+  user_1st.table_4th | SELECT | YES
+  user_1st.table_4th | INSERT | YES
+  user_1st.table_4th | UPDATE | YES
+  user_1st.table_4th | DELETE | YES
+  user_1st.table_4th | ALTER | YES
+  user_1st.table_4th | INDEX | YES
+  user_1st.table_4th | EXECUTE | YES
+  user_1st.table_5th | SELECT | YES
+  user_1st.table_5th | INSERT | YES
+  user_1st.table_5th | UPDATE | YES
+  user_1st.table_5th | DELETE | YES
+  user_1st.table_5th | ALTER | YES
+  user_1st.table_5th | INDEX | YES
+  user_1st.table_5th | EXECUTE | YES
+  user_1st.table_6th | SELECT | YES
+  user_1st.table_6th | INSERT | YES
+  user_1st.table_6th | UPDATE | YES
+  user_1st.table_6th | DELETE | YES
+  user_1st.table_6th | ALTER | YES
+  user_1st.table_6th | INDEX | YES
+  user_1st.table_6th | EXECUTE | YES
+  user_1st.table_7th | SELECT | YES
+  user_1st.table_7th | INSERT | YES
+  user_1st.table_7th | UPDATE | YES
+  user_1st.table_7th | DELETE | YES
+  user_1st.table_7th | ALTER | YES
+  user_1st.table_7th | INDEX | YES
+  user_1st.table_7th | EXECUTE | YES
+  user_1st.table_7th__p__p0 | SELECT | YES
+  user_1st.table_7th__p__p0 | INSERT | YES
+  user_1st.table_7th__p__p0 | UPDATE | YES
+  user_1st.table_7th__p__p0 | DELETE | YES
+  user_1st.table_7th__p__p0 | ALTER | YES
+  user_1st.table_7th__p__p0 | INDEX | YES
+  user_1st.table_7th__p__p0 | EXECUTE | YES
+  user_1st.table_7th__p__p1 | SELECT | YES
+  user_1st.table_7th__p__p1 | INSERT | YES
+  user_1st.table_7th__p__p1 | UPDATE | YES
+  user_1st.table_7th__p__p1 | DELETE | YES
+  user_1st.table_7th__p__p1 | ALTER | YES
+  user_1st.table_7th__p__p1 | INDEX | YES
+  user_1st.table_7th__p__p1 | EXECUTE | YES
+  user_1st.table_7th__p__p2 | SELECT | YES
+  user_1st.table_7th__p__p2 | INSERT | YES
+  user_1st.table_7th__p__p2 | UPDATE | YES
+  user_1st.table_7th__p__p2 | DELETE | YES
+  user_1st.table_7th__p__p2 | ALTER | YES
+  user_1st.table_7th__p__p2 | INDEX | YES
+  user_1st.table_7th__p__p2 | EXECUTE | YES
+  user_1st.table_7th__p__p3 | SELECT | YES
+  user_1st.table_7th__p__p3 | INSERT | YES
+  user_1st.table_7th__p__p3 | UPDATE | YES
+  user_1st.table_7th__p__p3 | DELETE | YES
+  user_1st.table_7th__p__p3 | ALTER | YES
+  user_1st.table_7th__p__p3 | INDEX | YES
+  user_1st.table_7th__p__p3 | EXECUTE | YES
+  user_1st.table_8th | SELECT | YES
+  user_1st.table_8th | INSERT | YES
+  user_1st.table_8th | UPDATE | YES
+  user_1st.table_8th | DELETE | YES
+  user_1st.table_8th | ALTER | YES
+  user_1st.table_8th | INDEX | YES
+  user_1st.table_8th | EXECUTE | YES
+  user_1st.table_9th | SELECT | YES
+  user_1st.table_9th | INSERT | YES
+  user_1st.table_9th | UPDATE | YES
+  user_1st.table_9th | DELETE | YES
+  user_1st.table_9th | ALTER | YES
+  user_1st.table_9th | INDEX | YES
+  user_1st.table_9th | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table%
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %\_1%
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | YES
+  user_1st.table_1st | INSERT | YES
+  user_1st.table_1st | UPDATE | YES
+  user_1st.table_1st | DELETE | YES
+  user_1st.table_1st | ALTER | YES
+  user_1st.table_1st | INDEX | YES
+  user_1st.table_1st | EXECUTE | YES
+  user_1st.table_2nd | SELECT | YES
+  user_1st.table_2nd | INSERT | YES
+  user_1st.table_2nd | UPDATE | YES
+  user_1st.table_2nd | DELETE | YES
+  user_1st.table_2nd | ALTER | YES
+  user_1st.table_2nd | INDEX | YES
+  user_1st.table_2nd | EXECUTE | YES
+  user_1st.view_1st | SELECT | YES
+  user_1st.view_1st | INSERT | YES
+  user_1st.view_1st | UPDATE | YES
+  user_1st.view_1st | DELETE | YES
+  user_1st.view_1st | ALTER | YES
+  user_1st.view_1st | INDEX | YES
+  user_1st.view_1st | EXECUTE | YES
+  user_1st.view_2nd | SELECT | YES
+  user_1st.view_2nd | INSERT | YES
+  user_1st.view_2nd | UPDATE | YES
+  user_1st.view_2nd | DELETE | YES
+  user_1st.view_2nd | ALTER | YES
+  user_1st.view_2nd | INDEX | YES
+  user_1st.view_2nd | EXECUTE | YES
+  user_1st.table_3rd | SELECT | YES
+  user_1st.table_3rd | INSERT | YES
+  user_1st.table_3rd | UPDATE | YES
+  user_1st.table_3rd | DELETE | YES
+  user_1st.table_3rd | ALTER | YES
+  user_1st.table_3rd | INDEX | YES
+  user_1st.table_3rd | EXECUTE | YES
+  user_1st.table_4th | SELECT | YES
+  user_1st.table_4th | INSERT | YES
+  user_1st.table_4th | UPDATE | YES
+  user_1st.table_4th | DELETE | YES
+  user_1st.table_4th | ALTER | YES
+  user_1st.table_4th | INDEX | YES
+  user_1st.table_4th | EXECUTE | YES
+  user_1st.table_5th | SELECT | YES
+  user_1st.table_5th | INSERT | YES
+  user_1st.table_5th | UPDATE | YES
+  user_1st.table_5th | DELETE | YES
+  user_1st.table_5th | ALTER | YES
+  user_1st.table_5th | INDEX | YES
+  user_1st.table_5th | EXECUTE | YES
+  user_1st.table_6th | SELECT | YES
+  user_1st.table_6th | INSERT | YES
+  user_1st.table_6th | UPDATE | YES
+  user_1st.table_6th | DELETE | YES
+  user_1st.table_6th | ALTER | YES
+  user_1st.table_6th | INDEX | YES
+  user_1st.table_6th | EXECUTE | YES
+  user_1st.table_7th | SELECT | YES
+  user_1st.table_7th | INSERT | YES
+  user_1st.table_7th | UPDATE | YES
+  user_1st.table_7th | DELETE | YES
+  user_1st.table_7th | ALTER | YES
+  user_1st.table_7th | INDEX | YES
+  user_1st.table_7th | EXECUTE | YES
+  user_1st.table_7th__p__p0 | SELECT | YES
+  user_1st.table_7th__p__p0 | INSERT | YES
+  user_1st.table_7th__p__p0 | UPDATE | YES
+  user_1st.table_7th__p__p0 | DELETE | YES
+  user_1st.table_7th__p__p0 | ALTER | YES
+  user_1st.table_7th__p__p0 | INDEX | YES
+  user_1st.table_7th__p__p0 | EXECUTE | YES
+  user_1st.table_7th__p__p1 | SELECT | YES
+  user_1st.table_7th__p__p1 | INSERT | YES
+  user_1st.table_7th__p__p1 | UPDATE | YES
+  user_1st.table_7th__p__p1 | DELETE | YES
+  user_1st.table_7th__p__p1 | ALTER | YES
+  user_1st.table_7th__p__p1 | INDEX | YES
+  user_1st.table_7th__p__p1 | EXECUTE | YES
+  user_1st.table_7th__p__p2 | SELECT | YES
+  user_1st.table_7th__p__p2 | INSERT | YES
+  user_1st.table_7th__p__p2 | UPDATE | YES
+  user_1st.table_7th__p__p2 | DELETE | YES
+  user_1st.table_7th__p__p2 | ALTER | YES
+  user_1st.table_7th__p__p2 | INDEX | YES
+  user_1st.table_7th__p__p2 | EXECUTE | YES
+  user_1st.table_7th__p__p3 | SELECT | YES
+  user_1st.table_7th__p__p3 | INSERT | YES
+  user_1st.table_7th__p__p3 | UPDATE | YES
+  user_1st.table_7th__p__p3 | DELETE | YES
+  user_1st.table_7th__p__p3 | ALTER | YES
+  user_1st.table_7th__p__p3 | INDEX | YES
+  user_1st.table_7th__p__p3 | EXECUTE | YES
+  user_1st.table_8th | SELECT | YES
+  user_1st.table_8th | INSERT | YES
+  user_1st.table_8th | UPDATE | YES
+  user_1st.table_8th | DELETE | YES
+  user_1st.table_8th | ALTER | YES
+  user_1st.table_8th | INDEX | YES
+  user_1st.table_8th | EXECUTE | YES
+  user_1st.table_9th | SELECT | YES
+  user_1st.table_9th | INSERT | YES
+  user_1st.table_9th | UPDATE | YES
+  user_1st.table_9th | DELETE | YES
+  user_1st.table_9th | ALTER | YES
+  user_1st.table_9th | INDEX | YES
+  user_1st.table_9th | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %1st
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | YES
+  user_1st.table_1st | INSERT | YES
+  user_1st.table_1st | UPDATE | YES
+  user_1st.table_1st | DELETE | YES
+  user_1st.table_1st | ALTER | YES
+  user_1st.table_1st | INDEX | YES
+  user_1st.table_1st | EXECUTE | YES
+  user_1st.view_1st | SELECT | YES
+  user_1st.view_1st | INSERT | YES
+  user_1st.view_1st | UPDATE | YES
+  user_1st.view_1st | DELETE | YES
+  user_1st.view_1st | ALTER | YES
+  user_1st.view_1st | INDEX | YES
+  user_1st.view_1st | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : table_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st%
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | NO
+  user_1st.table_1st | INSERT | NO
+  user_1st.table_1st | UPDATE | NO
+  user_1st.table_1st | DELETE | NO
+  user_1st.table_2nd | SELECT | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.%
+--------------------------------------------------------------------------------
+  db_root | SELECT | NO
+  db_root | EXECUTE | NO
+  db_user | SELECT | NO
+  db_user | EXECUTE | NO
+  db_authorization | SELECT | NO
+  db_authorization | EXECUTE | NO
+  db_authorizations | SELECT | NO
+  db_authorizations | EXECUTE | NO
+  db_serial | SELECT | NO
+  db_ha_apply_info | SELECT | NO
+  dual | SELECT | NO
+  db_direct_super_class | SELECT | NO
+  db_class | SELECT | NO
+  db_vclass | SELECT | NO
+  db_attribute | SELECT | NO
+  db_attr_setdomain_elm | SELECT | NO
+  db_method | SELECT | NO
+  db_meth_arg | SELECT | NO
+  db_meth_arg_setdomain_elm | SELECT | NO
+  db_meth_file | SELECT | NO
+  db_index | SELECT | NO
+  db_index_key | SELECT | NO
+  db_auth | SELECT | NO
+  db_trig | SELECT | NO
+  db_partition | SELECT | NO
+  db_stored_procedure | SELECT | NO
+  db_stored_procedure_args | SELECT | NO
+  db_collation | SELECT | NO
+  db_charset | SELECT | NO
+  db_server | SELECT | NO
+  db_synonym | SELECT | NO
+  user_1st.table_1st | SELECT | NO
+  user_1st.table_1st | INSERT | NO
+  user_1st.table_1st | UPDATE | NO
+  user_1st.table_1st | DELETE | NO
+  user_1st.table_2nd | SELECT | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table%
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | NO
+  user_1st.table_1st | INSERT | NO
+  user_1st.table_1st | UPDATE | NO
+  user_1st.table_1st | DELETE | NO
+  user_1st.table_2nd | SELECT | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.%\_1%
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | NO
+  user_1st.table_1st | INSERT | NO
+  user_1st.table_1st | UPDATE | NO
+  user_1st.table_1st | DELETE | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.%1st
+--------------------------------------------------------------------------------
+  user_1st.table_1st | SELECT | NO
+  user_1st.table_1st | INSERT | NO
+  user_1st.table_1st | UPDATE | NO
+  user_1st.table_1st | DELETE | NO
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_ATTR_PRIVILEGE                                                      #
+#                                                                              #
+################################################################################
+
+  ATTR_NAME | PRIVILEGE | GRANTABLE
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+   attr_name : class_name
+--------------------------------------------------------------------------------
+  class_name | SELECT | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+   attr_name : class_name
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | SELECT | YES
+  column_1st | INSERT | YES
+  column_1st | UPDATE | YES
+  column_1st | DELETE | YES
+  column_1st | ALTER | YES
+  column_1st | INDEX | YES
+  column_1st | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | SELECT | NO
+  column_1st | INSERT | NO
+  column_1st | UPDATE | NO
+  column_1st | DELETE | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_1st
+   attr_name : column_2nd
+--------------------------------------------------------------------------------
+  column_2nd | SELECT | NO
+  column_2nd | INSERT | NO
+  column_2nd | UPDATE | NO
+  column_2nd | DELETE | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_2nd
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | SELECT | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_2nd
+   attr_name : column_2nd
+--------------------------------------------------------------------------------
+  column_2nd | SELECT | YES
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_1st
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+  column_1st | SELECT | YES
+  column_1st | INSERT | YES
+  column_1st | UPDATE | YES
+  column_1st | DELETE | YES
+  column_1st | ALTER | YES
+  column_1st | INDEX | YES
+  column_1st | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_ATTR_PRIVILEGE (PATTERN)                                            #
+#                                                                              #
+################################################################################
+
+  ATTR_NAME | PRIVILEGE | GRANTABLE
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : (null)
+--------------------------------------------------------------------------------
+  column_1st | SELECT | YES
+  column_1st | INSERT | YES
+  column_1st | UPDATE | YES
+  column_1st | DELETE | YES
+  column_1st | ALTER | YES
+  column_1st | INDEX | YES
+  column_1st | EXECUTE | YES
+  column_2nd | SELECT | YES
+  column_2nd | INSERT | YES
+  column_2nd | UPDATE | YES
+  column_2nd | DELETE | YES
+  column_2nd | ALTER | YES
+  column_2nd | INDEX | YES
+  column_2nd | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : (null)
+   attr_name : column_1st
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : column%
+--------------------------------------------------------------------------------
+  column_1st | SELECT | YES
+  column_1st | INSERT | YES
+  column_1st | UPDATE | YES
+  column_1st | DELETE | YES
+  column_1st | ALTER | YES
+  column_1st | INDEX | YES
+  column_1st | EXECUTE | YES
+  column_2nd | SELECT | YES
+  column_2nd | INSERT | YES
+  column_2nd | UPDATE | YES
+  column_2nd | DELETE | YES
+  column_2nd | ALTER | YES
+  column_2nd | INDEX | YES
+  column_2nd | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : %\_1%
+--------------------------------------------------------------------------------
+  column_1st | SELECT | YES
+  column_1st | INSERT | YES
+  column_1st | UPDATE | YES
+  column_1st | DELETE | YES
+  column_1st | ALTER | YES
+  column_1st | INDEX | YES
+  column_1st | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_1st
+   attr_name : %1st
+--------------------------------------------------------------------------------
+  column_1st | SELECT | YES
+  column_1st | INSERT | YES
+  column_1st | UPDATE | YES
+  column_1st | DELETE | YES
+  column_1st | ALTER | YES
+  column_1st | INDEX | YES
+  column_1st | EXECUTE | YES
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_1st
+   attr_name : column%
+--------------------------------------------------------------------------------
+  column_1st | SELECT | NO
+  column_1st | INSERT | NO
+  column_1st | UPDATE | NO
+  column_1st | DELETE | NO
+  column_2nd | SELECT | NO
+  column_2nd | INSERT | NO
+  column_2nd | UPDATE | NO
+  column_2nd | DELETE | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_1st
+   attr_name : %\_1%
+--------------------------------------------------------------------------------
+  column_1st | SELECT | NO
+  column_1st | INSERT | NO
+  column_1st | UPDATE | NO
+  column_1st | DELETE | NO
+--------------------------------------------------------------------------------
+
+   user_name : user_3rd
+  class_name : user_1st.table_1st
+   attr_name : %1st
+--------------------------------------------------------------------------------
+  column_1st | SELECT | NO
+  column_1st | INSERT | NO
+  column_1st | UPDATE | NO
+  column_1st | DELETE | NO
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_DIRECT_SUPER_CLASS                                                  #
+#                                                                              #
+################################################################################
+
+  CLASS_NAME | SUPER_CLASS_NAME
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_4th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_5th
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_6th
+--------------------------------------------------------------------------------
+  user_1st.table_6th | user_1st.table_5th
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_7th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_7th__p__p0
+--------------------------------------------------------------------------------
+  user_1st.table_7th__p__p0 | user_1st.table_7th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_5th
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+  user_2nd.table_5th | user_2nd.table_4th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_5th
+--------------------------------------------------------------------------------
+  user_2nd.table_5th | user_2nd.table_4th
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_DIRECT_SUPER_CLASS (PATTERN)                                        #
+#                                                                              #
+################################################################################
+
+  CLASS_NAME | SUPER_CLASS_NAME
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+  user_1st.table_6th | user_1st.table_5th
+  user_1st.table_7th__p__p0 | user_1st.table_7th
+  user_1st.table_7th__p__p1 | user_1st.table_7th
+  user_1st.table_7th__p__p2 | user_1st.table_7th
+  user_1st.table_7th__p__p3 | user_1st.table_7th
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table%
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+  user_1st.table_6th | user_1st.table_5th
+  user_1st.table_7th__p__p0 | user_1st.table_7th
+  user_1st.table_7th__p__p1 | user_1st.table_7th
+  user_1st.table_7th__p__p2 | user_1st.table_7th
+  user_1st.table_7th__p__p3 | user_1st.table_7th
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %\_5%
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : %5th
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_5th
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+  user_2nd.table_5th | user_2nd.table_4th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_1st%
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_1st.%
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+  user_1st.table_6th | user_1st.table_5th
+  user_1st.table_7th__p__p0 | user_1st.table_7th
+  user_1st.table_7th__p__p1 | user_1st.table_7th
+  user_1st.table_7th__p__p2 | user_1st.table_7th
+  user_1st.table_7th__p__p3 | user_1st.table_7th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_1st.table%
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+  user_1st.table_6th | user_1st.table_5th
+  user_1st.table_7th__p__p0 | user_1st.table_7th
+  user_1st.table_7th__p__p1 | user_1st.table_7th
+  user_1st.table_7th__p__p2 | user_1st.table_7th
+  user_1st.table_7th__p__p3 | user_1st.table_7th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_1st.%\_5%
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_1st.%5th
+--------------------------------------------------------------------------------
+  user_1st.table_5th | user_1st.table_4th
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_PRIMARY_KEY                                                         #
+#                                                                              #
+################################################################################
+
+  CLASS_NAME | ATTR_NAME | KEY_SEQ | KEY_NAME
+
+   user_name : user_1st
+  class_name : (null)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : db_class
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : dba.db_class
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : user_1st
+  class_name : table_8th
+--------------------------------------------------------------------------------
+  user_1st.table_8th | column_1st | 1 | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : table_8th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+   user_name : dba
+  class_name : user_2nd.table_8th
+--------------------------------------------------------------------------------
+  user_2nd.table_8th | column_1st | 1 | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_IMPORTED_KEYS                                                       #
+#                                                                              #
+################################################################################
+
+  PKTABLE_NAME | PKCOLUMN_NAME | FKTABLE_NAME | FKCOLUMN_NAME | KEY_SEQ | UPDATE_ACTION | DELETE_ACTION | FK_NAME | PK_NAME
+
+      user_name : user_1st
+  fk_class_name : (null)
+--------------------------------------------------------------------------------
+test_cci_schema_info.c(1164): cci_schema_info fail.
+--------------------------------------------------------------------------------
+
+      user_name : user_1st
+  fk_class_name : table_9th
+--------------------------------------------------------------------------------
+  user_1st.table_8th | column_1st | table_9th | column_2nd | 1 | 1 | 1 | fk_table_9th_column_2nd | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  fk_class_name : table_9th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  fk_class_name : user_2nd.table_9th
+--------------------------------------------------------------------------------
+  user_2nd.table_8th | column_1st | user_2nd.table_9th | column_2nd | 1 | 1 | 1 | fk_table_9th_column_2nd | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_EXPORTED_KEYS                                                       #
+#                                                                              #
+################################################################################
+
+  PKTABLE_NAME | PKCOLUMN_NAME | FKTABLE_NAME | FKCOLUMN_NAME | KEY_SEQ | UPDATE_ACTION | DELETE_ACTION | FK_NAME | PK_NAME
+
+      user_name : user_1st
+  pk_class_name : (null)
+--------------------------------------------------------------------------------
+test_cci_schema_info.c(1164): cci_schema_info fail.
+--------------------------------------------------------------------------------
+
+      user_name : user_1st
+  pk_class_name : table_8th
+--------------------------------------------------------------------------------
+  table_8th | column_1st | user_1st.table_9th | column_2nd | 1 | 1 | 1 | fk_table_9th_column_2nd | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  pk_class_name : table_8th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  pk_class_name : user_2nd.table_8th
+--------------------------------------------------------------------------------
+  user_2nd.table_8th | column_1st | user_2nd.table_9th | column_2nd | 1 | 1 | 1 | fk_table_9th_column_2nd | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+
+
+################################################################################
+#                                                                              #
+#  CCI_SCH_CROSS_REFERENCE                                                     #
+#                                                                              #
+################################################################################
+
+  PKTABLE_NAME | PKCOLUMN_NAME | FKTABLE_NAME | FKCOLUMN_NAME | KEY_SEQ | UPDATE_ACTION | DELETE_ACTION | FK_NAME | PK_NAME
+
+      user_name : user_1st
+  pk_class_name : (null)
+  fk_class_name : (null)
+--------------------------------------------------------------------------------
+test_cci_schema_info.c(1164): cci_schema_info fail.
+--------------------------------------------------------------------------------
+
+      user_name : user_1st
+  pk_class_name : (null)
+  fk_class_name : table_9th
+--------------------------------------------------------------------------------
+test_cci_schema_info.c(1164): cci_schema_info fail.
+--------------------------------------------------------------------------------
+
+      user_name : user_1st
+  pk_class_name : table_8th
+  fk_class_name : (null)
+--------------------------------------------------------------------------------
+test_cci_schema_info.c(1164): cci_schema_info fail.
+--------------------------------------------------------------------------------
+
+      user_name : user_1st
+  pk_class_name : table_8th
+  fk_class_name : table_9th
+--------------------------------------------------------------------------------
+  table_8th | column_1st | table_9th | column_2nd | 1 | 1 | 1 | fk_table_9th_column_2nd | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  pk_class_name : table_8th
+  fk_class_name : table_9th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  pk_class_name : table_8th
+  fk_class_name : user_2nd.table_9th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  pk_class_name : user_2nd.table_8th
+  fk_class_name : table_9th
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+      user_name : dba
+  pk_class_name : user_2nd.table_8th
+  fk_class_name : user_2nd.table_9th
+--------------------------------------------------------------------------------
+  user_2nd.table_8th | column_1st | user_2nd.table_9th | column_2nd | 1 | 1 | 1 | fk_table_9th_column_2nd | pk_table_8th_column_1st
+--------------------------------------------------------------------------------
+

@@ -1,0 +1,18 @@
+select * from db_class where is_system_class = 'NO' order by owner_name, class_name;
+select * from db_direct_super_class order by owner_name, class_name;
+select * from db_partition order by owner_name, partition_class_name;
+select * from db_vclass where vclass_name in ('v1') order by owner_name, vclass_name;
+select * from db_attribute where class_name in (select class_name from db_class where is_system_class = 'NO') order by owner_name, class_name, attr_name;
+select * from db_attr_setdomain_elm where class_name in (select class_name from db_class where is_system_class = 'NO') order by owner_name, class_name, attr_name;
+select * from db_auth where class_name in (select class_name from db_class where is_system_class = 'NO') order by owner_name, grantor_name, grantee_name, class_name, auth_type;
+select * from db_index where class_name in (select class_name from db_class where is_system_class = 'NO') order by owner_name, class_name, index_name;
+select * from db_index_key where class_name in (select class_name from db_class where is_system_class = 'NO') order by owner_name, class_name, index_name;
+select * from db_trig order by owner_name, trigger_name;
+select * from db_stored_procedure order by sp_name;
+select * from db_stored_procedure_args order by sp_name;
+select * from db_method where class_name in (select class_name from db_class where is_system_class = 'NO') order by owner_name, class_name, meth_name;
+select * from db_meth_arg where class_name in (select class_name from db_class where is_system_class = 'NO') order by owner_name, class_name, meth_name;
+select * from db_meth_arg_setdomain_elm order by owner_name, class_name, meth_name;
+select * from db_meth_file order by owner_name, class_name, path_name, from_owner_name, from_class_name;
+select * from db_synonym order by synonym_owner_name, synonym_name;
+select * from db_server order by owner, link_name;

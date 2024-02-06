@@ -1,0 +1,912 @@
+
+Time: 06/03/22 13:33:03.385 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 13:33:03.385 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 13:33:03.386 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 49323) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 13:33:03.386 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 49323 }
+
+Time: 06/03/22 13:38:36.470 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 13:38:36.470 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 13:38:36.470 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 51732) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 13:38:36.471 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 51732 }
+
+Time: 06/03/22 13:38:36.517 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.519 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.520 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.557 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.559 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.560 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.595 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.596 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:38:36.598 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 13:39:01.615 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user u1 password (null) program csql login youngjin host youngjinj204 pid 51917 }
+
+Time: 06/03/22 13:39:01.615 - ERROR *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 1339 ERROR CODE = -11, Tran = -1, EID = 1
+Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 51463 of host youngjinj204 since Fri Jun  3 13:38:29 2022.
+
+Time: 06/03/22 13:39:01.615 - ERROR *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 2791 ERROR CODE = -113, Tran = -1, EID = 2
+Unable to restart/initialize the database server. Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 51463 of host youngjinj204 since Fri Jun  3 13:38:29 2022.
+
+Time: 06/03/22 13:39:01.615 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is DOWN.
+
+Time: 06/03/22 13:39:01.615 - DEBUG *** file /home/youngjinj/github/develop/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/03/22 13:39:03.432 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 13:39:03.432 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 13:39:03.432 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 51931) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 13:39:03.433 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user u1 password (null) program csql login youngjin host youngjinj204 pid 51931 }
+
+Time: 06/03/22 14:11:39.649 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 14:11:39.649 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 14:11:39.649 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 65690) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 14:11:39.649 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 65690 }
+
+Time: 06/03/22 14:11:39.695 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.696 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.698 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.735 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.736 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.737 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.772 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.773 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:11:39.775 - DEBUG *** file /home/youngjinj/github/develop/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 14:35:32.019 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 14:35:32.019 - ERROR *** file /home/youngjinj/github/develop/src/connection/connection_cl.c, line 771 ERROR CODE = -353, Tran = -1, EID = 1
+Cannot make connection to master server on host "localhost".... No such file or directory
+
+Time: 06/03/22 14:35:32.019 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1751
+error -353. try to connect to next host
+
+Time: 06/03/22 14:35:32.019 - ERROR *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1783 ERROR CODE = -677, Tran = -1, EID = 2
+Failed to connect to database server, 'demodb', on the following host(s): localhost
+
+Time: 06/03/22 14:35:32.019 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1136
+boot_restart_client: boot_client_initialize_css () error -353
+
+Time: 06/03/22 14:35:37.475 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 14:35:37.475 - ERROR *** file /home/youngjinj/github/develop/src/connection/connection_cl.c, line 771 ERROR CODE = -353, Tran = -1, EID = 1
+Cannot make connection to master server on host "localhost".... No such file or directory
+
+Time: 06/03/22 14:35:37.475 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1751
+error -353. try to connect to next host
+
+Time: 06/03/22 14:35:37.475 - ERROR *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1783 ERROR CODE = -677, Tran = -1, EID = 2
+Failed to connect to database server, 'demodb', on the following host(s): localhost
+
+Time: 06/03/22 14:35:37.475 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1136
+boot_restart_client: boot_client_initialize_css () error -353
+
+Time: 06/03/22 14:35:39.334 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user ccidb password (null) program csql login youngjin host youngjinj204 pid 79357 }
+
+Time: 06/03/22 14:35:39.420 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/03/22 14:35:39.421 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/log_manager.c, line 1044
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/03/22 14:35:39.638 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/03/22 14:35:39.639 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/03/22 14:35:39.653 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/log_manager.c, line 1479
+log_initialize_internal: end of log initializaton, append_lsa = (836|1936) 
+
+Time: 06/03/22 14:35:39.674 - NOTIFICATION *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/03/22 14:35:39.674 - DEBUG *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/03/22 14:35:39.674 - NOTIFICATION *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/03/22 14:35:39.674 - DEBUG *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/03/22 14:35:39.674 - DEBUG *** file /home/youngjinj/github/develop/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/03/22 14:35:39.674 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/03/22 14:35:39.675 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1336
+boot_restart_client: unregister client { tran 1 }
+
+Time: 06/03/22 14:35:39.735 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/03/22 14:35:39.736 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = 1, EID = 5
+Server status is DOWN.
+
+Time: 06/03/22 14:35:39.736 - DEBUG *** file /home/youngjinj/github/develop/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/03/22 14:35:50.436 - ERROR *** file /home/youngjinj/github/develop/src/base/databases_file.c, line 1089 ERROR CODE = -676, Tran = -1, EID = 1
+Database 'ccidb', cannot be found in the database location file, 'databases.txt'
+
+Time: 06/03/22 14:35:50.436 - ERROR *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 908 ERROR CODE = -116, Tran = -1, EID = 2
+Database "ccidb" is unknown, or the file "databases.txt" cannot be accessed.
+
+*** The previous error message is the last one. ***
+
+
+Time: 06/03/22 14:36:04.066 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 14:36:04.066 - ERROR *** file /home/youngjinj/github/develop/src/connection/connection_cl.c, line 771 ERROR CODE = -353, Tran = -1, EID = 1
+Cannot make connection to master server on host "localhost".... No such file or directory
+
+Time: 06/03/22 14:36:04.066 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1751
+error -353. try to connect to next host
+
+Time: 06/03/22 14:36:04.066 - ERROR *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1783 ERROR CODE = -677, Tran = -1, EID = 2
+Failed to connect to database server, 'demodb', on the following host(s): localhost
+
+Time: 06/03/22 14:36:04.066 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1136
+boot_restart_client: boot_client_initialize_css () error -353
+
+Time: 06/03/22 14:36:10.936 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 79543 }
+
+Time: 06/03/22 14:36:11.028 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/03/22 14:36:11.030 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/log_manager.c, line 1044
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/03/22 14:36:11.261 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/03/22 14:36:11.261 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/03/22 14:36:11.277 - DEBUG *** file /home/youngjinj/github/develop/src/transaction/log_manager.c, line 1479
+log_initialize_internal: end of log initializaton, append_lsa = (836|2104) 
+
+Time: 06/03/22 14:36:11.299 - NOTIFICATION *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/03/22 14:36:11.299 - DEBUG *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/03/22 14:36:11.300 - NOTIFICATION *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/03/22 14:36:11.300 - DEBUG *** file /home/youngjinj/github/develop/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/03/22 14:36:11.300 - DEBUG *** file /home/youngjinj/github/develop/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/03/22 14:36:11.300 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/03/22 14:40:40.990 - DEBUG *** file /home/youngjinj/github/develop/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/03/22 14:40:40.991 - NOTIFICATION *** file /home/youngjinj/github/develop/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = 1, EID = 5
+Server status is DOWN.
+
+Time: 06/03/22 14:40:40.991 - DEBUG *** file /home/youngjinj/github/develop/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/03/22 18:50:17.158 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 255437 }
+
+Time: 06/03/22 18:50:17.158 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 1339 ERROR CODE = -11, Tran = -1, EID = 1
+Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 247414 of host youngjinj204 since Fri Jun  3 18:33:15 2022.
+
+Time: 06/03/22 18:50:17.158 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 2791 ERROR CODE = -113, Tran = -1, EID = 2
+Unable to restart/initialize the database server. Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 247414 of host youngjinj204 since Fri Jun  3 18:33:15 2022.
+
+Time: 06/03/22 18:50:17.158 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is DOWN.
+
+Time: 06/03/22 18:50:17.158 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/03/22 18:50:18.918 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 18:50:18.918 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 18:50:18.919 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 255456) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 18:50:18.919 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 255456 }
+
+Time: 06/03/22 18:50:24.259 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 18:52:20.649 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 18:52:20.649 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 18:52:20.650 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 255927) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 18:52:20.650 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 255927 }
+
+Time: 06/03/22 19:06:07.820 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 19:06:07.820 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 19:06:07.821 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 269463) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 19:06:07.821 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 269463 }
+
+Time: 06/03/22 19:06:11.497 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/parser/query_result.c, line 377 ERROR CODE = -494, Tran = 2, EID = 2
+Semantic: Class (db_class) does not have attribute [owner]. select  concat('GRANT ', group_concat(AU.auth_type order by ...
+
+Time: 06/03/22 19:06:11.497 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 2, EID = 3
+Class (db_class) does not have attribute [owner].
+
+*** The previous error message is the last one. ***
+
+
+Time: 06/03/22 19:09:07.299 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 19:09:07.299 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/connection/connection_cl.c, line 771 ERROR CODE = -353, Tran = -1, EID = 1
+Cannot make connection to master server on host "localhost".... No such file or directory
+
+Time: 06/03/22 19:09:07.299 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1751
+error -353. try to connect to next host
+
+Time: 06/03/22 19:09:07.299 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1783 ERROR CODE = -677, Tran = -1, EID = 2
+Failed to connect to database server, 'demodb', on the following host(s): localhost
+
+Time: 06/03/22 19:09:07.299 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1136
+boot_restart_client: boot_client_initialize_css () error -353
+
+Time: 06/03/22 19:09:20.992 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 19:09:20.992 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 19:09:20.992 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 280225) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/03/22 19:09:20.992 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 280225 }
+
+Time: 06/03/22 19:09:25.458 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.511 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.513 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.515 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.561 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.562 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.564 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.608 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.609 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6801
+qmgr_execute_query requested: EXECUTION_WITHOUT_AUTOCOMMIT
+
+Time: 06/03/22 19:09:36.611 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 19:09:49.420 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:34.244 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 21:34:34.244 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 21:34:34.244 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 78696) connected to database server 'demodb' on the host 'localhost' (port 1822).
+
+Time: 06/03/22 21:34:34.244 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 78696 }
+
+Time: 06/03/22 21:34:37.770 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:37.772 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:37.774 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:37.825 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:37.827 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:37.829 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:37.876 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:37.878 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:38.400 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/03/22 21:34:56.956 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/03/22 21:34:56.957 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/03/22 21:34:56.957 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 78728) connected to database server 'demodb' on the host 'localhost' (port 1822).
+
+Time: 06/03/22 21:34:56.957 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 78728 }
+
+Time: 06/04/22 11:13:43.701 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 131232 }
+
+Time: 06/04/22 11:13:43.797 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/04/22 11:13:43.799 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/log_manager.c, line 1044
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/04/22 11:13:44.044 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/04/22 11:13:44.045 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/04/22 11:13:44.048 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/log_manager.c, line 1479
+log_initialize_internal: end of log initializaton, append_lsa = (140|6488) 
+
+Time: 06/04/22 11:13:44.071 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/04/22 11:13:44.071 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/04/22 11:13:44.071 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/04/22 11:13:44.071 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/04/22 11:13:44.071 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/04/22 11:13:44.072 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/04/22 11:14:08.470 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 5
+Started to update statistics (class "dba.hi", oid : 0|207|1).
+
+Time: 06/04/22 11:14:08.470 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 6
+Finished to update statistics (class "dba.hi", oid : 0|207|1, error code : 0).
+
+Time: 06/04/22 11:14:08.475 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 7
+Started to update statistics (class "dba.tt1", oid : 0|207|2).
+
+Time: 06/04/22 11:14:08.475 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 8
+Finished to update statistics (class "dba.tt1", oid : 0|207|2, error code : 0).
+
+Time: 06/04/22 11:14:08.479 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 9
+Started to update statistics (class "dba.tt2", oid : 0|207|3).
+
+Time: 06/04/22 11:14:08.479 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 10
+Finished to update statistics (class "dba.tt2", oid : 0|207|3, error code : 0).
+
+Time: 06/04/22 11:14:08.483 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 11
+Started to update statistics (class "dba.tt3", oid : 0|207|4).
+
+Time: 06/04/22 11:14:08.483 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 12
+Finished to update statistics (class "dba.tt3", oid : 0|207|4, error code : 0).
+
+Time: 06/04/22 11:14:10.576 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1345 to disk without logging.
+
+Time: 06/04/22 11:14:10.576 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1473 to disk without logging.
+
+Time: 06/04/22 11:14:10.576 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1665 to disk without logging.
+
+Time: 06/04/22 11:14:10.641 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/04/22 11:14:10.642 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = 1, EID = 13
+Server status is DOWN.
+
+Time: 06/04/22 11:14:10.642 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/04/22 13:01:11.819 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 174507 }
+
+Time: 06/04/22 13:01:11.924 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/04/22 13:01:11.926 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/log_manager.c, line 1044
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/04/22 13:01:12.191 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/04/22 13:01:12.192 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/04/22 13:01:12.195 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/log_manager.c, line 1479
+log_initialize_internal: end of log initializaton, append_lsa = (140|6448) 
+
+Time: 06/04/22 13:01:12.219 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/04/22 13:01:12.219 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/04/22 13:01:12.220 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/04/22 13:01:12.220 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/04/22 13:01:12.220 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/04/22 13:01:12.220 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/04/22 13:01:31.676 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 5
+Started to update statistics (class "dba.test1", oid : 0|207|1).
+
+Time: 06/04/22 13:01:31.676 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 6
+Finished to update statistics (class "dba.test1", oid : 0|207|1, error code : 0).
+
+Time: 06/04/22 13:01:35.120 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 7
+Started to update statistics (class "dba.test1", oid : 0|207|1).
+
+Time: 06/04/22 13:01:35.120 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 8
+Finished to update statistics (class "dba.test1", oid : 0|207|1, error code : 0).
+
+Time: 06/04/22 13:01:35.122 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 9
+Started to update statistics (class "dba.test1", oid : 0|207|1).
+
+Time: 06/04/22 13:01:35.122 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 10
+Finished to update statistics (class "dba.test1", oid : 0|207|1, error code : 0).
+
+Time: 06/04/22 13:01:40.573 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 11
+Started to update statistics (class "dba.test2", oid : 0|207|2).
+
+Time: 06/04/22 13:01:40.573 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 12
+Finished to update statistics (class "dba.test2", oid : 0|207|2, error code : 0).
+
+Time: 06/04/22 13:01:44.618 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 13
+Started to update statistics (class "dba.test2", oid : 0|207|2).
+
+Time: 06/04/22 13:01:44.618 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 14
+Finished to update statistics (class "dba.test2", oid : 0|207|2, error code : 0).
+
+Time: 06/04/22 13:01:44.620 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 15
+Started to update statistics (class "dba.test2", oid : 0|207|2).
+
+Time: 06/04/22 13:01:44.620 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 16
+Finished to update statistics (class "dba.test2", oid : 0|207|2, error code : 0).
+
+Time: 06/04/22 13:01:49.000 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1345 to disk without logging.
+
+Time: 06/04/22 13:01:49.000 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1473 to disk without logging.
+
+Time: 06/04/22 13:01:49.000 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1665 to disk without logging.
+
+Time: 06/04/22 13:01:50.043 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/04/22 13:01:50.044 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = 1, EID = 17
+Server status is DOWN.
+
+Time: 06/04/22 13:01:50.044 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/04/22 13:03:26.441 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 177121 }
+
+Time: 06/04/22 13:03:26.528 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/04/22 13:03:26.530 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/log_manager.c, line 1044
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/04/22 13:03:26.745 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/04/22 13:03:26.745 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2213
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/04/22 13:03:26.748 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/log_manager.c, line 1479
+log_initialize_internal: end of log initializaton, append_lsa = (140|4640) 
+
+Time: 06/04/22 13:03:26.767 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/04/22 13:03:26.768 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/04/22 13:03:26.768 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/04/22 13:03:26.768 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/04/22 13:03:26.768 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/04/22 13:03:26.768 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/04/22 13:03:43.737 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 1, EID = 5
+In line 2, column 1 before '
+CREATE TABLE test1 (id int, a int) '
+Syntax error: unexpected '\', expecting SELECT or VALUE or VALUES or '('
+
+Time: 06/04/22 13:03:46.805 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 6
+Started to update statistics (class "dba.test1", oid : 0|207|1).
+
+Time: 06/04/22 13:03:46.806 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 7
+Finished to update statistics (class "dba.test1", oid : 0|207|1, error code : 0).
+
+Time: 06/04/22 13:03:51.096 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 8
+Started to update statistics (class "dba.test1", oid : 0|207|1).
+
+Time: 06/04/22 13:03:51.096 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 9
+Finished to update statistics (class "dba.test1", oid : 0|207|1, error code : 0).
+
+Time: 06/04/22 13:03:51.098 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 10
+Started to update statistics (class "dba.test1", oid : 0|207|1).
+
+Time: 06/04/22 13:03:51.098 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 11
+Finished to update statistics (class "dba.test1", oid : 0|207|1, error code : 0).
+
+Time: 06/04/22 13:03:54.537 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 12
+Started to update statistics (class "dba.test2", oid : 0|207|2).
+
+Time: 06/04/22 13:03:54.537 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 13
+Finished to update statistics (class "dba.test2", oid : 0|207|2, error code : 0).
+
+Time: 06/04/22 13:03:58.372 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 14
+Started to update statistics (class "dba.test2", oid : 0|207|2).
+
+Time: 06/04/22 13:03:58.372 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 15
+Finished to update statistics (class "dba.test2", oid : 0|207|2, error code : 0).
+
+Time: 06/04/22 13:03:58.374 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 16
+Started to update statistics (class "dba.test2", oid : 0|207|2).
+
+Time: 06/04/22 13:03:58.374 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 17
+Finished to update statistics (class "dba.test2", oid : 0|207|2, error code : 0).
+
+Time: 06/04/22 13:04:01.500 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1345 to disk without logging.
+
+Time: 06/04/22 13:04:01.500 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1473 to disk without logging.
+
+Time: 06/04/22 13:04:01.500 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/page_buffer.c, line 10023
+flushing page 0|1665 to disk without logging.
+
+Time: 06/04/22 13:04:01.538 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 2791
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/04/22 13:04:01.538 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = 1, EID = 18
+Server status is DOWN.
+
+Time: 06/04/22 13:04:01.538 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/04/22 13:05:13.392 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 179962 }
+
+Time: 06/04/22 13:05:13.393 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 1339 ERROR CODE = -11, Tran = -1, EID = 1
+Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 179708 of host youngjinj204 since Sat Jun  4 13:05:08 2022.
+
+Time: 06/04/22 13:05:13.393 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 2791 ERROR CODE = -113, Tran = -1, EID = 2
+Unable to restart/initialize the database server. Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 179708 of host youngjinj204 since Sat Jun  4 13:05:08 2022.
+
+Time: 06/04/22 13:05:13.393 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is DOWN.
+
+Time: 06/04/22 13:05:13.393 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/04/22 13:05:51.663 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 180565 }
+
+Time: 06/04/22 13:05:51.663 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/storage/file_io.c, line 1339 ERROR CODE = -11, Tran = -1, EID = 1
+Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 180227 of host youngjinj204 since Sat Jun  4 13:05:37 2022.
+
+Time: 06/04/22 13:05:51.663 - ERROR *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 2791 ERROR CODE = -113, Tran = -1, EID = 2
+Unable to restart/initialize the database server. Unable to mount disk volume "/home/youngjinj/databases/demodb/log/demodb_lgat". The database "/home/youngjinj/databases/demodb/demodb", to which the disk volume belongs, is in use by user youngjin on process 180227 of host youngjinj204 since Sat Jun  4 13:05:37 2022.
+
+Time: 06/04/22 13:05:51.663 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_sr.c, line 234  CODE = -973, Tran = -1, EID = 3
+Server status is DOWN.
+
+Time: 06/04/22 13:05:51.663 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/04/22 13:06:13.179 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/04/22 13:06:13.179 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/04/22 13:06:13.179 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 180696) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/04/22 13:06:13.180 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 180696 }
+
+Time: 06/05/22 03:49:43.386 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 03:49:43.386 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 03:49:43.386 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 219596) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 03:49:43.387 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 219596 }
+
+Time: 06/05/22 03:51:35.845 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 03:51:35.846 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 03:51:35.846 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 220544) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 03:51:35.846 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user public password (null) program csql login youngjin host youngjinj204 pid 220544 }
+
+Time: 06/05/22 03:51:44.996 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 03:51:44.996 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 03:51:44.996 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 220601) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 03:51:44.996 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 220601 }
+
+Time: 06/05/22 03:51:49.219 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 03:51:49.219 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 03:51:49.220 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 220627) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 03:51:49.220 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user public password (null) program csql login youngjin host youngjinj204 pid 220627 }
+
+Time: 06/05/22 04:10:56.546 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 04:10:56.546 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 04:10:56.547 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 235746) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 04:10:56.547 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user public password (null) program csql login youngjin host youngjinj204 pid 235746 }
+
+Time: 06/05/22 04:11:02.586 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 04:11:02.586 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 04:11:02.587 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 235787) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 04:11:02.587 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 235787 }
+
+Time: 06/05/22 04:11:06.604 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:13.831 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/parser/query_result.c, line 377 ERROR CODE = -494, Tran = 2, EID = 2
+Semantic: before ' , tt1, tt2, tt3; '
+Unknown class "dba.hi". drop [dba.hi], [dba.tt1], [dba.tt2], [dba.tt3]
+
+Time: 06/05/22 04:11:13.831 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 2, EID = 3
+before ' , tt1, tt2, tt3; '
+Unknown class "dba.hi".
+
+Time: 06/05/22 04:11:13.832 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 2, EID = 4
+before ' , tt2, tt3; '
+Unknown class "dba.tt1".
+
+Time: 06/05/22 04:11:13.832 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 2, EID = 5
+before ' , tt3; '
+Unknown class "dba.tt2".
+
+Time: 06/05/22 04:11:13.832 - SYNTAX ERROR *** file /home/youngjinj/github/CBRD-24379/src/compat/db_vdb.c, line 970 ERROR CODE = -492, Tran = 2, EID = 6
+before ' ; '
+Unknown class "dba.tt3".
+
+*** The previous error message is the last one. ***
+
+
+Time: 06/05/22 04:11:23.995 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 04:11:23.996 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 04:11:23.996 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 235920) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 04:11:23.996 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user public password (null) program csql login youngjin host youngjinj204 pid 235920 }
+
+Time: 06/05/22 04:11:30.660 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1699
+trying to connect 'demodb@localhost'
+
+Time: 06/05/22 04:11:30.660 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1721
+ping server with handshake
+
+Time: 06/05/22 04:11:30.661 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1140  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 235964) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/05/22 04:11:30.661 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/transaction/boot_cl.c, line 1190
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj204 pid 235964 }
+
+Time: 06/05/22 04:11:37.482 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.484 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.485 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.530 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.532 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.533 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.576 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.578 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/05/22 04:11:37.880 - DEBUG *** file /home/youngjinj/github/CBRD-24379/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
