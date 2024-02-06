@@ -1,0 +1,331 @@
+
+Time: 06/12/23 12:29:44.759 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1181
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj205 pid 181552 }
+
+Time: 06/12/23 12:29:44.848 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:29:44.849 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1049
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/12/23 12:29:45.078 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:29:45.078 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:29:45.081 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1477
+log_initialize_internal: end of log initializaton, append_lsa = (135|1704) 
+
+Time: 06/12/23 12:29:45.102 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/12/23 12:29:45.102 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/12/23 12:29:45.102 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/12/23 12:29:45.102 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/12/23 12:29:45.102 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/12/23 12:29:45.102 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/12/23 12:29:45.279 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1345 to disk without logging.
+
+Time: 06/12/23 12:29:45.279 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1473 to disk without logging.
+
+Time: 06/12/23 12:29:45.339 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:29:45.340 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = 1, EID = 5
+Server status is DOWN.
+
+Time: 06/12/23 12:29:45.340 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/12/23 12:46:08.331 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1181
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj205 pid 187665 }
+
+Time: 06/12/23 12:46:08.435 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:46:08.437 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1049
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/12/23 12:46:08.707 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:46:08.708 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:46:08.711 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1477
+log_initialize_internal: end of log initializaton, append_lsa = (135|1752) 
+
+Time: 06/12/23 12:46:08.736 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/12/23 12:46:08.736 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/12/23 12:46:08.736 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/12/23 12:46:08.737 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/12/23 12:46:08.737 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/12/23 12:46:08.737 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/12/23 12:46:08.951 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1345 to disk without logging.
+
+Time: 06/12/23 12:46:08.951 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1473 to disk without logging.
+
+Time: 06/12/23 12:46:09.025 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:46:09.025 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = 1, EID = 5
+Server status is DOWN.
+
+Time: 06/12/23 12:46:09.025 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/12/23 12:50:11.350 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1181
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj205 pid 190594 }
+
+Time: 06/12/23 12:50:11.448 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:50:11.450 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1049
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/12/23 12:50:11.692 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:50:11.693 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:50:11.696 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1477
+log_initialize_internal: end of log initializaton, append_lsa = (135|1704) 
+
+Time: 06/12/23 12:50:11.718 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/12/23 12:50:11.718 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/12/23 12:50:11.719 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/12/23 12:50:11.719 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/12/23 12:50:11.719 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/12/23 12:50:11.719 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/12/23 12:50:11.914 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1345 to disk without logging.
+
+Time: 06/12/23 12:50:11.914 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1473 to disk without logging.
+
+Time: 06/12/23 12:50:11.984 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:50:11.985 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = 1, EID = 5
+Server status is DOWN.
+
+Time: 06/12/23 12:50:11.985 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 750
+deleting partition cache
+
+Time: 06/12/23 12:51:31.979 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1690
+trying to connect 'demodb@localhost'
+
+Time: 06/12/23 12:51:31.979 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1712
+ping server with handshake
+
+Time: 06/12/23 12:51:31.980 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1131  CODE = -971, Tran = -1, EID = 1
+Program 'csql' (pid 191382) connected to database server 'demodb' on the host 'localhost' (port 1523).
+
+Time: 06/12/23 12:51:31.980 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1181
+boot_restart_client: register client { type 2 db demodb user user_2nd password (null) program csql login youngjin host youngjinj205 pid 191382 }
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: [_db_class] show_tables)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: [_db_class] show_tables)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: [_db_class] show_tables)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: [_db_collation] coll)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: [_db_collation] coll)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: [_db_collation] coll)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3675
+qo_reduce_joined_tables_referenced_by_foreign_key: end.
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3675
+qo_reduce_joined_tables_referenced_by_foreign_key: end.
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3675
+qo_reduce_joined_tables_referenced_by_foreign_key: end.
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: [_db_auth] au)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: [_db_auth] au)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: [_db_auth] au)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3675
+qo_reduce_joined_tables_referenced_by_foreign_key: end.
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: db_user u)
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3781
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: check parent. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3953
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: exclude. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3959
+qo_check_primary_key_referenced_by_foreign_key_in_parent_spec: irreducible. (spec: table(u.[groups]) t (g))
+
+Time: 06/12/23 12:51:37.761 - DEBUG *** file /home/youngjinj/github/pr-4415/src/optimizer/query_rewrite.c, line 3675
+qo_reduce_joined_tables_referenced_by_foreign_key: end.
+
+Time: 06/12/23 12:51:37.765 - DEBUG *** file /home/youngjinj/github/pr-4415/src/communication/network_interface_cl.c, line 6797
+qmgr_execute_query requested: EXECUTION_WITH_AUTOCOMMIT
+
+Time: 06/12/23 12:53:03.334 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/boot_cl.c, line 1181
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj205 pid 191971 }
+
+Time: 06/12/23 12:53:03.432 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:53:03.434 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1049
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 06/12/23 12:53:03.685 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:53:03.685 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/log/demodb_lgar_t
+
+Time: 06/12/23 12:53:03.688 - DEBUG *** file /home/youngjinj/github/pr-4415/src/transaction/log_manager.c, line 1477
+log_initialize_internal: end of log initializaton, append_lsa = (135|1704) 
+
+Time: 06/12/23 12:53:03.712 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 06/12/23 12:53:03.712 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 06/12/23 12:53:03.712 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 06/12/23 12:53:03.712 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 06/12/23 12:53:03.712 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 715
+creating partition cache
+
+Time: 06/12/23 12:53:03.712 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 06/12/23 12:53:03.914 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1345 to disk without logging.
+
+Time: 06/12/23 12:53:03.914 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/page_buffer.c, line 10027
+flushing page 0|1473 to disk without logging.
+
+Time: 06/12/23 12:53:03.994 - DEBUG *** file /home/youngjinj/github/pr-4415/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/log/demodb_dwb
+
+Time: 06/12/23 12:53:03.995 - NOTIFICATION *** file /home/youngjinj/github/pr-4415/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = 1, EID = 5
+Server status is DOWN.
+
+Time: 06/12/23 12:53:03.995 - DEBUG *** file /home/youngjinj/github/pr-4415/src/query/partition.c, line 750
+deleting partition cache

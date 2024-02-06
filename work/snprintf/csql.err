@@ -1,0 +1,73 @@
+
+Time: 09/05/22 11:36:12.817 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/transaction/boot_cl.c, line 1180
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login youngjin host youngjinj205 pid 91931 }
+
+Time: 09/05/22 11:36:12.906 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/demodb_dwb
+
+Time: 09/05/22 11:36:12.908 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/transaction/log_manager.c, line 1049
+LOG INITIALIZE
+	db_fullname = /home/youngjinj/databases/demodb/demodb 
+	logpath = /home/youngjinj/databases/demodb 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 09/05/22 11:36:13.148 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/demodb_lgar_t
+
+Time: 09/05/22 11:36:13.150 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/file_io.c, line 2177
+Created volume /home/youngjinj/databases/demodb/demodb_lgar_t
+
+Time: 09/05/22 11:36:13.153 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/transaction/log_manager.c, line 1477
+log_initialize_internal: end of log initializaton, append_lsa = (137|10488) 
+
+Time: 09/05/22 11:36:13.182 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/query/vacuum.c, line 986  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 09/05/22 11:36:13.182 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/query/vacuum.c, line 987
+Stand-alone vacuum start.
+
+Time: 09/05/22 11:36:13.182 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/query/vacuum.c, line 1079  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 09/05/22 11:36:13.182 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/query/vacuum.c, line 1080
+Stand-alone vacuum end.
+
+Time: 09/05/22 11:36:13.182 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/query/partition.c, line 715
+creating partition cache
+
+Time: 09/05/22 11:36:13.182 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 09/05/22 11:36:13.981 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 5
+Started to update statistics (class "u1.t1", oid : 0|207|3).
+
+Time: 09/05/22 11:36:13.981 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 6
+Finished to update statistics (class "u1.t1", oid : 0|207|3, error code : 0).
+
+Time: 09/05/22 11:36:14.005 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/storage/statistics_sr.c, line 166  CODE = -1115, Tran = 1, EID = 7
+Started to update statistics (class "u2.t1", oid : 0|207|4).
+
+Time: 09/05/22 11:36:14.005 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/storage/statistics_sr.c, line 321  CODE = -1116, Tran = 1, EID = 8
+Finished to update statistics (class "u2.t1", oid : 0|207|4, error code : 0).
+
+Time: 09/05/22 11:36:14.035 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/page_buffer.c, line 10027
+flushing page 0|193 to disk without logging.
+
+Time: 09/05/22 11:36:14.036 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/page_buffer.c, line 10027
+flushing page 0|1345 to disk without logging.
+
+Time: 09/05/22 11:36:14.036 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/page_buffer.c, line 10027
+flushing page 0|1473 to disk without logging.
+
+Time: 09/05/22 11:36:14.036 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/page_buffer.c, line 10027
+flushing page 0|1665 to disk without logging.
+
+Time: 09/05/22 11:36:14.091 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/storage/file_io.c, line 2742
+Destroyed volume /home/youngjinj/databases/demodb/demodb_dwb
+
+Time: 09/05/22 11:36:14.093 - NOTIFICATION *** file /home/youngjinj/github/CBRD-24468/src/transaction/boot_sr.c, line 232  CODE = -973, Tran = 1, EID = 9
+Server status is DOWN.
+
+Time: 09/05/22 11:36:14.093 - DEBUG *** file /home/youngjinj/github/CBRD-24468/src/query/partition.c, line 750
+deleting partition cache
