@@ -18,6 +18,9 @@ cat <<EOF >> ${TARGET_PATH}/.gitignore
 
 ## Youngjinj
 build/
+external/
+jdbc/
+java/
 .vscode/
 cscope.files
 cscope.out
