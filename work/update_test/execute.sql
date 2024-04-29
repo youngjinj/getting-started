@@ -1,0 +1,10 @@
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
+csql_C_demodb -i insert.sql
