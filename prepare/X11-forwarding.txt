@@ -1,0 +1,7 @@
+sudo vi /etc/ssh/sshd_config
+
+X11Forwarding yes
+X11UseLocalhost no
+
+# sudo yum install xorg*
+yum install -y xorg-x11-apps xorg-x11-xauth xorg-x11-server-Xorg
