@@ -25,8 +25,10 @@ fi
 cat << EOF >> $CUBRID/conf/cubrid.conf
 data_buffer_size=1G
 temp_file_memory_size_in_pages=20
-temp_file_max_size_in_pages=0
 EOF
+
+# temp_file_max_size_in_pages=0
+# dont_reuse_heap_file=y
 
 sed -i 's/^max_clients=.*/max_clients=200/g' $CUBRID/conf/cubrid.conf
 
