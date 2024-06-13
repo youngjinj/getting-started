@@ -8,6 +8,7 @@ set follow-fork-mode parent
 
 # set detach-on-fork off 
 
+# handle all nostop print
 # handle SIGPIPE nostop
 
 # set print array on
@@ -24,7 +25,7 @@ set print union on
 
 # set print repeats 0
 
-set logging overwrite on
+# set logging overwrite on
 
 # Could not load shared library symbols ...
 # set solib-search-path /home/youngjinj/CUBRID/lib
@@ -35,6 +36,29 @@ set logging overwrite on
 # set listsize 20
 
 # set substitute-path /home/perl/CUBRID /home/youngjinj/CUBRID
+
+macro define PT_NAME_ORIGINAL(n)        ((((n) != 0) & ((n)->node_type == PT_NAME)) ? (n)->info.name.original : 0)
+macro define PT_SPEC_ENTITY_NAME(n)     ((((n) != 0) & ((n)->node_type == PT_SPEC)) ? (n)->info.spec.entity_name : 0)
+macro define PT_SPEC_LOCATION(n)        ((((n) != 0) & ((n)->node_type == PT_SPEC)) ? (n)->info.spec.location : -1)
+
+macro define QO_NODE_LOCATION(n)        (((n) != 0) ? (n)->entity_spec->info.spec.location : -1)
+macro define QO_NODE_NAME(n)            (((n) != 0) ? (n)->class_name : 0)
+macro define QO_TERM_LOCATION(n)        (((n) != 0) ? (n)->location : -1)
+macro define QO_TERM_PT_EXPR(n)         (((n) != 0) ? parser_print_tree ((n)->env->parser, (n)->pt_expr) : 0)
+
+macro define OR_GET_INT(p)              ((int) ntohl (*(int *) ((char *) (p))))
+
+macro define QFILE_TUPLE_LENGTH_SIZE            8
+macro define QFILE_TUPLE_LENGTH_OFFSET          0
+
+macro define QFILE_TUPLE_VALUE_HEADER_SIZE      8
+
+macro define QFILE_TUPLE_VALUE_FLAG_OFFSET      0
+macro define QFILE_TUPLE_VALUE_LENGTH_OFFSET    4
+
+macro define QFILE_GET_TUPLE_LENGTH(t)                  (((t) != 0) ? (OR_GET_INT ((t) + QFILE_TUPLE_LENGTH_OFFSET)) : -1)
+macro define QFILE_GET_TUPLE_VALUE_FLAG(t)              (((t) != 0) ? ((QFILE_TUPLE_VALUE_FLAG) OR_GET_INT ((t) + QFILE_TUPLE_VALUE_FLAG_OFFSET)) : -1)
+macro define QFILE_GET_TUPLE_VALUE_LENGTH(t)            (((t) != 0) ? ((int) OR_GET_INT ((t) + QFILE_TUPLE_VALUE_LENGTH_OFFSET)) : -1)
 
 define pt_node_trace
   set $pt_node = $arg0
