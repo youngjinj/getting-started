@@ -1,5 +1,5 @@
 {
-        "cmake.installPrefix": "/home/youngjinj/CUBRID",
+        "cmake.installPrefix": "/home/cubrid/CUBRID",
         "cmake.parallelJobs": 80,
 	"cmake.configureSettings": {
 		"WITH_CCI" : true

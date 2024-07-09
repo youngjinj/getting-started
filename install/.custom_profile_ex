@@ -61,7 +61,7 @@ RQG_HOME=${HOME}/github/cubrid-testtools-internal/random_query_generator
 export RQG_HOME
 
 # Oracle Instant Client
-ORACLE_HOME=/home/youngjinj/install/instantclient_19_18
+ORACLE_HOME=/home/cubrid/install/instantclient_19_18
 TNS_ADMIN=${ORACLE_HOME}/network/admin
 TEMP_PATH=${ORACLE_HOME}
 TEMP_LD_LIBRARY_PATH=${ORACLE_HOME}
@@ -92,7 +92,7 @@ export PATH
 export LD_LIBRARY_PATH
 
 # unixODBC
-UNIXODBC_HOME=/home/youngjinj/install/unixODBC
+UNIXODBC_HOME=/home/cubrid/install/unixODBC
 TEMP_PATH=${UNIXODBC_HOME}/bin
 TEMP_LD_LIBRARY_PATH=${UNIXODBC_HOME}/lib
 
@@ -121,8 +121,8 @@ export PATH
 export LD_LIBRARY_PATH
 
 # PostgreSQL
-PATH=/home/youngjinj/pgsql/bin:${PATH}
-TEMP_LD_LIBRARY_PATH=/home/youngjinj/pgsql/lib
+PATH=/home/cubrid/pgsql/bin:${PATH}
+TEMP_LD_LIBRARY_PATH=/home/cubrid/pgsql/lib
 
 # Length of string is non-zero.
 if [ -n "${LD_LIBRARY_PATH}" ]; then
