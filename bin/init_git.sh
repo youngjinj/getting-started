@@ -25,4 +25,9 @@ if [ ! -e ${TARGET_PATH}/.vscode ]; then
 	sed -i "s/\"cmake.parallelJobs\": 6/\"cmake.parallelJobs\": ${CORE_COUNT}/" ${TARGET_PATH}/.vscode/settings.json
 fi
 
+${CANONICAL_PATH}/build_jsoncpp.sh ${TARGET_PATH}
+
+# deprecated
+exit
+
 ${CANONICAL_PATH}/make_ctags_cscope.sh ${TARGET_PATH}
