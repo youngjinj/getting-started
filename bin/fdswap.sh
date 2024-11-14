@@ -29,10 +29,10 @@ if [ ! -L "$FD_DST" ] && [ ! -e "$FD_DST" ]; then
 fi
 
 (
-# O_RDWR : 0x02 ( 2)
-# O_CREAT: 0x40 (64)
-# O_RDWR | O_CREAT:  0x42 (66)
-# RWX: 0600
+    # O_RDWR : 0x02 ( 2)
+    # O_CREAT: 0x40 (64)
+    # O_RDWR | O_CREAT:  0x42 (66)
+    # RWX: 0600
     echo "attach $FD_PID"
     echo "set \$fd_open = (int) open(\"$FD_DST\", 66, 0600)"
 
