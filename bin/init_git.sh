@@ -26,6 +26,7 @@ if [ ! -e ${TARGET_PATH}/.vscode ]; then
 fi
 
 ${CANONICAL_PATH}/build_jsoncpp.sh ${TARGET_PATH}
+# ${CANONICAL_PATH}/build_libevent.sh ${TARGET_PATH}
 
 if [ ! -e ${TARGET_PATH}/.github/workflows/google-java-format-1.7-all-deps.jar ]; then
 	wget https://github.com/google/google-java-format/releases/download/google-java-format-1.7/google-java-format-1.7-all-deps.jar
