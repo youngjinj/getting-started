@@ -37,6 +37,9 @@ set print union on
 
 # set substitute-path /home/perl/CUBRID /home/youngjinj/CUBRID
 
+macro define offsetof(t, f) &((t *) 0)->f
+macro define pgptr_bcb_latch_mode(pgptr) ((PGBUF_BCB *) ((PGBUF_IOPAGE_BUFFER *) ((char *) pgptr - offsetof (PGBUF_IOPAGE_BUFFER, iopage.page)))->bcb)->latch_mode
+
 macro define PT_NAME_ORIGINAL(n)        ((((n) != 0) & ((n)->node_type == PT_NAME)) ? (n)->info.name.original : 0)
 macro define PT_SPEC_ENTITY_NAME(n)     ((((n) != 0) & ((n)->node_type == PT_SPEC)) ? (n)->info.spec.entity_name : 0)
 macro define PT_SPEC_LOCATION(n)        ((((n) != 0) & ((n)->node_type == PT_SPEC)) ? (n)->info.spec.location : -1)

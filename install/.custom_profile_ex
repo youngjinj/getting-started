@@ -2,11 +2,19 @@
 
 alias vi=vim
 # alias build_cubrid="cubrid service stop; ./build.sh -t 64 -m debug -p ${HOME}/CUBRID build"
-alias build_cubrid="cubrid service stop; ./build.sh -t 64 -m debug -g ninja -p ${HOME}/CUBRID build"
-alias build_cubrid_release="cubrid service stop; ./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID build"
+# alias build_cubrid="cubrid service stop; ./build.sh -t 64 -m debug -g ninja -p ${HOME}/CUBRID build"
+# alias build_cubrid_release="cubrid service stop; ./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID build"
 alias build_cubrid_release_dist="cubrid service stop; ./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID -z tarball build dist"
 alias ninja_cubrid="cubrid service stop; cd build_x86_64_debug && ninja && ninja install && cd .."
 alias ninja_cubrid_release="cubrid service stop; cd build_x86_64_release && ninja && ninja install && cd .."
+
+# cmake --preset debug && cmake --build --preset debug --target install
+
+alias preset_debug="cmake --preset debug"
+alias preset_release="cmake --preset release"
+alias build_cubrid="preset_debug; cubrid service stop; cmake --build --preset debug --target install; ln -sf build_preset_debug/compile_commands.json compile_commands.json"
+alias build_cubrid_release="preset_release; cubrid service stop; cmake --build --preset release --target install; ln -sf build_preset_release/compile_commands.json compile_commands.json"
+alias package_cubrid="cpack -G TGZ -D CPACK_PACKAGE_NAME="CUBRID-11.4.0.1449-e497642-Linux.x86_64.tar.gz" -B ${HOME}"
 
 # Getting Started
 TEMP_PATH=${HOME}/github/getting-started/bin
