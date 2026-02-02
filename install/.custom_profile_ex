@@ -4,7 +4,7 @@ alias vi=vim
 # alias build_cubrid="cubrid service stop; ./build.sh -t 64 -m debug -p ${HOME}/CUBRID build"
 # alias build_cubrid="cubrid service stop; ./build.sh -t 64 -m debug -g ninja -p ${HOME}/CUBRID build"
 # alias build_cubrid_release="cubrid service stop; ./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID build"
-alias build_cubrid_release_dist="cubrid service stop; ./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID -z tarball build dist"
+alias build_cubrid_release_dist="cubrid service stop; ./build.sh -t 64 -m release -g ninja -p ${HOME}/CUBRID -z tarball build dist"     
 alias ninja_cubrid="cubrid service stop; cd build_x86_64_debug && ninja && ninja install && cd .."
 alias ninja_cubrid_release="cubrid service stop; cd build_x86_64_release && ninja && ninja install && cd .."
 
@@ -12,9 +12,14 @@ alias ninja_cubrid_release="cubrid service stop; cd build_x86_64_release && ninj
 
 alias preset_debug="cmake --preset debug"
 alias preset_release="cmake --preset release"
-alias build_cubrid="preset_debug; cubrid service stop; cmake --build --preset debug --target install; ln -sf build_preset_debug/compile_commands.json compile_commands.json"
-alias build_cubrid_release="preset_release; cubrid service stop; cmake --build --preset release --target install; ln -sf build_preset_release/compile_commands.json compile_commands.json"
+# alias build_cubrid="preset_debug; cubrid service stop; cmake --build --preset debug --target install; ln -sf build_preset_debug/compile_commands.json compile_commands.json"
+# alias build_cubrid_release="preset_release; cubrid service stop; cmake --build --preset release --target install; ln -sf build_preset_release/compile_commands.json compile_commands.json"
+alias build_cubrid="preset_debug; cubrid service stop; cmake --build --preset debug --target install"
+alias build_cubrid_release="preset_release; cubrid service stop; cmake --build --preset release --target install"
 alias package_cubrid="cpack -G TGZ -D CPACK_PACKAGE_NAME="CUBRID-11.4.0.1449-e497642-Linux.x86_64.tar.gz" -B ${HOME}"
+
+#source /opt/intel/oneapi/setvars.sh
+#vtune --version
 
 # Getting Started
 TEMP_PATH=${HOME}/github/getting-started/bin
@@ -69,7 +74,7 @@ RQG_HOME=${HOME}/github/cubrid-testtools-internal/random_query_generator
 export RQG_HOME
 
 # Oracle Instant Client
-ORACLE_HOME=/home/cubrid/install/instantclient_19_18
+ORACLE_HOME=${HOME}/install/instantclient_19_18
 TNS_ADMIN=${ORACLE_HOME}/network/admin
 TEMP_PATH=${ORACLE_HOME}
 TEMP_LD_LIBRARY_PATH=${ORACLE_HOME}
@@ -100,7 +105,7 @@ export PATH
 export LD_LIBRARY_PATH
 
 # unixODBC
-UNIXODBC_HOME=/home/cubrid/install/unixODBC
+UNIXODBC_HOME=${HOME}/install/unixODBC
 TEMP_PATH=${UNIXODBC_HOME}/bin
 TEMP_LD_LIBRARY_PATH=${UNIXODBC_HOME}/lib
 
@@ -129,8 +134,8 @@ export PATH
 export LD_LIBRARY_PATH
 
 # PostgreSQL
-PATH=/home/cubrid/pgsql/bin:${PATH}
-TEMP_LD_LIBRARY_PATH=/home/cubrid/pgsql/lib
+PATH=${HOME}/pgsql/bin:${PATH}
+TEMP_LD_LIBRARY_PATH=${HOME}/pgsql/lib
 
 # Length of string is non-zero.
 if [ -n "${LD_LIBRARY_PATH}" ]; then
@@ -146,7 +151,7 @@ export PATH
 export LD_LIBRARY_PATH
 
 # install
-TEMP_PATH=/home/cubrid/install/bin
+TEMP_PATH=${HOME}/install/bin
 
 # Length of string is non-zero.
 if [ -n "${PATH}" ]; then
@@ -159,3 +164,24 @@ else
 fi
 
 export PATH
+
+# benchmark
+SYSBENCH_HOME=${HOME}/benchmark/sysbench
+TEMP_PATH=${SYSBENCH_HOME}/bin
+
+# Length of string is non-zero.
+if [ -n "${PATH}" ]; then
+        if [ `echo ${PATH} | grep ${TEMP_PATH} | wc -l` == 0 ]; then
+                PATH=${TEMP_PATH}:${PATH}
+        fi
+# Length of string is zero.
+else
+        PATH=${TEMP_PATH}
+fi
+
+export SYSBENCH_HOME
+export PATH
+
+LUA_PATH="${SYSBENCH_HOME}/share/sysbench/?.lua;;"
+
+export LUA_PATH
