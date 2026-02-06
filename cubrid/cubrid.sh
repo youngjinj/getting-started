@@ -49,3 +49,24 @@ fi
 #if [ ! -d ${CUBRID_TMP} ]; then
 #        mkdir -p ${CUBRID_TMP}
 #fi
+
+#
+#  tuning setting for glib memory library
+#  
+#  For more information on environment variables, see https://www.gnu.org/software/libc/manual/html_node/Malloc-Tunable-Parameters.html.
+#  (Notice) To using the environment variables below, you should to remove comment them and add them to the export statement.
+#
+#MALLOC_MMAP_MAX_=65536            # default : 65536
+#MALLOC_MMAP_THRESHOLD_=131072     # default : 131072 (128K)
+MALLOC_TRIM_THRESHOLD_=0           # default : 131072 (128K)
+#MALLOC_ARENA_MAX=                 # default : core * 8
+export MALLOC_TRIM_THRESHOLD_
+
+#
+# preloading library for another memory library
+#
+LD_PRELOAD=/usr/lib64/libjemalloc.so.2
+export LD_PRELOAD
+
+#MALLOC_CONF="dirty_decay_ms:0,muzzy_decay_ms:0"
+#export MALLOC_CONF
