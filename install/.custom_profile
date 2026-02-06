@@ -19,7 +19,8 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 # java
-JDK_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+# JDK_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+JDK_HOME=/usr/lib/jvm/java
 
 # java-11
 # JDK_HOME=/usr/lib/jvm/java-11-openjdk

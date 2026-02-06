@@ -21,6 +21,8 @@ alias package_cubrid="cpack -G TGZ -D CPACK_PACKAGE_NAME="CUBRID-11.4.0.1449-e49
 #source /opt/intel/oneapi/setvars.sh
 #vtune --version
 
+# export ASAN_OPTIONS="log_path=/home/cubrid/asan_log/asan_log:verbosity=1"
+
 # Getting Started
 TEMP_PATH=${HOME}/github/getting-started/bin
 
