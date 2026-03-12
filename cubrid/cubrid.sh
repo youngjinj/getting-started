@@ -65,8 +65,8 @@ export MALLOC_TRIM_THRESHOLD_
 #
 # preloading library for another memory library
 #
-LD_PRELOAD=/usr/lib64/libjemalloc.so.2
-export LD_PRELOAD
+#LD_PRELOAD=/usr/lib64/libjemalloc.so.2
+#export LD_PRELOAD
 
 #MALLOC_CONF="dirty_decay_ms:0,muzzy_decay_ms:0"
 #export MALLOC_CONF

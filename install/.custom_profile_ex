@@ -21,6 +21,18 @@ alias package_cubrid="cpack -G TGZ -D CPACK_PACKAGE_NAME="CUBRID-11.4.0.1449-e49
 #source /opt/intel/oneapi/setvars.sh
 #vtune --version
 
+# Claude Code settings
+mkdir -p ${HOME}/.cache/tmp
+if [ ! -f ${HOME}/.claude/settings.json ] || [ "$(cat ${HOME}/.claude/settings.json)" = "{}" ]; then
+    cat > ${HOME}/.claude/settings.json << 'EOF'
+{
+  "env": {
+    "TMPDIR": "/home/perfopt/.cache/tmp"
+  }
+}
+EOF
+fi
+
 # Getting Started
 TEMP_PATH=${HOME}/github/getting-started/bin
 

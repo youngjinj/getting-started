@@ -7,6 +7,9 @@ export LANG="en_US.utf8"
 export LANGUAGE="en_US"
 export LC_ALL="en_US.utf8"
 
+export TMPDIR="${HOME}/.cache/tmp"
+mkdir -p "$TMPDIR"
+
 export MAKEFLAGS="-j $(nproc)"
 
 ulimit -Sc 0
