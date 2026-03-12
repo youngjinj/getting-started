@@ -7,14 +7,14 @@ else
 fi
 
 TEMP_FILE_ARRAY=(        \
-	"csql.err"       \
-	"csql.access"    \
-	"*_loaddb.log"   \
-	"*_unloaddb.log" \
+        "csql.err"       \
+        "csql.access"    \
 )
+#       "*_loaddb.log"   \                                                                                  #       "*_unloaddb.log" \
+#)
 
 for TEMP_FILE in "${TEMP_FILE_ARRAY[@]}"; do
 	find $HOME -name $TEMP_FILE -exec $COMMAND {} \;
 done
 
-find $HOME/github -name "core.*" -exec $COMMAND {} \;
+# find $HOME/github -name "core.*" -exec $COMMAND {} \;

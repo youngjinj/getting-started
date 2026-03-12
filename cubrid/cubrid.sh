@@ -70,3 +70,6 @@ export MALLOC_TRIM_THRESHOLD_
 
 #MALLOC_CONF="dirty_decay_ms:0,muzzy_decay_ms:0"
 #export MALLOC_CONF
+
+# export MALLOC_CHECK_=3           # Check Buffer Overflow, Double Free
+# export MALLOC_PERTURB_=255       # Check Use-After-Free
