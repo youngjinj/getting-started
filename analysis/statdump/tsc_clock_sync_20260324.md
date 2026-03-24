@@ -326,9 +326,22 @@ int main() {
 gcc -O2 -o clock_bench clock_bench.c && ./clock_bench
 ```
 
+## CLOCK_REALTIME 사용 코드 점검
+
+소스 내 다른 `CLOCK_REALTIME` 사용처는 변경 불필요:
+
+| 파일 | 용도 | 변경 |
+|------|------|------|
+| `src/base/tsc_timer.c:96` | 경과 시간 측정 (lock/latch wait) | **CLOCK_MONOTONIC으로 변경 완료** |
+| `src/executables/unload_object_file.c:1173` | 로그에 실제 시각 출력 (`localtime()`에 전달) | 변경 불필요 — wall clock 용도 |
+| `src/broker/cas_common_main.c:790` | 쿼리 취소 시각 기록 (절대 시각) | 변경 불필요 — wall clock 용도 |
+
+- `CLOCK_REALTIME`: "지금 몇 시인지" (로그, 타임스탬프)
+- `CLOCK_MONOTONIC`: "얼마나 걸렸는지" (경과 시간 측정)
+
 ## 관련 소스 코드
 
-- `src/base/tsc_timer.c:96` — clock_gettime 호출 (fallback 경로)
+- `src/base/tsc_timer.c:96` — clock_gettime 호출 (**CLOCK_MONOTONIC으로 변경 완료**)
 - `src/base/tsc_timer.c:201-262` — check_power_savings() 판정 로직
 - `src/transaction/lock_manager.c:3829-3835` — lock wait time 측정 및 기록
 - `src/base/perf_monitor.c:1117-1124` — perfmon_lk_waited_time_on_objects()
