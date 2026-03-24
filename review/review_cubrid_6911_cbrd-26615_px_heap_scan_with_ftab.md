@@ -376,6 +376,88 @@ for (each ftab_sector in ftab_collector)
 이렇게 하면 `pgbuf_ordered_fix` 내부에서 old 페이지와 new 페이지의 VPID 순서를
 비교하여 필요 시 재정렬할 수 있다.
 
+### 왜 old page를 hold한 채 new page를 fix해야 하는가
+
+heap scan에서 "new page를 먼저 fix, old page를 나중에 unfix"하는 순서는
+`pgbuf_ordered_fix`의 데드래치 방지 메커니즘이 정상 동작하기 위한 전제 조건이다.
+
+**기존 heap chain 순회에서의 패턴** (`heap_file.c` 3884-3899):
+```c
+vpid = next_vpid;
+
+/* 1. new page fix — old page를 아직 hold한 상태 */
+ret = pgbuf_ordered_fix (thread_p, &vpid, OLD_PAGE_PREVENT_DEALLOC,
+                          PGBUF_LATCH_READ, &pg_watcher);
+/* ↑ old page hold 중 → conditional fix → VPID 순서 비교 가능 */
+
+/* 2. old page unfix — new page fix 성공 후 */
+if (old_pg_watcher.pgptr != NULL)
+  {
+    pgbuf_ordered_unfix (thread_p, &old_pg_watcher);
+  }
+
+/* 3. 현재 페이지에서 다음 VPID 읽기 — 페이지가 fix 상태여야 가능 */
+ret = heap_vpid_next (thread_p, hfid, pg_watcher.pgptr, &next_vpid);
+```
+
+**FTAB 방식도 동일한 패턴** (`px_heap_scan_input_handler_ftabs.cpp` 132-146):
+```cpp
+/* 1. old page를 watcher로 보존 (아직 unfix 안 함) */
+pgbuf_replace_watcher (thread_p, &m_tl_scan_cache->page_watcher, &m_tl_old_page_watcher);
+
+/* 2. new page fix — old page hold 중 */
+pgbuf_ordered_fix_release (thread_p, &m_tl_vpid, ..., &m_tl_scan_cache->page_watcher, true);
+
+/* 3. old page unfix — new page fix 후 */
+if (m_tl_old_page_watcher.pgptr != NULL)
+    pgbuf_ordered_unfix (thread_p, &m_tl_old_page_watcher);
+```
+
+차이는 다음 VPID를 어디서 얻느냐 뿐이다:
+- heap chain: `heap_vpid_next()`로 **현재 fix된 페이지 내부**에서 읽음
+- FTAB: **bitmap**에서 읽음 (페이지 fix 불필요)
+
+### old page를 먼저 unfix하면 생기는 문제
+
+만약 old page를 먼저 unfix한 뒤 new page를 fix하면,
+`pgbuf_ordered_fix` 내부에서 다음 분기를 탄다 (`page_buffer.c` 12050-12060):
+
+```c
+holder = pgbuf_Pool.thrd_holder_info[thrd_idx].thrd_hold_list;
+if ((holder == NULL) || (...))
+  {
+    /* hold한 페이지가 없음 → unconditional fix */
+    latch_condition = PGBUF_UNCONDITIONAL_LATCH;
+  }
+else
+  {
+    /* hold한 페이지가 있음 → conditional fix */
+    latch_condition = PGBUF_CONDITIONAL_LATCH;
+  }
+```
+
+**old page가 없으면 `holder == NULL` → unconditional fix**가 된다.
+unconditional fix는 순서 비교 없이 무조건 기다리므로,
+다른 스레드와 역순으로 페이지를 잡아도 감지할 수 없다:
+
+```
+[old를 먼저 놓은 경우 — 데드래치 위험]
+
+Thread A: Page-100 unfix → Page-200 unconditional fix (대기)
+Thread B: Page-200 hold  → Page-100 unconditional fix (대기)
+→ 순서 비교 없이 양쪽 다 대기 → 데드래치
+
+[old를 hold한 채 fix — 데드래치 방지]
+
+Thread A: Page-100 hold → Page-200 conditional fix 시도
+          → 실패 → Page-100 unfix → 정렬 → 순서대로 refix
+→ pgbuf_ordered_fix가 순서를 보장
+```
+
+핵심: **old page를 hold한 상태여야 `pgbuf_ordered_fix`가 conditional fix를 사용하고,
+순서 위반을 감지하여 재정렬**할 수 있다. old page를 먼저 놓으면 unconditional fix로
+빠져서 ordered fix의 데드래치 방지 메커니즘이 무력화된다.
+
 `finalize()` — worker 종료 시 남은 watcher 정리 (`px_heap_scan_input_handler_ftabs.cpp` 174-188):
 ```cpp
 int input_handler_ftabs::finalize (THREAD_ENTRY *thread_p)
