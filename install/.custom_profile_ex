@@ -26,10 +26,10 @@ alias package_cubrid="cpack -G TGZ -D CPACK_PACKAGE_NAME="CUBRID-11.4.0.1449-e49
 # Claude Code settings
 mkdir -p ${HOME}/.cache/tmp
 if [ ! -f ${HOME}/.claude/settings.json ] || [ "$(cat ${HOME}/.claude/settings.json)" = "{}" ]; then
-    cat > ${HOME}/.claude/settings.json << 'EOF'
+    cat > ${HOME}/.claude/settings.json << EOF
 {
   "env": {
-    "TMPDIR": "/home/perfopt/.cache/tmp"
+    "TMPDIR": "${HOME}/.cache/tmp"
   }
 }
 EOF
