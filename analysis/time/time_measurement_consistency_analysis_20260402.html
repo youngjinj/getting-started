@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUBRID 시간 측정 일관성 분석</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    color: #1a1a2e;
+    background: #f5f6fa;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .layout {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* TOC sidebar */
+  .toc {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    width: 260px;
+    min-width: 260px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 16px 24px 20px;
+    background: #1a1a2e;
+    color: #c8c8d8;
+    font-size: 13px;
+    scrollbar-width: thin;
+    scrollbar-color: #3a3a5e #1a1a2e;
+    z-index: 100;
+  }
+  .toc::-webkit-scrollbar { width: 5px; }
+  .toc::-webkit-scrollbar-track { background: #1a1a2e; }
+  .toc::-webkit-scrollbar-thumb { background: #3a3a5e; border-radius: 3px; }
+
+  .toc-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #8be9fd;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2a2a4e;
+  }
+
+  .toc ul { list-style: none; padding-left: 0; }
+  .toc li { margin-bottom: 2px; }
+  .toc a {
+    display: block;
+    color: #a0a0c0;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all .15s;
+    line-height: 1.4;
+  }
+  .toc a:hover { color: #fff; background: #2a2a4e; }
+  .toc a.active { color: #8be9fd; background: #2a2a4e; font-weight: 600; }
+
+  .toc .toc-h2 { font-weight: 600; margin-top: 8px; }
+  .toc .toc-h3 { padding-left: 16px; font-size: 12px; }
+  .toc .toc-h4 { padding-left: 28px; font-size: 11.5px; }
+
+  /* Main content */
+  .content {
+    flex: 1;
+    min-width: 0;
+    padding: 40px 48px 80px 48px;
+    background: #fff;
+    border-left: 1px solid #e0e0e8;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f0f23;
+    margin-bottom: 12px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid #4361ee;
+  }
+
+  .meta {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 32px;
+    line-height: 1.8;
+  }
+  .meta strong { color: #333; }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f0f23;
+    margin-top: 48px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8e8f0;
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #16213e;
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2d3a5e;
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+
+  p { margin-bottom: 12px; }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e0e0e8;
+    margin: 36px 0;
+  }
+
+  strong { color: #16213e; }
+
+  code {
+    font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+    background: #f0f1f6;
+    color: #c7254e;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+
+  pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0 16px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: 13px;
+  }
+  pre .cm { color: #6c7086; }
+  pre .kw { color: #cba6f7; }
+  pre .st { color: #a6e3a1; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 13.5px;
+  }
+  th {
+    background: #f0f1f6;
+    font-weight: 700;
+    color: #16213e;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid #d0d0e0;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eaeaf0;
+    vertical-align: top;
+  }
+  tr:hover td { background: #f8f8fc; }
+
+  ul, ol { margin: 8px 0 16px 24px; }
+  li { margin-bottom: 4px; }
+
+  .callout {
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  .callout-warning { background: #fff8e1; border-left: 4px solid #ffb300; }
+  .callout-info { background: #e8f4fd; border-left: 4px solid #4361ee; }
+  .callout-note { background: #f3f0ff; border-left: 4px solid #7c4dff; }
+
+  .summary-box {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f1f6 100%);
+    border: 1px solid #d8d8e8;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+
+  .tier {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .tier-0 { background: #e8f5e9; color: #2e7d32; }
+  .tier-1 { background: #e3f2fd; color: #1565c0; }
+  .tier-2 { background: #fff3e0; color: #ef6c00; }
+  .tier-3 { background: #fce4ec; color: #c62828; }
+
+  .chk {
+    display: inline-block;
+    width: 15px; height: 15px;
+    border: 2px solid #999;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .scroll-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 40px; height: 40px;
+    background: #4361ee;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    z-index: 200;
+  }
+  .scroll-top:hover { background: #3451de; }
+
+  @media (max-width: 900px) {
+    .toc { display: none; }
+    .content { padding: 24px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="toc-title">목차</div>
+    <ul>
+      <li class="toc-h2"><a href="#summary">요약</a></li>
+      <li class="toc-h3"><a href="#summary-problem">문제</a></li>
+      <li class="toc-h3"><a href="#summary-change">핵심 변경</a></li>
+      <li class="toc-h3"><a href="#summary-scope">변경 범위</a></li>
+      <li class="toc-h3"><a href="#summary-impact">영향도</a></li>
+      <li class="toc-h2"><a href="#sec1">1. 배경</a></li>
+      <li class="toc-h2"><a href="#sec2">2. 사전 지식: 시간을 읽는 두 가지 방법</a></li>
+      <li class="toc-h3"><a href="#sec2-1">2.1 Wall Clock</a></li>
+      <li class="toc-h3"><a href="#sec2-2">2.2 Monotonic Clock</a></li>
+      <li class="toc-h3"><a href="#sec2-3">2.3 Wall Clock의 문제</a></li>
+      <li class="toc-h3"><a href="#sec2-4">2.4 C/C++ API 대응 관계</a></li>
+      <li class="toc-h3"><a href="#sec2-5">2.5 high_resolution_clock의 함정</a></li>
+      <li class="toc-h3"><a href="#sec2-6">2.6 COARSE 계열의 해상도 문제</a></li>
+      <li class="toc-h3"><a href="#sec2-7">2.7 용도별 올바른 clock 선택</a></li>
+      <li class="toc-h3"><a href="#sec2-8">2.8 CUBRID에서의 실제 영향</a></li>
+      <li class="toc-h2"><a href="#sec3">3. 호출스택 분석</a></li>
+      <li class="toc-h3"><a href="#sec3-1">3.1 cubperf::clock</a></li>
+      <li class="toc-h4"><a href="#sec3-1-1">3.1.1 데몬 스레드 루프</a></li>
+      <li class="toc-h4"><a href="#sec3-1-2">3.1.2 로그 복구 (redo)</a></li>
+      <li class="toc-h3"><a href="#sec3-2">3.2 cubmonitor::clock_type</a></li>
+      <li class="toc-h4"><a href="#sec3-2-1">3.2.1 Lockfree 해시맵</a></li>
+      <li class="toc-h3"><a href="#sec3-3">3.3 system_clock (thread)</a></li>
+      <li class="toc-h4"><a href="#sec3-3-1">3.3.1 thread_looper</a></li>
+      <li class="toc-h4"><a href="#sec3-3-2">3.3.2 thread_waiter</a></li>
+      <li class="toc-h4"><a href="#sec3-3-3">3.3.3 thread_worker_pool</a></li>
+      <li class="toc-h3"><a href="#sec3-4">3.4 호출 빈도 요약</a></li>
+      <li class="toc-h2"><a href="#sec4">4. clock_gettime 사용 현황</a></li>
+      <li class="toc-h2"><a href="#sec5">5. std::chrono 사용 현황</a></li>
+      <li class="toc-h3"><a href="#sec5-1">5.1 high_resolution_clock</a></li>
+      <li class="toc-h3"><a href="#sec5-2">5.2 system_clock 경과 시간</a></li>
+      <li class="toc-h3"><a href="#sec5-3">5.3 이미 올바른 사용</a></li>
+      <li class="toc-h2"><a href="#sec6">6. gettimeofday 사용 현황</a></li>
+      <li class="toc-h3"><a href="#sec6-4">6.4 Broker/CAS 상세 분류</a></li>
+      <li class="toc-h3"><a href="#sec6-5">6.5 별도 작업 분리 이유</a></li>
+      <li class="toc-h3"><a href="#sec6-6">6.6 단계별 접근</a></li>
+      <li class="toc-h2"><a href="#sec7">7. TSC 관련</a></li>
+      <li class="toc-h2"><a href="#sec8">8. 변경 대상 파일 요약</a></li>
+      <li class="toc-h2"><a href="#sec9">9. 검증 방법</a></li>
+      <li class="toc-h2"><a href="#sec10">10. clock 종류별 특성</a></li>
+      <li class="toc-h2"><a href="#sec11">11. 실측 결과</a></li>
+      <li class="toc-h3"><a href="#sec11-1">11.1 COARSE vs MONOTONIC</a></li>
+      <li class="toc-h3"><a href="#sec11-2">11.2 high_resolution_clock 실측</a></li>
+      <li class="toc-h3"><a href="#sec11-3">11.3 NTP 영향 시나리오</a></li>
+      <li class="toc-h2"><a href="#sec12">12. 기존 API 구조 분석</a></li>
+      <li class="toc-h3"><a href="#sec12-1">12.1 시간 측정 API 목록</a></li>
+      <li class="toc-h3"><a href="#sec12-2">12.2 엔진: 이미 중앙화</a></li>
+      <li class="toc-h3"><a href="#sec12-4">12.4 합칠 수 있는가?</a></li>
+      <li class="toc-h3"><a href="#sec12-6">12.6 결론</a></li>
+      <li class="toc-h2"><a href="#sec13">13. Docker/VM 환경</a></li>
+      <li class="toc-h3"><a href="#sec13-1">13.1 Docker 컨테이너</a></li>
+      <li class="toc-h3"><a href="#sec13-2">13.2 가상 머신 (VM)</a></li>
+      <li class="toc-h3"><a href="#sec13-3">13.3 VM 일시중지 edge case</a></li>
+      <li class="toc-h3"><a href="#sec13-4">13.4 결론</a></li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <h1>CUBRID 시간 측정 일관성 분석</h1>
+    <div class="meta">
+      <strong>작성자:</strong> youngjinj &nbsp;&middot;&nbsp;
+      <strong>분석일:</strong> 2026-04-02 &nbsp;&middot;&nbsp;
+      <strong>브랜치:</strong> upstream/develop (<code>de17d0d2e</code>)<br>
+      <strong>목적:</strong> 경과 시간(elapsed time) 측정에 monotonic clock을 일관되게 사용하도록 전수 조사
+    </div>
+
+    <!-- 요약 -->
+    <h2 id="summary">요약</h2>
+    <div class="summary-box">
+      <h3 id="summary-problem">문제</h3>
+      <p>CUBRID 엔진에서 경과 시간(elapsed time)을 측정하는 코드가 non-monotonic clock을 사용하고 있다.
+      non-monotonic clock은 NTP 동기화, 수동 시계 변경, VM 마이그레이션 등 외부 요인에 의해
+      시간이 앞/뒤로 점프할 수 있어 경과 시간이 음수이거나 비정상적으로 큰 값이 될 수 있다.</p>
+      <p>해당 코드는 테스트 코드가 아니라 <strong>운영 중인 엔진의 성능 통계 수집, 스레드 sleep/wake 제어,
+      로그 복구 성능 추적, lockfree 해시맵 연산 측정</strong> 등 핵심 경로에서 사용되고 있다.</p>
+
+      <h3 id="summary-change">핵심 변경</h3>
+      <p>경과 시간 측정에 사용되는 clock을 monotonic clock으로 통일한다.</p>
+      <table>
+        <thead><tr><th>변경</th><th>현재 (non-monotonic)</th><th>변경 후 (monotonic)</th></tr></thead>
+        <tbody>
+          <tr><td>C API</td><td><code>CLOCK_REALTIME_COARSE</code></td><td><code>CLOCK_MONOTONIC</code></td></tr>
+          <tr><td>C++ 성능 통계</td><td><code>std::chrono::high_resolution_clock</code></td><td><code>std::chrono::steady_clock</code></td></tr>
+          <tr><td>C++ 스레드 인프라</td><td><code>std::chrono::system_clock</code></td><td><code>std::chrono::steady_clock</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="summary-scope">변경 범위</h3>
+      <table>
+        <thead><tr><th>Tier</th><th>대상</th><th>파일 수</th><th>변경 곳 수</th><th>위험도</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tier tier-0">Tier 0</span></td><td>tsc_timer (C API fallback)</td><td>1</td><td>1</td><td>낮음</td></tr>
+          <tr><td><span class="tier tier-1">Tier 1</span></td><td>성능 통계 clock 정의 (cubperf, cubmonitor)</td><td>2</td><td>2</td><td>낮음</td></tr>
+          <tr><td><span class="tier tier-2">Tier 2</span></td><td>스레드 인프라 + 커넥션 풀</td><td>6</td><td>18</td><td>낮음</td></tr>
+          <tr><td><span class="tier tier-3">Tier 3</span></td><td>Broker/CAS gettimeofday (별도 작업 권장)</td><td>14+</td><td>50+</td><td>중간~높음</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="summary-impact">영향도</h3>
+      <h4>Tier 0~2 (이번 변경 대상, 9개 파일)</h4>
+      <ul>
+        <li><code>cubperf::clock</code>을 사용하는 <strong>13개 파일</strong>이 재컴파일 필요 (코드 변경은 불필요)</li>
+        <li><code>cubrid statdump</code> 성능 통계 출력에 영향 (값이 더 정확해짐)</li>
+        <li>모든 daemon 스레드 (checkpoint, log flush, vacuum 등)의 sleep 주기 계산에 영향</li>
+        <li>lockfree 해시맵(트랜잭션 테이블, 세션 관리)의 연산 시간 측정에 영향</li>
+        <li>로그 복구(redo) 성능 추적에 영향</li>
+        <li>slow query 추적 시 lock/latch 대기 시간 측정에 영향 (<code>thread_entry.cpp</code>)</li>
+        <li>서버 shutdown timeout 계산에 영향 (<code>connection_pool.cpp</code>)</li>
+        <li><code>steady_clock</code>과 <code>system_clock</code>의 <code>duration</code> 타입이 동일(<code>nanoseconds</code>)하므로 <strong>API/ABI 호환성 유지</strong></li>
+        <li>실측 결과 해상도/오버헤드 차이 없음 (둘 다 ~20ns)</li>
+      </ul>
+      <div class="callout callout-warning">
+        <strong>주의:</strong> GCC 8의 <code>condition_variable</code>은 내부적으로 <code>system_clock</code> 기반이므로,
+        <code>wait_for</code>/<code>wait_until</code>의 pthread 레벨 대기는 변경 후에도 NTP 영향을 받을 수 있음.
+        경과 시간 계산(looper, worker_pool, thread_entry, cubperf, cubmonitor)은 즉시 효과가 있으며,
+        향후 GCC 11+ / glibc 2.30+ 전환 시 <code>condition_variable</code>도 자동으로 monotonic 대기가 활성화됨.
+      </div>
+
+      <h4>Tier 3 (별도 작업, Broker/CAS)</h4>
+      <ul>
+        <li><code>struct timeval</code> &rarr; <code>struct timespec</code> 자료형 전환 필요</li>
+        <li>경과 시간과 wall clock 이중 용도 분리 필요</li>
+        <li><code>pthread_cond_timedwait</code> clock 속성 변경 필요</li>
+        <li>전역 변수 <code>tran_start_time</code>/<code>query_start_time</code> 리팩토링 필요</li>
+        <li>별도 프로세스이고 coarse metric 용도이므로 실질적 위험은 낮아 별도 작업으로 분리 권장</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- 1. 배경 -->
+    <h2 id="sec1">1. 배경</h2>
+    <p><code>tsc_timer.c</code>에서 <code>CLOCK_REALTIME_COARSE</code> &rarr; <code>CLOCK_MONOTONIC</code> 변경을 계기로
+    코드베이스 전체에서 시간 측정에 사용하는 clock을 전수 조사하였다.</p>
+
+    <hr>
+
+    <!-- 2. 사전 지식 -->
+    <h2 id="sec2">2. 사전 지식: 컴퓨터에서 "시간"을 읽는 두 가지 방법</h2>
+    <p>프로그램에서 시간을 읽을 때, 근본적으로 다른 두 종류의 시계가 있다. 이 차이를 이해하는 것이 이 문서의 핵심이다.</p>
+
+    <h3 id="sec2-1">2.1 Wall Clock (벽시계) &mdash; "지금 몇 시인가?"</h3>
+    <p>일상에서 벽에 걸린 시계를 보는 것과 같다. "2026년 4월 2일 오후 3시 15분"처럼 실제 날짜와 시각을 알려준다.</p>
+    <ul>
+      <li>C API: <code>clock_gettime(CLOCK_REALTIME, ...)</code> 또는 <code>gettimeofday()</code></li>
+      <li>C++ API: <code>std::chrono::system_clock</code></li>
+      <li>Unix epoch(1970-01-01 00:00:00 UTC)부터의 초 단위 값을 반환</li>
+    </ul>
+    <p><strong>특징: 외부 요인에 의해 값이 바뀔 수 있다.</strong></p>
+    <table>
+      <thead><tr><th>상황</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td><strong>NTP 동기화</strong></td><td>대부분의 서버는 NTP로 시계를 자동 맞춤. 시계가 많이 어긋나면 한번에 수초~수분을 점프시킴 (step 조정)</td></tr>
+        <tr><td><strong>관리자 수동 변경</strong></td><td><code>date -s "12:05:00"</code> 같은 명령으로 시계를 앞/뒤로 변경</td></tr>
+        <tr><td><strong>VM 마이그레이션</strong></td><td>가상 머신이 다른 호스트로 이동하면 호스트 시간과 동기화하면서 점프</td></tr>
+        <tr><td><strong>윤초(leap second)</strong></td><td>매우 드물지만 UTC에 1초가 추가/삭제될 때 영향</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec2-2">2.2 Monotonic Clock (단조 시계) &mdash; "시작 이후 얼마나 지났는가?"</h3>
+    <p>스톱워치와 같다. 시작 버튼을 누른 뒤 흐른 시간만 측정한다. "지금 몇 시인지"는 알 수 없지만, "얼마나 걸렸는지"는 정확히 알 수 있다.</p>
+    <ul>
+      <li>C API: <code>clock_gettime(CLOCK_MONOTONIC, ...)</code></li>
+      <li>C++ API: <code>std::chrono::steady_clock</code></li>
+      <li>시스템 부팅 이후 경과한 시간 (또는 임의의 기준점 이후)을 반환</li>
+    </ul>
+    <p><strong>특징: 외부 요인에 절대 영향받지 않는다.</strong>
+    NTP가 시계를 바꾸든, 관리자가 <code>date</code> 명령을 실행하든, VM이 마이그레이션되든 이 시계는 항상 앞으로만 간다.</p>
+
+    <h3 id="sec2-3">2.3 왜 경과 시간 측정에 Wall Clock을 쓰면 안 되는가?</h3>
+    <p>경과 시간 측정의 기본 패턴:</p>
+    <pre><code>start = 현재_시간()
+... 작업 수행 ...
+end = 현재_시간()
+elapsed = end - start    &larr; 이 값이 정확해야 함</code></pre>
+
+    <p><strong>Wall Clock 사용 시:</strong></p>
+    <pre><code>start = 12:00:00.000  (wall clock)
+... 작업 수행 (실제 0.05초 소요) ...
+(이 사이에 NTP가 시계를 -2초 조정!)
+end   = 11:59:58.050  (wall clock)
+
+elapsed = end - start = -1.95초 (음수!)</code></pre>
+
+    <p><strong>Monotonic Clock 사용 시:</strong></p>
+    <pre><code>start = 100000.000  (monotonic)
+... 작업 수행 (실제 0.05초 소요) ...
+(NTP 조정 발생 &rarr; monotonic에는 영향 없음)
+end   = 100000.050  (monotonic)
+
+elapsed = end - start = 0.050초 (항상 정확!)</code></pre>
+
+    <h3 id="sec2-4">2.4 C API와 C++ API의 대응 관계</h3>
+    <table>
+      <thead><tr><th>용도</th><th>C API</th><th>C++ API</th><th>Monotonic?</th></tr></thead>
+      <tbody>
+        <tr><td>현재 시각 (wall clock)</td><td><code>clock_gettime(CLOCK_REALTIME)</code></td><td><code>std::chrono::system_clock</code></td><td>&#10060;</td></tr>
+        <tr><td>경과 시간 측정</td><td><code>clock_gettime(CLOCK_MONOTONIC)</code></td><td><code>std::chrono::steady_clock</code></td><td>&#9989;</td></tr>
+        <tr><td>고해상도 (구현 의존)</td><td>&mdash;</td><td><code>std::chrono::high_resolution_clock</code></td><td>&#9888;&#65039; 구현마다 다름</td></tr>
+        <tr><td>저해상도 wall clock</td><td><code>clock_gettime(CLOCK_REALTIME_COARSE)</code></td><td>&mdash;</td><td>&#10060;</td></tr>
+        <tr><td>저해상도 monotonic</td><td><code>clock_gettime(CLOCK_MONOTONIC_COARSE)</code></td><td>&mdash;</td><td>&#9989; (해상도 ~1ms)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec2-5">2.5 high_resolution_clock의 함정</h3>
+    <p><code>std::chrono::high_resolution_clock</code>은 "가장 높은 해상도의 시계"를 의도한 타입이지만,
+    C++ 표준은 이것이 monotonic인지 아닌지를 <strong>규정하지 않는다</strong>.</p>
+    <p><strong>실제 구현:</strong></p>
+    <ul>
+      <li><strong>libstdc++ (GCC)</strong>: <code>high_resolution_clock</code> = <code>system_clock</code> (non-monotonic)</li>
+      <li><strong>libc++ (Clang)</strong>: <code>high_resolution_clock</code> = <code>steady_clock</code> (monotonic)</li>
+      <li><strong>MSVC</strong>: <code>high_resolution_clock</code> = <code>steady_clock</code> (monotonic)</li>
+    </ul>
+    <p>CUBRID는 GCC + libstdc++로 빌드하므로, <code>high_resolution_clock</code>은 <code>system_clock</code>과 동일하다.
+    즉, <strong>경과 시간 측정에 사용하면 안 되는 non-monotonic clock</strong>이다.</p>
+    <pre><code><span class="cm">// GCC 8 libstdc++ 소스</span>
+<span class="kw">using</span> high_resolution_clock = system_clock;
+
+<span class="cm">// 실측 결과</span>
+high_resolution_clock == system_clock ? YES (= system_clock, non-monotonic!)
+high_resolution_clock == steady_clock ? NO</code></pre>
+
+    <h3 id="sec2-6">2.6 COARSE 계열의 해상도 문제</h3>
+    <p><code>CLOCK_REALTIME_COARSE</code>와 <code>CLOCK_MONOTONIC_COARSE</code>는 커널의 tick 업데이트 주기에
+    의존하는 저해상도 시계이다. 호출 오버헤드가 매우 낮지만(~6ns), 해상도가 ~1ms이다.
+    "1ms보다 짧은 시간은 전부 0으로 측정된다"는 뜻이다.</p>
+    <table>
+      <thead><tr><th>비교 항목</th><th>COARSE 계열</th><th>일반 (MONOTONIC/REALTIME)</th></tr></thead>
+      <tbody>
+        <tr><td>해상도</td><td>~1ms (1,000,000ns)</td><td>1ns</td></tr>
+        <tr><td>호출 오버헤드</td><td>~6ns</td><td>~20ns</td></tr>
+        <tr><td>1ms 미만 측정</td><td>&#10060; 불가능 (항상 0)</td><td>&#9989; 가능</td></tr>
+        <tr><td>적합 용도</td><td>초 단위 timeout, 빈번한 타임스탬프</td><td>정밀 경과 시간 측정</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec2-7">2.7 요약: 용도별 올바른 clock 선택</h3>
+    <table>
+      <thead><tr><th>질문</th><th>올바른 clock</th><th>설명</th></tr></thead>
+      <tbody>
+        <tr><td><strong>"지금 몇 시야?"</strong></td><td><code>CLOCK_REALTIME</code> / <code>system_clock</code></td><td>외부 조정 영향 받아도 OK</td></tr>
+        <tr><td><strong>"얼마나 걸렸어?"</strong></td><td><code>CLOCK_MONOTONIC</code> / <code>steady_clock</code></td><td>외부 조정 영향 안 받음</td></tr>
+        <tr><td><strong>high_resolution_clock</strong></td><td><strong>사용하지 말 것</strong></td><td><code>steady_clock</code>을 직접 사용</td></tr>
+        <tr><td><strong>COARSE 계열</strong></td><td><strong>정밀 측정에는 사용 불가</strong></td><td>초 단위 timeout 등에만</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec2-8">2.8 CUBRID에서의 실제 영향</h3>
+
+    <h4>1. 성능 통계가 왜곡될 수 있다 (cubperf, cubmonitor)</h4>
+    <p><code>cubrid statdump</code>의 성능 통계가 내부적으로 <code>cubperf::clock::now()</code>를 사용한다. 이것이 <code>system_clock</code>이면:</p>
+    <ul>
+      <li>NTP step 조정 시 timer 통계가 <strong>음수</strong>이거나 <strong>비정상적으로 큰 값</strong>이 됨</li>
+      <li>성능 분석 시 잘못된 결론을 내릴 수 있음</li>
+    </ul>
+
+    <h4>2. 스레드 대기 시간이 왜곡될 수 있다 (thread_waiter)</h4>
+    <ul>
+      <li>시계가 <strong>앞으로</strong> 가면 &rarr; 대기가 즉시 풀림 (예상보다 빨리 깨어남)</li>
+      <li>시계가 <strong>뒤로</strong> 가면 &rarr; 대기가 늘어남 (예상보다 오래 잠듦)</li>
+    </ul>
+
+    <h4>3. 스레드 루퍼 주기가 왜곡될 수 있다 (thread_looper)</h4>
+    <pre><code>실행 시간 = now() - 시작 시점
+sleep 시간 = 주기 - 실행 시간</code></pre>
+    <p><code>system_clock</code>이면 NTP 조정으로 <code>실행 시간</code>이 왜곡되어 sleep 주기가 비정상적으로 길거나 짧아질 수 있다.</p>
+
+    <h4>4. 해상도 부족으로 측정 자체가 불가능하다 (CLOCK_REALTIME_COARSE)</h4>
+    <p><code>tsc_timer.c</code>는 마이크로초(us) 단위 경과 시간을 측정하는 함수인데,
+    <code>CLOCK_REALTIME_COARSE</code>(해상도 1ms)를 사용하면 1ms 미만의 작업이 전부 0으로 측정된다.</p>
+
+    <hr>
+
+    <!-- 3. 호출스택 분석 -->
+    <h2 id="sec3">3. 호출스택 분석: 어디서 어떻게 clock이 사용되는가</h2>
+
+    <h3 id="sec3-1">3.1 cubperf::clock (perf_def.hpp) &mdash; 성능 통계 수집</h3>
+    <p><strong>핵심 함수들 (src/base/perf.hpp):</strong></p>
+    <table>
+      <thead><tr><th>함수</th><th>역할</th><th>clock::now() 호출 위치</th></tr></thead>
+      <tbody>
+        <tr><td><code>generic_time()</code></td><td>경과 시간을 통계에 기록</td><td>perf.hpp:304</td></tr>
+        <tr><td><code>generic_time_and_increment()</code></td><td>경과 시간 기록 + 카운터 증가</td><td>perf.hpp:351</td></tr>
+        <tr><td><code>reset_timept()</code></td><td>측정 시작 시점을 현재로 재설정</td><td>perf.hpp:642</td></tr>
+        <tr><td><code>generic_statset</code> 생성자</td><td>통계 셋 생성 시 시작 시점 초기화</td><td>perf.hpp:484</td></tr>
+        <tr><td><code>generic_stat_timer</code> 생성자</td><td>타이머 생성 시 시작 시점 초기화</td><td>perf.hpp:536</td></tr>
+      </tbody>
+    </table>
+
+    <h4 id="sec3-1-1">3.1.1 데몬 스레드 루프 통계</h4>
+    <pre><code>daemon::loop_without_context()                    [thread_daemon.cpp:204]
+  |
+  +-- register_stat_start()                       [thread_daemon.cpp:186]
+  |     +-- cubperf::reset_timept()               [perf.hpp:642]
+  |           +-- clock::now()                    &lt;&lt; 루프 시작 시점 기록
+  |
+  +-- exec_arg-&gt;execute()                         &lt;&lt; 실제 작업 수행 (checkpoint, vacuum 등)
+  |
+  +-- register_stat_execute()                     [thread_daemon.cpp:198]
+  |     +-- time_and_increment(STAT_LOOP_EXECUTE_COUNT_AND_TIME)
+  |           +-- clock::now()                    &lt;&lt; 작업 완료 시점, 실행 시간 계산
+  |
+  +-- pause()                                     [thread_daemon.cpp:102]
+  |     +-- m_looper.put_to_sleep()               &lt;&lt; 다음 루프까지 대기
+  |
+  +-- register_stat_pause()                       [thread_daemon.cpp:192]
+        +-- time(STAT_LOOP_PAUSE_TIME)
+              +-- clock::now()                    &lt;&lt; 대기 완료 시점, 대기 시간 계산</code></pre>
+
+    <h4 id="sec3-1-2">3.1.2 로그 복구 (redo) 성능 추적</h4>
+    <pre><code>Database Recovery Start
+  +-- log_recovery_redo_parallel::execute()         [log_recovery_redo_parallel.cpp]
+        +-- redo_task::execute()                    [line 221] (워커 스레드)
+              |
+              +-- pop_jobs()                        &lt;&lt; 작업 큐에서 redo job 가져오기
+              +-- time_and_increment(PERF_STAT_ID_PARALLEL_POP)
+              |     +-- clock::now()                &lt;&lt; pop 소요 시간 기록
+              |
+              +-- for (auto &amp;job : jobs_vec) {
+              |     +-- job-&gt;execute()              &lt;&lt; 실제 redo 수행
+              |     +-- time_and_increment(PERF_STAT_ID_PARALLEL_EXECUTE)
+              |     |     +-- clock::now()          &lt;&lt; redo 실행 시간 기록
+              |     +-- job-&gt;retire()
+              |     +-- time_and_increment(PERF_STAT_ID_PARALLEL_RETIRE)
+              |           +-- clock::now()          &lt;&lt; 정리 시간 기록
+              +-- }</code></pre>
+
+    <h3 id="sec3-2">3.2 cubmonitor::clock_type (monitor_definition.hpp) &mdash; 모니터 통계</h3>
+    <table>
+      <thead><tr><th>함수</th><th>역할</th><th>clock_type::now() 호출 위치</th></tr></thead>
+      <tbody>
+        <tr><td><code>timer::timer()</code></td><td>타이머 시작 시점 기록</td><td>monitor_collect.hpp:546</td></tr>
+        <tr><td><code>timer::reset()</code></td><td>시작 시점 재설정</td><td>monitor_collect.hpp:554</td></tr>
+        <tr><td><code>timer::time()</code></td><td>경과 시간 반환 및 시점 갱신</td><td>monitor_collect.hpp:561</td></tr>
+        <tr><td><code>autotimer</code> 생성자</td><td>scope 진입 시 <code>reset()</code></td><td>monitor_collect.hpp:423</td></tr>
+        <tr><td><code>autotimer</code> 소멸자</td><td>scope 퇴장 시 <code>time_and_increment()</code></td><td>monitor_collect.hpp:429</td></tr>
+      </tbody>
+    </table>
+
+    <h4 id="sec3-2-1">3.2.1 Lockfree 해시맵 연산별 성능 추적</h4>
+    <pre><code>hashmap::find()                                     [lockfree_hashmap.hpp:280]
+  |
+  +-- autotimer stat_autotimer(m_stat_find)         [line 282]
+  |     +-- timer::reset()
+  |           +-- clock_type::now()                 &lt;&lt; 검색 시작 시점 기록
+  |
+  +-- (해시 버킷 탐색, 키 비교 등 실제 검색 수행)
+  |
+  +-- ~autotimer()                                  [scope 종료 시 자동 호출]
+        +-- time_and_increment()
+              +-- timer::time()
+                    +-- clock_type::now()            &lt;&lt; 검색 완료 시점, 소요 시간 기록</code></pre>
+    <table>
+      <thead><tr><th>해시맵 연산</th><th>통계 변수</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>find()</code></td><td><code>m_stat_find</code></td><td>키 검색 시간</td></tr>
+        <tr><td><code>insert()</code></td><td><code>m_stat_insert</code></td><td>삽입 시간</td></tr>
+        <tr><td><code>erase()</code></td><td><code>m_stat_erase</code></td><td>삭제 시간</td></tr>
+        <tr><td><code>unlock()</code></td><td><code>m_stat_unlock</code></td><td>잠금 해제 시간</td></tr>
+        <tr><td><code>clear()</code></td><td><code>m_stat_clear</code></td><td>전체 삭제 시간</td></tr>
+        <tr><td><code>freelist_claim()</code></td><td><code>m_stat_claim</code></td><td>메모리 할당 시간</td></tr>
+        <tr><td><code>freelist_retire()</code></td><td><code>m_stat_retire</code></td><td>메모리 반환 시간</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec3-3">3.3 system_clock (thread_looper/waiter) &mdash; 스레드 sleep/wake 제어</h3>
+
+    <h4 id="sec3-3-1">3.3.1 thread_looper: 실행 시간을 빼고 남은 시간만큼 sleep</h4>
+    <pre><code>daemon::loop_without_context()
+  +-- daemon::pause()                               [thread_daemon.cpp:102]
+        +-- m_looper.put_to_sleep(m_waiter)         [thread_looper.cpp:119]
+              |
+              +-- system_clock::now()               [line 141]
+              |     execution_time = now() - m_start_execution_time
+              |
+              +-- wait_time = period - execution_time  [line 148]
+              |
+              +-- waiter.wait_for(wait_time)        [line 152]
+              |
+              +-- m_start_execution_time = system_clock::now()  [line 161]</code></pre>
+    <div class="callout callout-warning">
+      <strong>문제점:</strong> <code>system_clock::now()</code>로 실행 시간을 계산하면, NTP 조정 시:<br>
+      &bull; 시계가 앞으로 가면 &rarr; <code>execution_time</code>이 비정상적으로 커짐 &rarr; sleep 건너뜀<br>
+      &bull; 시계가 뒤로 가면 &rarr; <code>execution_time</code>이 음수 &rarr; 오래 sleep
+    </div>
+
+    <h4 id="sec3-3-2">3.3.2 thread_waiter: condition_variable 대기</h4>
+    <pre><code>looper::put_to_sleep()
+  +-- waiter::wait_for(delta)                       [thread_waiter.cpp:201]
+        +-- m_condvar.wait_for(lock, delta, predicate)
+        +-- run()                                   [thread_waiter.cpp:134]
+              +-- time_and_increment(STAT_AWAKEN_COUNT_AND_TIME)
+                    +-- clock::now()                &lt;&lt; 깨어난 시점, 대기 시간 기록</code></pre>
+    <div class="callout callout-note">
+      <strong>참고: GCC 8 <code>condition_variable</code>의 한계</strong><br>
+      GCC 8의 <code>std::condition_variable</code>은 모든 대기 함수가 내부적으로 <code>system_clock</code>을 사용한다.
+      API를 <code>steady_clock</code>으로 통일해두면 향후 GCC 11+에서 자동으로 monotonic 대기가 활성화된다.
+    </div>
+
+    <h4 id="sec3-3-3">3.3.3 thread_worker_pool: 스레드 중지 timeout</h4>
+    <pre><code>worker_pool::stop_execution()                       [thread_worker_pool.cpp:143]
+  |
+  +-- timeout = system_clock::now() + 60s           [line 157]
+  +-- while (true) {
+        +-- notify_stop()
+        +-- if (system_clock::now() &gt; timeout)      [line 176]
+        |     assert(false); break;                 &lt;&lt; 60초 초과 시 timeout
+        +-- sleep(10ms)
+      }</code></pre>
+    <div class="callout callout-warning">
+      <strong>문제점:</strong> NTP가 시계를 60초 이상 뒤로 돌리면 timeout이 사실상 무한대가 됨.
+      반대로 앞으로 돌리면 즉시 timeout assert 발생 가능.
+    </div>
+
+    <h3 id="sec3-4">3.4 호출 빈도 요약</h3>
+    <table>
+      <thead><tr><th>모듈</th><th>clock 종류</th><th>호출 빈도</th><th>영향도</th></tr></thead>
+      <tbody>
+        <tr><td>thread_daemon (모든 daemon 루프)</td><td><code>cubperf::clock</code></td><td><strong>매 루프마다 3회</strong></td><td>높음</td></tr>
+        <tr><td>lockfree_hashmap</td><td><code>cubmonitor::clock_type</code></td><td><strong>매 연산마다 2회</strong></td><td>높음</td></tr>
+        <tr><td>log_recovery_redo</td><td><code>cubperf::clock</code></td><td><strong>매 redo job마다 3회</strong></td><td>중간</td></tr>
+        <tr><td>thread_looper</td><td><code>system_clock</code></td><td><strong>매 sleep마다 2회</strong></td><td>높음</td></tr>
+        <tr><td>thread_waiter</td><td><code>system_clock</code> + <code>cubperf</code></td><td><strong>매 wait/wakeup마다</strong></td><td>높음</td></tr>
+        <tr><td>thread_worker_pool</td><td><code>system_clock</code></td><td><strong>중지 시에만</strong></td><td>낮음</td></tr>
+        <tr><td>thread_entry</td><td><code>system_clock</code></td><td><strong>slow query 시 매 대기마다 2회</strong></td><td>중간</td></tr>
+        <tr><td>connection_pool</td><td><code>system_clock</code></td><td><strong>종료 시에만 2회</strong></td><td>낮음</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 4. clock_gettime 사용 현황 -->
+    <h2 id="sec4">4. clock_gettime 사용 현황</h2>
+    <h3>4.1 경과 시간 측정 (elapsed time)</h3>
+    <table>
+      <thead><tr><th>파일</th><th>clock 종류</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td><code>src/base/tsc_timer.c:96</code></td><td><code>CLOCK_REALTIME_COARSE</code></td><td><strong>변경 필요</strong> &rarr; <code>CLOCK_MONOTONIC</code></td></tr>
+        <tr><td><code>src/executables/unload_object_file.h:67</code></td><td><code>CLOCK_MONOTONIC</code></td><td>&#9989; 이미 올바름</td></tr>
+        <tr><td><code>src/executables/unload_object_file.c:1141</code></td><td><code>CLOCK_MONOTONIC</code></td><td>&#9989; 이미 올바름</td></tr>
+        <tr><td><code>src/base/cycle.h:451</code></td><td><code>CLOCK_SGI_CYCLE</code></td><td>&#9989; SGI/Irix 전용</td></tr>
+      </tbody>
+    </table>
+    <h3>4.2 Wall clock (현재 시각 표시 용도) &mdash; 변경 불필요</h3>
+    <table>
+      <thead><tr><th>파일</th><th>clock 종류</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>src/broker/cas.c:1864</code></td><td><code>CLOCK_REALTIME</code></td><td>쿼리 취소 시각 기록</td></tr>
+        <tr><td><code>src/executables/unload_object_file.c:1176</code></td><td><code>CLOCK_REALTIME</code></td><td>로그 메시지 타임스탬프</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 5. std::chrono 사용 현황 -->
+    <h2 id="sec5">5. std::chrono 사용 현황</h2>
+
+    <h3 id="sec5-1">5.1 변경 필요 &mdash; high_resolution_clock (= system_clock)</h3>
+    <table>
+      <thead><tr><th>파일:라인</th><th>현재 코드</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>src/base/perf_def.hpp:39</code></td><td><code>using clock = std::chrono::high_resolution_clock;</code></td><td><code>cubperf</code> 전체의 기준 clock</td></tr>
+        <tr><td><code>src/monitor/monitor_definition.hpp:36</code></td><td><code>using clock_type = std::chrono::high_resolution_clock;</code></td><td><code>cubmonitor</code> 전체의 기준 clock</td></tr>
+      </tbody>
+    </table>
+    <p><strong>영향 범위</strong>: 13개 파일 재컴파일 필요 (코드 변경은 위 2곳만).</p>
+    <p><strong>권장 변경:</strong></p>
+    <pre><code><span class="cm">// perf_def.hpp:39</span>
+<span class="kw">using</span> clock = std::chrono::steady_clock;
+
+<span class="cm">// monitor_definition.hpp:36</span>
+<span class="kw">using</span> clock_type = std::chrono::steady_clock;</code></pre>
+
+    <h3 id="sec5-2">5.2 변경 필요 &mdash; system_clock을 경과 시간 측정에 사용</h3>
+    <table>
+      <thead><tr><th>파일:라인</th><th>현재 코드</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>thread_waiter.hpp:65,67</code></td><td><code>wait_for/wait_until(system_clock::...)</code></td><td>스레드 대기</td></tr>
+        <tr><td><code>thread_waiter.cpp:201,227</code></td><td>구현부</td><td>위와 동일</td></tr>
+        <tr><td><code>thread_looper.hpp:40,155</code></td><td><code>typedef system_clock::duration/time_point</code></td><td>looper 주기 타입</td></tr>
+        <tr><td><code>thread_looper.cpp:141,143,161</code></td><td><code>system_clock::now()</code></td><td>실행 시간 계산</td></tr>
+        <tr><td><code>thread_entry.cpp:466</code></td><td><code>using thread_clock_type = system_clock;</code></td><td>typedef 변경으로 7곳 자동 적용</td></tr>
+        <tr><td><code>thread_worker_pool.cpp:157,176</code></td><td><code>system_clock::now()</code></td><td>스레드 중지 timeout</td></tr>
+        <tr><td><code>connection_pool.cpp:316,334,337,390,405,408</code></td><td><code>system_clock::time_point</code></td><td>shutdown timeout</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-info">
+      <strong>참고:</strong> <code>thread_entry.cpp</code>는 typedef 1곳(line 466)만 바꾸면 나머지 6곳이 자동 적용.
+    </div>
+    <p><strong>권장 변경:</strong> 모두 <code>system_clock</code> &rarr; <code>steady_clock</code></p>
+
+    <h3 id="sec5-3">5.3 이미 올바른 사용 &mdash; 변경 불필요</h3>
+    <table>
+      <thead><tr><th>파일</th><th>clock 종류</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>master_server_monitor.hpp/cpp</code></td><td><code>steady_clock</code></td><td>프로세스 revive 시간 추적</td></tr>
+        <tr><td><code>connection_worker.cpp</code></td><td><code>steady_clock</code></td><td>연결 워커 경과 시간 측정</td></tr>
+        <tr><td><code>jsp_cl.cpp:1213</code></td><td><code>system_clock</code></td><td>PL/CSQL 컴파일 타임스탬프 (wall clock 용도)</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 6. gettimeofday 사용 현황 -->
+    <h2 id="sec6">6. gettimeofday 사용 현황</h2>
+    <h3>6.1 개요</h3>
+    <ul>
+      <li><strong>50개 파일</strong>, <strong>159곳</strong>에서 <code>gettimeofday</code> 사용</li>
+      <li>경과 시간 측정과 wall clock 용도가 혼재</li>
+    </ul>
+
+    <h3>6.2 경과 시간 측정에 사용하는 주요 파일 (broker/CAS)</h3>
+    <table>
+      <thead><tr><th>파일</th><th>주요 용도</th><th>호출 수</th></tr></thead>
+      <tbody>
+        <tr><td><code>cas_function.c</code></td><td>트랜잭션/쿼리 실행 시간</td><td>~17곳</td></tr>
+        <tr><td><code>cas_runner.c</code></td><td>prepare/execute/commit 시간</td><td>~6곳</td></tr>
+        <tr><td><code>cas.c</code></td><td>트랜잭션/쿼리 시작 시간</td><td>~6곳</td></tr>
+        <tr><td><code>cas_execute.c</code></td><td>트랜잭션/쿼리 시작 시간</td><td>~2곳</td></tr>
+        <tr><td><code>broker_log_replay.c</code></td><td>쿼리 실행 시간</td><td>~4곳</td></tr>
+        <tr><td><code>broker_tester.c</code></td><td>경과 시간</td><td>~2곳</td></tr>
+        <tr><td><code>ddl_log.c</code></td><td>DDL 실행 시간</td><td>~5곳</td></tr>
+        <tr><td><code>shard_proxy_io.c</code></td><td>클라이언트 시작 시간</td><td>~1곳</td></tr>
+      </tbody>
+    </table>
+
+    <h3>6.3 Wall clock 용도 (변경 불필요)</h3>
+    <table>
+      <thead><tr><th>파일</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>error_manager.c</code></td><td>에러 메시지 타임스탬프</td></tr>
+        <tr><td><code>event_log.c</code></td><td>이벤트 로그 타임스탬프</td></tr>
+        <tr><td><code>cubrid_log.c</code></td><td>로그 타임스탬프</td></tr>
+        <tr><td><code>cas_sql_log2.c</code></td><td>SQL 로그 타임스탬프</td></tr>
+        <tr><td><code>broker.c</code></td><td>디버그 로그 타임스탬프</td></tr>
+        <tr><td><code>util_func.c</code></td><td><code>srand48_r</code> 시드</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec6-4">6.4 Broker/CAS 상세 분석: gettimeofday 호출별 분류</h3>
+
+    <h4>A. 경과 시간 측정 (30곳) &mdash; 변경 대상</h4>
+    <table>
+      <thead><tr><th>파일</th><th>라인</th><th>변수</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>cas_function.c</code></td><td>189, 199</td><td><code>end_tran_begin/end</code></td><td>end_tran 소요 시간</td></tr>
+        <tr><td><code>cas_function.c</code></td><td>719, 724</td><td><code>exec_begin/end</code></td><td>execute 소요 시간</td></tr>
+        <tr><td><code>cas_function.c</code></td><td>2629~2715</td><td>(재사용)</td><td>LOB new/write/read 소요 시간</td></tr>
+        <tr><td><code>cas_runner.c</code></td><td>799~1268</td><td><code>begin/end</code></td><td>prepare/execute/commit 소요 시간</td></tr>
+        <tr><td><code>broker_log_replay.c</code></td><td>191~905</td><td><code>begin/end</code></td><td>프로그램/쿼리 실행 시간</td></tr>
+        <tr><td><code>broker_tester.c</code></td><td>334, 374</td><td><code>start/end_time</code></td><td>테스트 쿼리 시간</td></tr>
+        <tr><td><code>ddl_log.c</code></td><td>1095</td><td><code>exec_end</code></td><td>DDL 실행 시간</td></tr>
+      </tbody>
+    </table>
+
+    <h4>B. Wall clock 타임스탬프 (12곳) &mdash; 변경 불필요</h4>
+    <p>단일 호출로 현재 시각을 가져와 timeout 관리, 로그 시작 시각 기록 등에 사용.</p>
+
+    <h4>C. 이중 용도 (5곳) &mdash; 가장 변경이 까다로운 부분</h4>
+    <table>
+      <thead><tr><th>파일</th><th>라인</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>cas_log.c</code></td><td>940</td><td>경과 시간 + <code>localtime_r()</code> 시각 포맷팅</td></tr>
+        <tr><td><code>shard_proxy_log.c</code></td><td>289</td><td>동일 (프록시 접속 로그)</td></tr>
+        <tr><td><code>broker.c</code></td><td>1190</td><td><code>gettimeofday</code> &rarr; <code>pthread_cond_timedwait</code></td></tr>
+      </tbody>
+    </table>
+
+    <h4>D. 디버그/기타 (3곳) &mdash; 변경 불필요</h4>
+
+    <h3 id="sec6-5">6.5 Broker/CAS 변경을 별도 작업으로 분리하는 이유</h3>
+
+    <h4>이유 1: 자료형 전환 필요</h4>
+    <pre><code><span class="kw">struct</span> timeval  { time_t tv_sec; suseconds_t tv_usec; };  <span class="cm">// us 단위</span>
+<span class="kw">struct</span> timespec { time_t tv_sec; <span class="kw">long</span> tv_nsec; };         <span class="cm">// ns 단위</span></code></pre>
+    <table>
+      <thead><tr><th>변경 필요 항목</th><th>수량</th></tr></thead>
+      <tbody>
+        <tr><td><code>struct timeval</code> 변수 선언</td><td>~30곳</td></tr>
+        <tr><td><code>ut_timeval_diff()</code> 호출</td><td>~10곳</td></tr>
+        <tr><td><code>ut_diff_time()</code> 호출</td><td>~5곳</td></tr>
+        <tr><td><code>ut_check_timeout()</code></td><td>4곳 + 1곳</td></tr>
+        <tr><td>함수 시그니처 <code>struct timeval *</code></td><td>~10곳</td></tr>
+      </tbody>
+    </table>
+
+    <h4>이유 2: 이중 용도 분리 필요</h4>
+    <pre><code><span class="cm">// 변경 전 (하나의 gettimeofday로 두 가지 용도)</span>
+gettimeofday(&amp;end_time, NULL);
+elapsed_sec = end_time.tv_sec - start_time-&gt;tv_sec;     <span class="cm">// 경과 시간</span>
+localtime_r(&amp;end_time.tv_sec, &amp;ct2);                    <span class="cm">// 시각 포맷팅</span>
+
+<span class="cm">// 변경 후 (두 종류의 clock 호출)</span>
+clock_gettime(CLOCK_MONOTONIC, &amp;end_mono);               <span class="cm">// 경과 시간용</span>
+clock_gettime(CLOCK_REALTIME, &amp;end_real);                <span class="cm">// 시각 포맷팅용</span></code></pre>
+
+    <h4>이유 3: pthread_cond_timedwait 변경 필요</h4>
+    <pre><code><span class="cm">// 변경 후</span>
+pthread_condattr_t attr;
+pthread_condattr_init(&amp;attr);
+pthread_condattr_setclock(&amp;attr, CLOCK_MONOTONIC);
+pthread_cond_init(&amp;clt_table_cond, &amp;attr);
+pthread_condattr_destroy(&amp;attr);
+
+clock_gettime(CLOCK_MONOTONIC, &amp;ts);
+ts.tv_nsec += 30000000;  <span class="cm">// +30ms</span>
+<span class="kw">if</span> (ts.tv_nsec &gt;= 1000000000) { ts.tv_sec++; ts.tv_nsec -= 1000000000; }
+pthread_cond_timedwait(&amp;clt_table_cond, &amp;mutex, &amp;ts);</code></pre>
+
+    <h4>이유 4: 전역 변수의 이중 역할</h4>
+    <p><code>tran_start_time</code>/<code>query_start_time</code>은 경과 시간(timeout 체크) + wall clock(DDL 감사 로그, 슬로우 쿼리 로그) 이중 역할.</p>
+
+    <h3 id="sec6-6">6.6 Broker/CAS를 변경한다면: 단계별 접근</h3>
+    <h4>Phase 1: 인프라 준비 (cas_util.c/h)</h4>
+    <pre><code><span class="cm">// monotonic 시간 읽기</span>
+<span class="kw">void</span> ut_get_monotonic_time(<span class="kw">struct</span> timespec *ts) {
+    clock_gettime(CLOCK_MONOTONIC, ts);
+}
+
+<span class="cm">// timespec 차이 계산</span>
+<span class="kw">void</span> ut_timespec_diff(<span class="kw">struct</span> timespec *start, <span class="kw">struct</span> timespec *end,
+                      <span class="kw">int</span> *res_sec, <span class="kw">int</span> *res_msec) {
+    <span class="kw">int</span> sec = end-&gt;tv_sec - start-&gt;tv_sec;
+    <span class="kw">int</span> msec = (end-&gt;tv_nsec / 1000000) - (start-&gt;tv_nsec / 1000000);
+    <span class="kw">if</span> (msec &lt; 0) { msec += 1000; sec--; }
+    *res_sec = sec;  *res_msec = msec;
+}</code></pre>
+
+    <h4>Phase 2~5</h4>
+    <table>
+      <thead><tr><th>Phase</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Phase 2</strong></td><td>순수 경과 시간 측정만 하는 곳부터 전환 (cas_runner, broker_log_replay, broker_tester 등)</td></tr>
+        <tr><td><strong>Phase 3</strong></td><td>이중 용도 분리 (cas_log.c, shard_proxy_log.c)</td></tr>
+        <tr><td><strong>Phase 4</strong></td><td>전역 변수 리팩토링 (tran_start_time / query_start_time)</td></tr>
+        <tr><td><strong>Phase 5</strong></td><td>pthread 변경 (broker.c의 pthread_cond_timedwait)</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 7. TSC -->
+    <h2 id="sec7">7. TSC (Time Stamp Counter) 관련</h2>
+    <h3>7.1 tsc_timer.c/h</h3>
+    <ul>
+      <li><code>power_Savings == 0</code>이면 <code>rdtsc</code> 명령어로 직접 TSC 읽음</li>
+      <li><code>power_Savings != 0</code>이면 fallback으로 <code>clock_gettime(CLOCK_REALTIME_COARSE)</code> 사용 &larr; <strong><code>CLOCK_MONOTONIC</code>으로 변경 필요</strong></li>
+      <li>Windows fallback: <code>gettimeofday</code> (Windows에서는 <code>QueryPerformanceCounter</code> 기반이므로 monotonic)</li>
+    </ul>
+    <h3>7.2 cycle.h</h3>
+    <p>FFTW 프로젝트에서 가져온 멀티 플랫폼 TSC 읽기 구현. x86-64: <code>rdtsc</code> inline assembly. 변경 불필요.</p>
+
+    <hr>
+
+    <!-- 8. 변경 대상 파일 요약 -->
+    <h2 id="sec8">8. 변경 대상 파일 요약</h2>
+
+    <h3><span class="tier tier-0">Tier 0</span> tsc_timer (1개 파일, 1곳)</h3>
+    <ul><li><span class="chk"></span><code>src/base/tsc_timer.c:96</code> &mdash; <code>CLOCK_REALTIME_COARSE</code> &rarr; <code>CLOCK_MONOTONIC</code></li></ul>
+
+    <h3><span class="tier tier-1">Tier 1</span> 성능 모니터링 clock (2개 파일, 2곳)</h3>
+    <ul>
+      <li><span class="chk"></span><code>src/base/perf_def.hpp:39</code> &mdash; <code>high_resolution_clock</code> &rarr; <code>steady_clock</code></li>
+      <li><span class="chk"></span><code>src/monitor/monitor_definition.hpp:36</code> &mdash; <code>high_resolution_clock</code> &rarr; <code>steady_clock</code></li>
+    </ul>
+
+    <h3><span class="tier tier-2">Tier 2</span> 스레드 인프라 및 커넥션 풀 (6개 파일, 18곳)</h3>
+    <ul>
+      <li><span class="chk"></span><code>src/thread/thread_waiter.hpp:65,67</code></li>
+      <li><span class="chk"></span><code>src/thread/thread_waiter.cpp:201,227</code></li>
+      <li><span class="chk"></span><code>src/thread/thread_looper.hpp:40,155</code></li>
+      <li><span class="chk"></span><code>src/thread/thread_looper.cpp:141,143,161</code></li>
+      <li><span class="chk"></span><code>src/thread/thread_entry.cpp:466</code> (typedef 변경으로 7곳 자동 적용)</li>
+      <li><span class="chk"></span><code>src/thread/thread_worker_pool.cpp:157,176</code></li>
+      <li><span class="chk"></span><code>src/connection/connection_pool.cpp:316,334,337,390,405,408</code></li>
+    </ul>
+
+    <h3><span class="tier tier-3">Tier 3</span> Broker/CAS gettimeofday &mdash; 이번 제외</h3>
+    <p>50개 파일, 159곳 &mdash; 별도 작업으로 분리 권장</p>
+
+    <hr>
+
+    <!-- 9. 검증 방법 -->
+    <h2 id="sec9">9. 검증 방법</h2>
+    <ol>
+      <li><strong>빌드 확인</strong>: <code>steady_clock</code>과 <code>system_clock</code>의 <code>duration</code> 타입이 동일(<code>nanoseconds</code>)하므로 컴파일 에러 없을 것</li>
+      <li><strong>static_assert 추가</strong> (권장):
+        <pre><code><span class="kw">static_assert</span>(cubperf::clock::is_steady,
+    <span class="st">"cubperf::clock must be steady (monotonic)"</span>);
+
+<span class="kw">static_assert</span>(cubmonitor::clock_type::is_steady,
+    <span class="st">"cubmonitor::clock_type must be steady (monotonic)"</span>);</code></pre>
+      </li>
+      <li><strong>unit test</strong>: <code>unit_tests/thread/</code>, <code>unit_tests/lockfree/</code> 실행</li>
+      <li><strong>기능 테스트</strong>: <code>cubrid statdump</code>로 성능 통계 정상 출력 확인</li>
+      <li><strong>thread_entry.cpp 검증</strong>: slow query 추적 활성화 상태에서 <code>lock_waits</code>/<code>latch_waits</code> 통계 확인</li>
+      <li><strong>regression test</strong>: 전체 회귀 테스트</li>
+      <li><strong>빌드 환경 확인</strong>: <code>_GLIBCXX_USE_PTHREAD_COND_CLOCKWAIT</code> 정의 여부. 현재 GCC 8에서 미지원, EL9+ 전환 시 자동 활성화</li>
+    </ol>
+
+    <hr>
+
+    <!-- 10. clock 종류별 특성 -->
+    <h2 id="sec10">10. 참고: clock 종류별 특성</h2>
+    <table>
+      <thead><tr><th>Clock</th><th>Monotonic</th><th>해상도</th><th>NTP 영향</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td><code>CLOCK_MONOTONIC</code></td><td>&#9989;</td><td>ns</td><td>&#10060;</td><td>경과 시간 측정</td></tr>
+        <tr><td><code>CLOCK_REALTIME</code></td><td>&#10060;</td><td>ns</td><td>&#9989;</td><td>wall clock</td></tr>
+        <tr><td><code>CLOCK_REALTIME_COARSE</code></td><td>&#10060;</td><td>~1-4ms</td><td>&#9989;</td><td>빠르지만 저해상도 wall clock</td></tr>
+        <tr><td><code>CLOCK_MONOTONIC_COARSE</code></td><td>&#9989;</td><td>~1-4ms</td><td>&#10060;</td><td>빠르지만 저해상도 경과 시간</td></tr>
+        <tr><td><code>steady_clock</code></td><td>&#9989;</td><td>ns</td><td>&#10060;</td><td>C++ 경과 시간 측정</td></tr>
+        <tr><td><code>system_clock</code></td><td>&#10060;</td><td>ns</td><td>&#9989;</td><td>C++ wall clock</td></tr>
+        <tr><td><code>high_resolution_clock</code></td><td>구현 의존</td><td>ns</td><td>구현 의존</td><td>libstdc++: <code>system_clock</code> alias</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 11. 실측 결과 -->
+    <h2 id="sec11">11. 실측 결과: 왜 변경해야 하는가</h2>
+    <p><strong>테스트 환경:</strong> Linux 6.9.4-1.el8.elrepo.x86_64</p>
+
+    <h3 id="sec11-1">11.1 CLOCK_REALTIME_COARSE vs CLOCK_MONOTONIC &mdash; 해상도 문제</h3>
+    <p><strong>시스템 보고 해상도 (clock_getres):</strong></p>
+    <table>
+      <thead><tr><th>Clock</th><th>해상도</th></tr></thead>
+      <tbody>
+        <tr><td><code>CLOCK_REALTIME_COARSE</code></td><td><strong>1,000,000 ns (1ms)</strong></td></tr>
+        <tr><td><code>CLOCK_MONOTONIC_COARSE</code></td><td><strong>1,000,000 ns (1ms)</strong></td></tr>
+        <tr><td><code>CLOCK_REALTIME</code></td><td>1 ns</td></tr>
+        <tr><td><code>CLOCK_MONOTONIC</code></td><td>1 ns</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>실제 해상도 측정 (연속 2회 호출 간 시간 차이):</strong></p>
+    <table>
+      <thead><tr><th>Clock</th><th>0ns 비율</th><th>최소 차이</th><th>평균 차이</th></tr></thead>
+      <tbody>
+        <tr><td><code>CLOCK_REALTIME_COARSE</code></td><td><strong>100%</strong></td><td>0 ns</td><td>0.0 ns</td></tr>
+        <tr><td><code>CLOCK_MONOTONIC_COARSE</code></td><td><strong>100%</strong></td><td>0 ns</td><td>0.0 ns</td></tr>
+        <tr><td><code>CLOCK_REALTIME</code></td><td>0%</td><td>20 ns</td><td>20.3 ns</td></tr>
+        <tr><td><code>CLOCK_MONOTONIC</code></td><td>0%</td><td>20 ns</td><td>20.6 ns</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>짧은 작업 측정 비교:</strong></p>
+    <pre><code>CLOCK_REALTIME_COARSE:
+  [ 0] elapsed =      0 ns  &lt;-- 0ns! 측정 불가
+  [ 1] elapsed =      0 ns  &lt;-- 0ns! 측정 불가
+  ...전부 0ns
+
+CLOCK_MONOTONIC:
+  [ 0] elapsed =     40 ns
+  [ 1] elapsed =     38 ns
+  [ 2] elapsed =     34 ns
+  ...정상 측정</code></pre>
+
+    <p><strong>호출 오버헤드:</strong></p>
+    <table>
+      <thead><tr><th>Clock</th><th>호출당 평균</th></tr></thead>
+      <tbody>
+        <tr><td><code>CLOCK_REALTIME_COARSE</code></td><td>6.2 ns</td></tr>
+        <tr><td><code>CLOCK_MONOTONIC_COARSE</code></td><td>6.2 ns</td></tr>
+        <tr><td><code>CLOCK_REALTIME</code></td><td>20.5 ns</td></tr>
+        <tr><td><code>CLOCK_MONOTONIC</code></td><td>20.5 ns</td></tr>
+      </tbody>
+    </table>
+    <p>20ns 오버헤드는 DB 작업(us~ms) 대비 무시할 수 있는 수준.</p>
+
+    <h3 id="sec11-2">11.2 high_resolution_clock = system_clock 문제 (실측 확인)</h3>
+    <pre><code>=== Clock 특성 (is_steady) ===
+  system_clock                   : is_steady = FALSE (non-monotonic!)
+  steady_clock                   : is_steady = true (monotonic)
+  high_resolution_clock          : is_steady = FALSE (non-monotonic!)
+
+=== high_resolution_clock 정체 확인 ===
+  high_resolution_clock == system_clock ? YES (= system_clock, non-monotonic!)
+  high_resolution_clock == steady_clock ? NO</code></pre>
+
+    <p><strong>해상도와 오버헤드는 동일:</strong></p>
+    <table>
+      <thead><tr><th>Clock</th><th>호출당 평균</th><th>해상도 (평균)</th></tr></thead>
+      <tbody>
+        <tr><td><code>system_clock</code></td><td>21.5 ns</td><td>20.4 ns</td></tr>
+        <tr><td><code>steady_clock</code></td><td>21.9 ns</td><td>20.2 ns</td></tr>
+        <tr><td><code>high_resolution_clock</code></td><td>21.1 ns</td><td>20.1 ns</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec11-3">11.3 system_clock의 NTP 영향 &mdash; 재현이 어려운 시나리오</h3>
+
+    <p><strong>시나리오 1: NTP step 조정</strong></p>
+    <pre><code>시각 12:00:00.000 - system_clock으로 start 기록
+시각 12:00:00.050 - NTP가 시계를 -2초 조정
+시각 11:59:58.100 - system_clock으로 end 기록
+
+경과 시간 = end - start = -1.900초 (음수!)</code></pre>
+
+    <p><strong>시나리오 2: 수동 시계 변경</strong></p>
+    <pre><code>시각 12:00:00.000 - system_clock으로 start 기록
+관리자가 date -s "12:05:00" 실행
+시각 12:05:00.050 - system_clock으로 end 기록
+
+경과 시간 = 300.050초 (실제 0.050초인데 5분으로 측정)</code></pre>
+
+    <p><strong>시나리오 3: VM 라이브 마이그레이션</strong></p>
+    <p>VM이 일시 중지되었다가 재개되면 <code>CLOCK_REALTIME</code>은 host 시간과 동기화하면서 점프할 수 있다.
+    <code>CLOCK_MONOTONIC</code>은 최소한 뒤로 가지는 않는다.</p>
+
+    <hr>
+
+    <!-- 12. 기존 API 구조 분석 -->
+    <h2 id="sec12">12. 기존 시간 측정 API 구조 분석: 새로 모아야 하나?</h2>
+    <p>현재 구조를 보면 <strong>이미 잘 중앙화되어 있어서 대규모 리팩토링이 불필요</strong>하다.</p>
+
+    <h3 id="sec12-1">12.1 현재 존재하는 시간 측정 API 목록</h3>
+    <table>
+      <thead><tr><th>API</th><th>위치</th><th>타입</th><th>사용하는 clock</th><th>사용처 수</th></tr></thead>
+      <tbody>
+        <tr><td><strong>tsc_timer</strong></td><td><code>base/tsc_timer.h</code></td><td>C</td><td>TSC / <code>CLOCK_REALTIME_COARSE</code></td><td>13개 파일</td></tr>
+        <tr><td><strong>cubperf</strong></td><td><code>base/perf_def.hpp</code></td><td>C++ template</td><td><code>high_resolution_clock</code></td><td>5개 파일</td></tr>
+        <tr><td><strong>cubmonitor</strong></td><td><code>monitor/monitor_definition.hpp</code></td><td>C++ template</td><td><code>high_resolution_clock</code></td><td>lockfree_hashmap 등</td></tr>
+        <tr><td><strong>cas_util</strong></td><td><code>broker/cas_util.h</code></td><td>C</td><td><code>gettimeofday</code></td><td>13개 파일</td></tr>
+        <tr><td><strong>broker_log_util</strong></td><td><code>broker/broker_log_util.h</code></td><td>C</td><td><code>gettimeofday</code></td><td>7개 파일</td></tr>
+        <tr><td><strong>ddl_log</strong></td><td><code>base/ddl_log.h</code></td><td>C</td><td><code>gettimeofday</code></td><td>12개 파일</td></tr>
+        <tr><td><strong>porting</strong></td><td><code>base/porting.h</code></td><td>C</td><td><code>struct timeval</code></td><td>소수</td></tr>
+        <tr><td><strong>unloaddb</strong></td><td><code>executables/unload_object_file.h</code></td><td>C</td><td><code>CLOCK_MONOTONIC</code></td><td>1개 파일</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec12-2">12.2 엔진(src/) 쪽: 이미 중앙화되어 있다</h3>
+    <p><strong>C 코드:</strong> <code>tsc_timer.h</code>가 이미 중앙 API &mdash; 13개 파일이 사용, 내부 clock만 바꾸면 호출자 변경 불필요.</p>
+    <p><strong>C++ 성능 통계:</strong> <code>perf_def.hpp</code> 한 곳만 바꾸면 ~23개 파일이 자동으로 <code>steady_clock</code> 사용.</p>
+    <p><strong>C++ 모니터링:</strong> <code>monitor_definition.hpp</code> 한 곳만 바꾸면 전체 모니터링 프레임워크가 따라감.</p>
+
+    <h3>12.3 스레드 인프라</h3>
+    <p>12곳에서 <code>system_clock</code> &rarr; <code>steady_clock</code> 직접 치환. 같은 <code>duration</code> 타입이므로 호출자 변경 없음.</p>
+
+    <h3 id="sec12-4">12.4 엔진 4개 그룹을 하나로 합칠 수 있는가?</h3>
+    <pre><code>[시간 소스 레이어]
+  tsc_timer (C)          "지금 시간을 읽는다" (TSC 또는 clock_gettime)
+
+[통계 프레임워크 레이어]
+  cubperf (C++ template)     counter + timer 조합, statset_definition 팩토리
+  cubmonitor (C++ template)  트랜잭션 scope 인식, RAII autotimer
+
+[유틸리티 레이어]
+  porting (C)            timeval 산술 단순 유틸리티</code></pre>
+    <p><strong>합치지 않는 이유:</strong></p>
+    <ol>
+      <li><strong>cubperf vs cubmonitor</strong>: 설계 철학이 다름 (명시적 호출 vs RAII scope 기반)</li>
+      <li><strong>tsc_timer vs cubperf/cubmonitor</strong>: 레이어가 다름 (저수준 vs 고수준)</li>
+      <li><strong>porting</strong>: OS 이식성 레이어 &mdash; 시간 측정 모듈에 넣는 것은 부적절</li>
+    </ol>
+    <div class="callout callout-info">
+      <strong>결론:</strong> 같은 일을 중복하는 4개가 아니라, 각자 다른 레이어를 담당하는 4개.
+      합치는 것은 이득이 없다. clock 정의만 통일하면 충분하다.
+    </div>
+
+    <h3>12.5 Broker 쪽: diff 함수 4개</h3>
+    <table>
+      <thead><tr><th>함수</th><th>위치</th><th>반환 타입</th><th>사용처</th></tr></thead>
+      <tbody>
+        <tr><td><code>ut_timeval_diff()</code></td><td><code>cas_util.c</code></td><td>void (sec/msec)</td><td>13개 파일</td></tr>
+        <tr><td><code>ut_diff_time()</code></td><td><code>broker_log_util.c</code></td><td>double (초)</td><td>7개 파일</td></tr>
+        <tr><td><code>logddl_timeval_diff()</code></td><td><code>ddl_log.c</code></td><td>static</td><td>내부</td></tr>
+        <tr><td><code>timeval_diff_in_msec()</code></td><td><code>porting.c</code></td><td>INT64 (ms)</td><td>소수</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec12-6">12.6 결론: 중앙 정의 3곳만 바꾸면 된다</h3>
+    <table>
+      <thead><tr><th>작업</th><th>바꿀 파일</th><th>바꿀 줄 수</th><th>호출자 변경</th></tr></thead>
+      <tbody>
+        <tr><td><code>tsc_timer.c</code> clock 변경</td><td>1</td><td>1</td><td><strong>없음</strong></td></tr>
+        <tr><td><code>perf_def.hpp</code> clock 변경</td><td>1</td><td>1</td><td><strong>없음</strong></td></tr>
+        <tr><td><code>monitor_definition.hpp</code> clock 변경</td><td>1</td><td>1</td><td><strong>없음</strong></td></tr>
+        <tr><td><code>thread_*</code> system_clock 변경</td><td>5</td><td>12</td><td><strong>없음</strong></td></tr>
+        <tr><td><code>connection_pool.cpp</code> 변경</td><td>1</td><td>6</td><td><strong>없음</strong></td></tr>
+        <tr style="font-weight:700; background:#f0f1f6;"><td>합계</td><td>9개 파일</td><td>~21줄</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p>기존 설계가 clock 타입을 중앙에서 정의하고 나머지가 참조하는 구조이므로,
+    <strong>기존 중앙 정의의 clock만 교체</strong>하면 코드베이스 전체가 일관되게 monotonic clock을 사용하게 된다.</p>
+
+    <hr>
+
+    <!-- 13. Docker/VM 환경 -->
+    <h2 id="sec13">13. Docker/VM 환경에서의 steady_clock 동작</h2>
+
+    <h3 id="sec13-1">13.1 Docker 컨테이너</h3>
+    <p>Docker 컨테이너는 호스트 커널을 공유하므로 <code>CLOCK_MONOTONIC</code>(<code>steady_clock</code>)은
+    호스트와 완전히 동일하게 동작한다. 컨테이너 고유의 문제는 없다.</p>
+
+    <h3 id="sec13-2">13.2 가상 머신 (VM)</h3>
+    <p>Linux 커널은 VM 환경에서도 <code>CLOCK_MONOTONIC</code>의 단조 증가를 보장한다.
+    KVM(<code>kvm-clock</code>), VMware, Hyper-V 등 주요 하이퍼바이저 모두 이 보장을 준수한다.</p>
+    <table>
+      <thead><tr><th>시나리오</th><th>CLOCK_MONOTONIC / steady_clock</th><th>CLOCK_REALTIME / system_clock</th></tr></thead>
+      <tbody>
+        <tr><td>NTP step 조정</td><td>영향 없음</td><td>앞/뒤로 점프</td></tr>
+        <tr><td>수동 시계 변경</td><td>영향 없음</td><td>앞/뒤로 점프</td></tr>
+        <tr><td>VM 라이브 마이그레이션</td><td><strong>뒤로 가지 않음</strong> (앞으로는 점프 가능)</td><td>앞/뒤 모두 점프 가능</td></tr>
+        <tr><td>VM 일시중지 &rarr; 재개</td><td><strong>뒤로 가지 않음</strong> (중지 시간 포함될 수 있음)</td><td>앞/뒤 모두 점프 가능</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="sec13-3">13.3 VM 일시중지 &rarr; 재개 시 edge case</h3>
+    <p>VM이 일시중지되었다가 재개되면 <code>CLOCK_MONOTONIC</code>이 중지 시간을 포함하여
+    앞으로 크게 점프할 수 있다. 예를 들어 VM이 5분 중지되면 elapsed time이
+    실제 작업 시간 + 5분으로 측정될 수 있다.</p>
+    <p>그러나 이것은 실질적으로 문제가 되지 않는다:</p>
+    <ul>
+      <li><strong>뒤로 가지 않으므로</strong> 음수/오버플로우가 발생하지 않음</li>
+      <li>VM 일시중지는 매우 드문 이벤트이고, 이 동안에는 DB 프로세스 자체도 멈춰 있으므로 실질적 영향 없음</li>
+      <li><code>system_clock</code>은 같은 상황에서 <strong>뒤로도</strong> 갈 수 있어 더 위험함</li>
+    </ul>
+
+    <h3 id="sec13-4">13.4 결론</h3>
+    <p>Docker/VM 환경 모두 <code>steady_clock</code>이 <code>system_clock</code>보다 안전하다.
+    <code>CLOCK_MONOTONIC</code>의 단조 증가 보장은 가상화 환경에서도 유지된다.</p>
+
+  </main>
+</div>
+
+<button class="scroll-top" id="scrollTop" title="맨 위로">&uarr;</button>
+
+<script>
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollTopBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+});
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+const tocLinks = document.querySelectorAll('.toc a');
+const sections = [];
+tocLinks.forEach(link => {
+  const id = link.getAttribute('href').slice(1);
+  const el = document.getElementById(id);
+  if (el) sections.push({ id, el, link });
+});
+
+function updateActiveToc() {
+  let current = '';
+  const scrollY = window.scrollY + 80;
+  for (let i = sections.length - 1; i >= 0; i--) {
+    if (sections[i].el.offsetTop <= scrollY) {
+      current = sections[i].id;
+      break;
+    }
+  }
+  tocLinks.forEach(l => l.classList.remove('active'));
+  if (current) {
+    const activeLink = document.querySelector('.toc a[href="#' + current + '"]');
+    if (activeLink) {
+      activeLink.classList.add('active');
+      const toc = document.getElementById('toc');
+      const linkTop = activeLink.offsetTop - toc.offsetTop;
+      const tocHeight = toc.clientHeight;
+      if (linkTop < toc.scrollTop || linkTop > toc.scrollTop + tocHeight - 40) {
+        toc.scrollTop = linkTop - tocHeight / 3;
+      }
+    }
+  }
+}
+
+window.addEventListener('scroll', updateActiveToc);
+updateActiveToc();
+
+tocLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.pushState(null, '', '#' + id);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+h2. *Description*
+
+경과 시간(elapsed time)을 측정하는 코드가 non-monotonic clock을 사용하고 있습니다.
+non-monotonic clock은 NTP 동기화, 수동 시계 변경, VM 마이그레이션 등 외부 요인에 의해
+시간이 앞/뒤로 점프할 수 있어 경과 시간이 음수이거나 비정상적으로 큰 값이 될 수 있습니다.
+
+해당 코드는 테스트 코드가 아니라 운영 중인 엔진의 성능 통계 수집, 스레드 sleep/wake 제어,
+로그 복구 성능 추적, lockfree 해시맵 연산 측정 등 핵심 경로에서 사용되고 있습니다.
+
+*문제 1: CLOCK_REALTIME_COARSE의 해상도 부족 (tsc_timer.c)*
+
+* check_power_savings 함수는 /sys/devices/system/cpu 에서 sched_mc_power_savings 와 sched_smt_power_savings 파일을 읽어서 power_savings 활성화 여부를 확인합니다.
+* 커널 3.10 버전(CentOS 7) 이후부터는 해당 파일이 존재하지 않으므로 power_savings 는 항상 1이 됩니다.
+* power_savings 가 1이면 tsc_getticks 함수는 clock_gettime(CLOCK_REALTIME_COARSE) 로 시간을 확인합니다.
+* CLOCK_REALTIME_COARSE 의 해상도는 ~1ms 이므로 1ms 미만의 작업이 전부 0으로 측정됩니다.
+* 실측 결과 100회 중 43회(43%)가 0으로 측정되어 의미 있는 경과 시간 측정이 불가능합니다.
+
+*문제 2: high_resolution_clock = system_clock (perf_def.hpp, monitor_definition.hpp)*
+
+* cubperf::clock 과 cubmonitor::clock_type 이 std::chrono::high_resolution_clock 을 사용합니다.
+* libstdc++(GCC)에서 high_resolution_clock 은 system_clock 의 alias이며 is_steady = false (non-monotonic) 입니다.
+* 성능 통계(cubrid statdump), lockfree 해시맵 연산 측정, 로그 복구(redo) 성능 추적 등 엔진 전체의 timer 통계가 NTP 영향을 받을 수 있습니다.
+
+*문제 3: system_clock을 경과 시간 측정에 사용 (thread_looper, thread_waiter, thread_worker_pool, thread_entry, connection_pool)*
+
+* thread_looper 는 system_clock::now() 로 실행 시간을 계산하여 sleep 주기를 결정합니다. NTP 조정 시 sleep 주기가 비정상적으로 길거나 짧아질 수 있습니다.
+* thread_waiter 의 wait_until 이 system_clock::time_point 기준이면 NTP 조정 시 예상보다 오래/짧게 대기합니다.
+* thread_worker_pool 의 stop_execution 에서 system_clock 으로 60초 timeout을 계산하므로 NTP 영향으로 timeout 판정이 왜곡될 수 있습니다.
+* thread_entry 의 lock/latch 대기 시간 측정(slow query 추적)이 왜곡될 수 있습니다.
+* connection_pool 의 shutdown timeout deadline 계산이 NTP 영향을 받을 수 있습니다.
+
+*변경 범위*
+
+|| Tier || 대상 || 파일 수 || 변경 곳 수 || 위험도 ||
+| 0 | tsc_timer (C API fallback) | 1 | 1 | 낮음 |
+| 1 | 성능 통계 clock 정의 (cubperf, cubmonitor) | 2 | 2 | 낮음 |
+| 2 | 스레드 인프라 + 커넥션 풀 (looper, waiter, worker_pool, entry, connection_pool) | 6 | 18 | 낮음 |
+
+* Broker/CAS의 gettimeofday (14+ 파일, 50+ 곳)는 자료형 전환, 이중 용도 분리 등 추가 작업이 필요하여 별도 이슈로 분리합니다.
+
+*참고: GCC 8 condition_variable 한계*
+
+* GCC 8의 std::condition_variable 은 모든 대기 함수가 내부적으로 system_clock(CLOCK_REALTIME) 을 사용합니다.
+* 따라서 wait_for/wait_until 의 pthread 레벨 대기는 변경 후에도 NTP 영향을 받을 수 있습니다.
+* 이번 변경의 핵심 이득은 looper/worker_pool/thread_entry 에서 steady_clock::now() 를 직접 호출하는 경과 시간 계산에 있으며, 이 부분은 GCC 버전과 무관하게 즉시 효과가 있습니다.
+* 향후 GCC 11+ / glibc 2.30+ 전환 시 condition_variable 도 자동으로 monotonic 대기가 활성화됩니다.
+
+h2. *Specification Changes*
+
+없습니다.
+
+h2. *Implementation*
+
+*핵심 변경: 경과 시간 측정에 사용되는 clock을 monotonic clock으로 통일합니다.*
+
+|| 변경 || 현재 (non-monotonic) || 변경 후 (monotonic) ||
+| C API | CLOCK_REALTIME_COARSE | CLOCK_MONOTONIC |
+| C++ 성능 통계 | std::chrono::high_resolution_clock | std::chrono::steady_clock |
+| C++ 스레드 인프라 | std::chrono::system_clock | std::chrono::steady_clock |
+
+*Tier 0: tsc_timer (1개 파일, 1곳)*
+* src/base/tsc_timer.c:96 -- CLOCK_REALTIME_COARSE -> CLOCK_MONOTONIC
+
+*Tier 1: 성능 통계 clock 정의 (2개 파일, 2곳)*
+* src/base/perf_def.hpp:39 -- high_resolution_clock -> steady_clock
+* src/monitor/monitor_definition.hpp:36 -- high_resolution_clock -> steady_clock
+* cubperf::clock::now() 를 사용하는 13개 파일은 재컴파일만 필요 (코드 변경 불필요)
+
+*Tier 2: 스레드 인프라 및 커넥션 풀 (6개 파일, 18곳)*
+* src/thread/thread_waiter.hpp:65,67 -- system_clock -> steady_clock
+* src/thread/thread_waiter.cpp:201,227 -- system_clock -> steady_clock
+* src/thread/thread_looper.hpp:40,155 -- system_clock -> steady_clock
+* src/thread/thread_looper.cpp:141,143,161 -- system_clock -> steady_clock
+* src/thread/thread_entry.cpp:466 -- system_clock -> steady_clock (typedef 변경으로 7곳 자동 적용)
+* src/thread/thread_worker_pool.cpp:157,176 -- system_clock -> steady_clock
+* src/connection/connection_pool.cpp:316,334,337,390,405,408 -- system_clock -> steady_clock
+
+*API/ABI 호환성*: steady_clock::duration 과 system_clock::duration 은 동일 타입(nanoseconds)이므로 호환성이 유지됩니다.
+
+*static_assert 추가 (권장)*:
+{code}
+// perf_def.hpp
+static_assert(cubperf::clock::is_steady, "cubperf::clock must be steady (monotonic)");
+
+// monitor_definition.hpp
+static_assert(cubmonitor::clock_type::is_steady, "cubmonitor::clock_type must be steady (monotonic)");
+{code}
+
+h2. *Acceptance Criteria (A/C)*
+
+* statdump 항목 중 시간 측정 항목에서 시간 역전 현상에 의한 오버플로우가 발생하지 않습니다.
+* elapsed time이 잘못 측정되지 않습니다.
+* cubperf::clock::is_steady == true, cubmonitor::clock_type::is_steady == true 가 static_assert로 보장됩니다.
+* daemon 스레드(checkpoint, log flush, vacuum 등)의 sleep 주기가 정상 동작합니다.
+* slow query 추적 활성화 시 lock_waits/latch_waits 통계가 정상 수집됩니다.
+* 서버 shutdown 시 timeout 계산이 정상 동작합니다.
+
+h2. *Definition of done (DoD)*
+
+* A/C를 충족하며, 모든 테스트가 성공적으로 통과됩니다.
+* unit test 통과: unit_tests/thread/, unit_tests/lockfree/
+* 기능 테스트: cubrid statdump 로 성능 통계 정상 출력 확인
+* regression test: 전체 회귀 테스트 통과
