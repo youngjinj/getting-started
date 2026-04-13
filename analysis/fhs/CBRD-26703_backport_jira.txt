@@ -1,0 +1,216 @@
+제목: [CBRD-26703] Fix use-after-unfix in fhs_find_bucket_vpid_with_hash
+
+=== Description ===
+
+h4. 증상 (Symptom)
+
+hash join 실행 중 build side가 메모리 한도를 초과하여 HASH_METH_HASH_FILE 경로로
+spill될 때, 간헐적으로 아래 오류가 발생하며 쿼리가 실패한다.
+
+{noformat}
+An I/O error occurred while reading page <garbage> of volume "(null)"
+... Bad file descriptor
+{noformat}
+
+스택 트레이스:
+{noformat}
+fileio_read
+  <- pgbuf_claim_bcb_for_fix
+  <- pgbuf_fix_release
+  <- fhs_fix_old_page
+  <- fhs_search
+{noformat}
+
+h4. 원인 (Root Cause)
+
+*fhs_find_bucket_vpid_with_hash()* 에서 directory page를 unfix한 후
+해당 페이지의 포인터를 역참조하여 bucket VPID를 읽는다.
+
+{code:c}
+dir_record_p = (FHS_DIR_RECORD *) ((char *) dir_page_p + location);
+pgbuf_unfix_and_init (thread_p, dir_page_p);   // ← unfix 먼저
+
+*out_vpid_p = dir_record_p->bucket_vpid;        // ← 해제된 메모리 접근
+{code}
+
+*pgbuf_unfix_and_init* 이후 해당 BCB는 victim 후보가 되며, 다른 스레드가
+victim으로 선택하여 다른 페이지를 로드하면 역참조 시 garbage VPID를 읽게 된다.
+
+동시에 buffer pool을 사용하는 스레드가 많을수록 unfix된 BCB가 victim으로
+선택될 확률이 높아지며, buffer pool이 작을수록 victim 탐색 빈도가 증가하여
+재현 확률이 올라간다.
+
+h4. 수정 (Fix)
+
+directory page가 fix된 상태에서 bucket VPID를 먼저 읽은 후 unfix한다.
+
+{code:c}
+dir_record_p = (FHS_DIR_RECORD *) ((char *) dir_page_p + location);
+*out_vpid_p = dir_record_p->bucket_vpid;        // ← 읽기 먼저
+pgbuf_unfix_and_init (thread_p, dir_page_p);    // ← 그 다음 unfix
+{code}
+
+2줄 순서 변경이며, 기능 변경 및 side effect 없음.
+
+h4. 영향 범위 (Scope)
+
+HASH_METH_HASH_FILE 경로를 포함하는 모든 버전에 동일 버그가 존재한다.
+build side 크기가 *max_hash_list_scan_size* (기본 8M) 를 초과하면 해당 경로로 진입한다.
+
+h2. *Test Build*
+
+CBRD-26666 브랜치 (develop 기준)
+
+h2. *Repro*
+
+h4. Step 1. 서버 설정 (cubrid.conf)
+
+{code}
+data_buffer_size=128M
+{code}
+
+h4. Step 2. 테이블 준비
+
+{code:bash}
+csql -S -u dba demodb << 'EOF'
+DROP TABLE IF EXISTS t1;
+CREATE TABLE t1 (c1 VARCHAR);
+
+-- max_hash_list_scan_size (기본 8M) 초과하여 HASH_METH_HASH_FILE 로 spill 유도
+INSERT INTO t1
+WITH RECURSIVE cte (n) AS (
+    SELECT 1
+    UNION ALL
+    SELECT n + 1 FROM cte WHERE n < 2000
+  )
+SELECT MD5(ROWNUM) FROM cte a, cte b, cte c LIMIT 10000000;
+EOF
+{code}
+
+h4. Step 3. 재현 스크립트 (repro.sh)
+
+{code:bash}
+#!/bin/bash
+# ------------------------------------------------------------
+# repro.sh — CBRD-XXXXX reproduction script
+#
+# hash list scan (HASH_METH_HASH_FILE) 경로의 use-after-unfix
+# 재현을 위해 다수 세션을 동시 실행하여 BCB 경쟁을 유도한다.
+# 에러 감지 시 모든 세션을 즉시 종료한다.
+# ------------------------------------------------------------
+
+# --- 설정 ---
+DB="demodb"
+QUERY="select /*+ parallel(0) */ count(*) from t1 where c1 in (select c1 from t1);"
+SESSIONS=10
+ITERATIONS=100
+
+# --- 내부 변수 ---
+LOG="$CUBRID/log/server/${DB}_latest.err"
+FLAG="/tmp/repro_stop_$$"
+
+# --- Ctrl+C / TERM 시 전체 정리 ---
+cleanup() {
+  touch "$FLAG"
+  kill $(jobs -p) 2>/dev/null
+  wait 2>/dev/null
+  rm -f "$FLAG"
+  exit
+}
+trap cleanup INT TERM
+
+# --- 단일 세션 루프 ---
+run_session() {
+  local sid=$1
+  for i in $(seq 1 $ITERATIONS); do
+    [ -f "$FLAG" ] && return 0
+
+    result=$(csql -u dba "$DB" -c "$QUERY" 2>&1)
+    rc=$?
+    err_cnt=$(grep -c "ERROR CODE = -13" "$LOG" 2>/dev/null || echo 0)
+
+    echo "[S$sid #$i $(date +%H:%M:%S) rc=$rc err=$err_cnt]" >&2
+
+    if [ $rc -ne 0 ] || [ "$err_cnt" -gt 0 ]; then
+      echo "*** REPRODUCED — session=$sid iter=$i ***" >&2
+      echo "$result" >&2
+      touch "$FLAG"
+      return 1
+    fi
+  done
+}
+
+# --- 메인 ---
+echo "Starting $SESSIONS sessions x $ITERATIONS iterations ..." >&2
+
+for n in $(seq 1 $SESSIONS); do
+  run_session "$n" &
+done
+
+# 2초마다 FLAG 확인 → 재현 감지 시 즉시 종료
+while [ "$(jobs -rp | wc -l)" -gt 0 ]; do
+  if [ -f "$FLAG" ]; then
+    echo "Error detected — stopping all sessions." >&2
+    kill $(jobs -p) 2>/dev/null
+    wait 2>/dev/null
+    break
+  fi
+  sleep 2
+done
+
+wait 2>/dev/null
+rm -f "$FLAG"
+echo "=== done ===" >&2
+{code}
+
+* 동시 세션이 많을수록 buffer pool 경쟁이 커져 재현 확률 상승
+
+수정 대상 코드: *src/query/query_hash_scan.c* — *fhs_find_bucket_vpid_with_hash()*
+
+h2. *Expected Result*
+
+쿼리가 정상적으로 결과를 반환한다.
+
+h2. *Actual Result*
+
+간헐적으로 아래 오류 발생 후 쿼리 실패:
+{noformat}
+An I/O error occurred while reading page <garbage> of volume "(null)"
+... Bad file descriptor
+{noformat}
+
+h2. *Additional Information*
+
+* 원본 수정 티켓: CBRD-26666
+* 수정 내용: *fhs_find_bucket_vpid_with_hash()* 에서 directory page unfix 전에 bucket VPID를 먼저 읽도록 2줄 순서 변경
+* 동시 세션의 worker에 의해 발현 가능하므로 하위 버전 백포트 필요
+* fix는 2줄 reorder이며 기능 변경 및 side effect 없음
+
+=== GitHub PR ===
+
+### Purpose
+
+`fhs_find_bucket_vpid_with_hash()`에서 directory page를 unfix한 후 해당 페이지의 포인터를 역참조하여 bucket VPID를 읽는 use-after-unfix 버그를 수정한다.
+
+unfix 이후 해당 BCB는 victim 후보가 되며, 다른 스레드가 victim으로 선택하여 다른 페이지를 로드하면 역참조 시 garbage VPID를 읽게 된다. 이로 인해 `ER_IO_READ` (-13) 에러가 간헐적으로 발생한다.
+
+### Implementation
+
+directory page가 fix된 상태에서 bucket VPID를 먼저 읽은 후 unfix하도록 2줄 순서를 변경한다.
+
+```c
+// before
+dir_record_p = (FHS_DIR_RECORD *) ((char *) dir_page_p + location);
+pgbuf_unfix_and_init (thread_p, dir_page_p);
+*out_vpid_p = dir_record_p->bucket_vpid;
+
+// after
+dir_record_p = (FHS_DIR_RECORD *) ((char *) dir_page_p + location);
+*out_vpid_p = dir_record_p->bucket_vpid;
+pgbuf_unfix_and_init (thread_p, dir_page_p);
+```
+
+### Remarks
+
+* 기능 변경 및 side effect 없음
+* CBRD-26666 원본 수정의 하위 버전 백포트

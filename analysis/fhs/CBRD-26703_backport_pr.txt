@@ -1,0 +1,26 @@
+### Purpose
+
+`fhs_find_bucket_vpid_with_hash()`에서 directory page를 unfix한 후 해당 페이지의 포인터를 역참조하여 bucket VPID를 읽는 use-after-unfix 버그를 수정한다.
+
+unfix 이후 해당 BCB는 victim 후보가 되며, 다른 스레드가 victim으로 선택하여 다른 페이지를 로드하면 역참조 시 garbage VPID를 읽게 된다. 이로 인해 `ER_IO_READ` (-13) 에러가 간헐적으로 발생한다.
+
+### Implementation
+
+directory page가 fix된 상태에서 bucket VPID를 먼저 읽은 후 unfix하도록 2줄 순서를 변경한다.
+
+```c
+// before
+dir_record_p = (FHS_DIR_RECORD *) ((char *) dir_page_p + location);
+pgbuf_unfix_and_init (thread_p, dir_page_p);
+*out_vpid_p = dir_record_p->bucket_vpid;
+
+// after
+dir_record_p = (FHS_DIR_RECORD *) ((char *) dir_page_p + location);
+*out_vpid_p = dir_record_p->bucket_vpid;
+pgbuf_unfix_and_init (thread_p, dir_page_p);
+```
+
+### Remarks
+
+* 기능 변경 및 side effect 없음
+* CBRD-26666 원본 수정의 하위 버전 백포트

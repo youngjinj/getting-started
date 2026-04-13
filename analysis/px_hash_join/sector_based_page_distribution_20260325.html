@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parallel Hash Join — Sector-Based Page Distribution</title>
+<style>
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #2d2d3a;
+  background: #f5f5f9;
+}
+.layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  background: #ffffff;
+  min-height: 100vh;
+  box-shadow: 0 0 24px rgba(0,0,0,0.06);
+}
+.toc {
+  width: 260px;
+  flex: 0 0 260px;
+  background: #1a1a2e;
+  color: #cdd6f4;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 24px 16px;
+  font-size: 13px;
+}
+.toc-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2e2e4a;
+  letter-spacing: 0.5px;
+}
+.toc nav { display: flex; flex-direction: column; }
+.toc a {
+  color: #cdd6f4;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: block;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.toc a:hover { background: #2e2e4a; color: #ffffff; }
+.toc a.active { color: #8be9fd; background: #2e2e4a; }
+.toc-h2 { font-weight: 700; margin-top: 8px; font-size: 13px; }
+.toc-h3 { padding-left: 16px; font-size: 12px; }
+.toc-h4 { padding-left: 28px; font-size: 11.5px; opacity: 0.85; }
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 40px 48px;
+  background: #ffffff;
+}
+h1 {
+  font-size: 28px;
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #4361ee;
+  color: #1a1a2e;
+}
+h2 {
+  font-size: 22px;
+  margin: 48px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e8e8f0;
+  color: #1a1a2e;
+}
+h3 { font-size: 17px; margin: 32px 0 12px; color: #2d2d3a; }
+h4 { font-size: 15px; margin: 24px 0 10px; color: #2d2d3a; }
+p { margin: 12px 0; }
+a { color: #4361ee; text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+  background: #f0f1f6;
+  color: #c7254e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+pre {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 16px 0;
+}
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: 13px;
+}
+pre .cm { color: #6c7086; font-style: italic; }
+pre .kw { color: #cba6f7; }
+pre .st { color: #a6e3a1; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e8e8f0;
+  vertical-align: top;
+}
+thead th {
+  background: #f0f1f6;
+  border-bottom: 2px solid #d0d1de;
+  font-weight: 700;
+}
+tbody tr:hover { background: #f8f8fc; }
+ul, ol { padding-left: 24px; margin: 12px 0; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid #e8e8f0; margin: 32px 0; }
+.callout {
+  border-left: 4px solid;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 4px;
+  background: #f8f8fc;
+}
+.callout-warning { border-color: #f5c518; background: #fffbe6; }
+.callout-info    { border-color: #4361ee; background: #eef2ff; }
+.callout-note    { border-color: #9d6cff; background: #f4efff; }
+.chk {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #9aa0b4;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+#to-top {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #4361ee;
+  color: #ffffff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(67,97,238,0.4);
+  display: none;
+  z-index: 999;
+}
+#to-top.visible { display: block; }
+@media (max-width: 900px) {
+  .toc { display: none; }
+  .content { padding: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<div class="toc"><div class="toc-title">목차</div><nav>
+<a href="#sec1" class="toc-h2" data-target="sec1">목차</a>
+<a href="#sec2" class="toc-h2" data-target="sec2">1. 개요</a>
+<a href="#sec3" class="toc-h2" data-target="sec3">2. 기존 방식 vs 새 방식</a>
+<a href="#sec3-1" class="toc-h3" data-target="sec3-1">2.1 기존 방식 (mutex + VPID linked-list)</a>
+<a href="#sec3-2" class="toc-h3" data-target="sec3-2">2.2 새 방식 (sector bitmap + atomic)</a>
+<a href="#sec3-3" class="toc-h3" data-target="sec3-3">2.3 비교</a>
+<a href="#sec4" class="toc-h2" data-target="sec4">3. QFILE_LIST_ID 페이지 구조</a>
+<a href="#sec5" class="toc-h2" data-target="sec5">4. 전체 동작 흐름</a>
+<a href="#sec5-1" class="toc-h3" data-target="sec5-1">4.1 오케스트레이션: `build_partitions()` — `px_hash_join.cpp:43`</a>
+<a href="#sec5-2" class="toc-h3" data-target="sec5-2">4.2 수집 단계: `qfile_collect_list_sector_info()` — `list_file.c:7085`</a>
+<a href="#sec5-3" class="toc-h3" data-target="sec5-3">4.3 분배 단계: `split_task::get_next_page()` — `px_hash_join_task_manager.cpp:562`</a>
+<a href="#sec6" class="toc-h2" data-target="sec6">5. 변경 파일 상세</a>
+<a href="#sec7" class="toc-h2" data-target="sec7">6. 핵심 구조체</a>
+<a href="#sec7-1" class="toc-h3" data-target="sec7-1">6.1 QFILE_LIST_ID → 디스크 페이지 전체 레이아웃</a>
+<a href="#sec7-2" class="toc-h3" data-target="sec7-2">6.2 FILE_EXTENSIBLE_DATA 순회 방식</a>
+<a href="#sec7-3" class="toc-h3" data-target="sec7-3">6.3 QFILE_LIST_SECTOR_INFO / FILE_PARTIAL_SECTOR / FILE_FTAB_COLLECTOR</a>
+<a href="#sec7-4" class="toc-h3" data-target="sec7-4">6.4 HASHJOIN_SHARED_SPLIT_INFO</a>
+<a href="#sec7-5" class="toc-h3" data-target="sec7-5">6.5 split_task per-thread 상태</a>
+<a href="#sec8" class="toc-h2" data-target="sec8">7. 주의사항</a>
+<a href="#sec8-1" class="toc-h3" data-target="sec8-1">7.1 FILE_QUERY_AREA 의 membuf_last 함정</a>
+<a href="#sec8-2" class="toc-h3" data-target="sec8-2">7.2 dependent_list_id 의 membuf 부재</a>
+<a href="#sec8-3" class="toc-h3" data-target="sec8-3">7.3 Temp file 의 full sector 처리</a>
+<a href="#sec8-4" class="toc-h3" data-target="sec8-4">7.4 Extdata chain 이 여러 페이지에 걸치는 경우</a>
+<a href="#sec8-5" class="toc-h3" data-target="sec8-5">7.5 FTAB / header 페이지 비트 제거</a>
+<a href="#sec8-6" class="toc-h3" data-target="sec8-6">7.6 `qmgr_free_old_page` 의 tfile 불일치</a>
+<a href="#sec8-7" class="toc-h3" data-target="sec8-7">7.7 `tfiles[]` 병렬 배열을 통한 정확한 tfile 조회</a>
+</nav></div>
+<main class="content">
+<h1>Parallel Hash Join — Sector-Based Page Distribution</h1>
+<div class="callout callout-note">분석일: 2026-03-25 (membuf 처리 추가: 2026-03-26, 코드 최신화: 2026-04-07)<br>대상: <code>src/query/parallel/px_hash_join/</code> split phase 의 페이지 분배 방식</div>
+<hr>
+<h2 id="sec1">목차</h2>
+<ol><li><a href="#1-개요">개요</a></li><li><a href="#2-기존-방식-vs-새-방식">기존 방식 vs 새 방식</a></li><li><a href="#3-qfile_list_id-페이지-구조">QFILE_LIST_ID 페이지 구조</a></li><li><a href="#4-전체-동작-흐름">전체 동작 흐름</a></li><li><a href="#5-변경-파일-상세">변경 파일 상세</a></li><li><a href="#6-핵심-구조체">핵심 구조체</a></li><li><a href="#7-주의사항">주의사항</a></li></ol>
+<hr>
+<h2 id="sec2">1. 개요</h2>
+<p>Parallel Hash Join 의 split phase 는 outer/inner list file 의 모든 페이지를 읽어 각 worker 가 파티션 단위로 나눠 담는 과정이다. 기존에는 worker 들이 하나의 <code>scan_mutex</code> 로 직렬화되어 페이지 단위로 다음 VPID 를 가져왔는데, 이는 worker 수가 늘어날수록 경합이 심해져 확장성을 해친다.</p>
+<p>본 패치는 다음 두 아이디어로 이를 해소한다:</p>
+<ol><li><strong>Sector bitmap lock-free 분배</strong> — File manager 가 이미 유지하고 있는 <code>FILE_PARTIAL_SECTOR</code> 의 VSID/비트맵을 사전에 수집해두고, worker 들이 <code>atomic&lt;int&gt;::fetch_add</code> 로 섹터 인덱스만 나눠 갖는다. 한 섹터(최대 64 페이지) 안에서는 mutex 없이 bit 순회로 VPID 를 계산할 수 있다.</li><li><strong>Membuf CAS claim</strong> — <code>QFILE_LIST_ID</code> 의 첫 번째 list 에만 존재하는 membuf 페이지는 VPID chain 이 없고 <code>tfile-&gt;membuf[]</code> 배열 인덱스로만 접근 가능하다. 이 영역은 한 worker 가 CAS 로 소유권을 잡은 뒤 단독으로 순회한다.</li></ol>
+<pre><code>                       +-------------------------+
+                       |  qfile_collect_list_    |
+                       |  sector_info()          |
+                       |                         |
+                       |  1. setup membuf info   |
+                       |  2. collect disk sects  |
+                       +------------+------------+
+                                    |
+                     +--------------+--------------+
+                     |                             |
+              membuf region                 disk sector region
+          (first list_id only)          (all dependent list_ids)
+                     |                             |
+              +------+------+            +---------+---------+
+              | CAS claim   |            | atomic fetch_add  |
+              | (1 winner)  |            | (per sector)      |
+              +------+------+            +---------+---------+
+                     |                             |
+              +------+------+            +---------+---------+
+              |  Worker 0   |            | Worker 0,1,2,...N |
+              |  pages 0~M  |            | per-sector dist.  |
+              |  sequential |            | bitmap bit scan   |
+              +------+------+            +---------+---------+
+                     |                             |
+                     +----- after membuf done -----+
+                     |  join sector distribution   |
+                     +-----------------------------+</code></pre>
+<hr>
+<h2 id="sec3">2. 기존 방식 vs 새 방식</h2>
+<h3 id="sec3-1">2.1 기존 방식 (mutex + VPID linked-list)</h3>
+<p>Split phase 의 각 worker 는 다음 VPID 를 얻기 위해 <code>scan_mutex</code> 를 잡고 <code>qmgr_get_old_page()</code> 로 페이지를 fix 한 뒤 <code>QFILE_GET_NEXT_VPID</code> 로 체인의 다음 포인터를 읽는다.</p>
+<pre><code>  Worker 0 --+
+  Worker 1 --+-- lock(scan_mutex) -- qmgr_get_old_page(&amp;next_vpid)
+  Worker 2 --+       |                         |
+                     |                         v
+                     |               QFILE_GET_NEXT_VPID(page)
+                     |                         |
+                     +---- unlock &lt;------------+
+
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           mutex contention on every page fetch</code></pre>
+<p>문제점:</p>
+<ul><li><strong>직렬화</strong>: 모든 worker 가 동일한 mutex 를 경유 → worker 수에 비례한 선형 확장이 불가능.</li></ul>
+<h3 id="sec3-2">2.2 새 방식 (sector bitmap + atomic)</h3>
+<p>수집 단계에서 file manager 내부의 partial sector table 을 훑어 <code>FILE_PARTIAL_SECTOR</code> 배열(<code>{vsid, page_bitmap}</code>) 을 메모리에 복사해둔다. 분배 단계에서는 <code>std::atomic&lt;int&gt; next_sector_index</code> 하나로 모든 worker 가 섹터를 work-stealing 방식으로 나눠 갖는다.</p>
+<pre><code>  [ collect phase - main thread ]
+
+  file header (temp file)
+  +----------------------------------+
+  |  partial sector table            |
+  |  +---------+------------------+  |
+  |  | VSID 0  | bitmap 0         |  |          QFILE_LIST_SECTOR_INFO
+  |  | VSID 1  | bitmap 1         |--+------+   +--------------------------+
+  |  | VSID 2  | bitmap 2         |  |      +--&gt;| sectors   [0..N-1]       |
+  |  |   ...   |   ...            |  |          | tfiles    [0..N-1]       |
+  |  +---------+------------------+  |          | sector_cnt = N           |
+  |  vpid_next --&gt; [next page]       |          | membuf_tfile = ...       |
+  +----------------------------------+          +--------------------------+
+
+  [ distribute phase - lock-free ]
+
+  next_sector_index : atomic&lt;int&gt; = 0
+
+  Worker 0 : fetch_add -&gt; idx=0 -&gt; sectors[0].page_bitmap -&gt; bit scan -&gt; fetch pages
+  Worker 1 : fetch_add -&gt; idx=1 -&gt; sectors[1].page_bitmap -&gt; bit scan -&gt; fetch pages
+  Worker 2 : fetch_add -&gt; idx=2 -&gt; sectors[2].page_bitmap -&gt; bit scan -&gt; fetch pages
+  Worker 0 : (sector 0 done) fetch_add -&gt; idx=3 -&gt; sectors[3] ...</code></pre>
+<h3 id="sec3-3">2.3 비교</h3>
+<table><thead><tr><th>항목</th><th>기존 (mutex)</th><th>새 방식 (sector)</th></tr></thead><tbody><tr><td>동기화 지점</td><td>매 페이지 (<code>scan_mutex</code>)</td><td>매 섹터 (~64 페이지마다 <code>fetch_add</code>)</td></tr><tr><td>Membuf 처리</td><td>자연스러운 VPID chain</td><td>별도 CAS claim 경로 필요</td></tr><tr><td>Producer 병목</td><td>없음</td><td>없음 (수집은 사전 1회 완료)</td></tr><tr><td>확장성</td><td>worker 수에 반비례</td><td>worker 수에 거의 무관</td></tr></tbody></table>
+<hr>
+<h2 id="sec4">3. QFILE_LIST_ID 페이지 구조</h2>
+<p><code>QFILE_LIST_ID</code> 의 페이지는 <strong>membuf 영역</strong>과 <strong>disk 영역</strong> 두 곳에 존재할 수 있다. 또한 여러 list 가 <code>dependent_list_id</code> 로 체인된다.</p>
+<pre><code>  QFILE_LIST_ID (base list)
+   |
+   +-- tfile_vfid --&gt; QMGR_TEMP_FILE (tfile A)
+   |                   +-- membuf[0..membuf_last]   (in-memory pages, volid = NULL_VOLID)
+   |                   +-- membuf_last = M          (last used index)
+   |                   +-- membuf (PAGE_PTR *)      (page pointer array)
+   |                   +-- temp_vfid                (disk temp file VFID)
+   |
+   +-- first_vpid --&gt; { NULL_VOLID, 0 }  (starts from membuf)
+   |                  { NULL_VOLID, 1 }  -&gt; ... -&gt; { NULL_VOLID, M }
+   |                  { volid    , pid } -&gt; ... -&gt; { volid    , pid }  (spills to disk)
+   |
+   +-- dependent_list_id --&gt; QFILE_LIST_ID (list_1, tfile B: no membuf)
+                              |
+                              +-- dependent_list_id --&gt; QFILE_LIST_ID (list_2, tfile C: no membuf)</code></pre>
+<p><strong>핵심 규칙:</strong></p>
+<ul><li><strong>membuf 는 첫 번째 list_id 에만 존재</strong> (dependent list 에는 없음).</li><li>membuf 페이지: <code>volid == NULL_VOLID</code>, <code>pageid = 0 .. membuf_last</code>.</li><li>disk 페이지: <code>volid != NULL_VOLID</code>, 각 tfile 의 partial sector table 에 기록.</li><li><code>qfile_append_list()</code> 로 연결된 list 들은 <strong>각각 다른 temp file</strong> 에 속한다.</li></ul>
+<p>→ 섹터 분배기는 &quot;<strong>한 base list + 모든 dependent list</strong>&quot; 를 하나의 논리 단위로 본다. 각 섹터에는 어느 tfile 에 속하는지 기록해둬야 <code>qmgr_get_old_page()</code> 호출 시 올바른 temp file 핸들을 건넬 수 있다.</p>
+<hr>
+<h2 id="sec5">4. 전체 동작 흐름</h2>
+<h3 id="sec5-1">4.1 오케스트레이션: <code>build_partitions()</code> — <code>px_hash_join.cpp:43</code></h3>
+<p>Outer/inner 를 순차적으로 두 번 처리한다. 각 라운드 사이에 sector_info 를 해제하고 다시 수집하며, 두 atomic 상태(<code>membuf_claimed</code>, <code>next_sector_index</code>)도 재초기화한다.</p>
+<pre><code><span class="kw">int</span> build_partitions (cubthread::entry &amp;thread_ref, HASHJOIN_MANAGER *manager,
+                      HASHJOIN_SPLIT_INFO *split_info)
+{
+    HASHJOIN_SHARED_SPLIT_INFO shared_info;
+
+    hjoin_init_shared_split_info (&amp;thread_ref, manager, &amp;shared_info);
+
+    <span class="cm">/* ====== outer relation split ====== */</span>
+    qfile_collect_list_sector_info (&amp;thread_ref, outer-&gt;fetch_info-&gt;list_id,
+                                    &amp;shared_info.sector_info);
+    shared_info.membuf_claimed.store (<span class="kw">false</span>, <span class="kw">std</span>::memory_order_relaxed);
+    shared_info.next_sector_index.store (0);
+
+    <span class="kw">for</span> (task_index = 0; task_index &lt; task_cnt; task_index++)
+      task_manager.push_task (<span class="kw">new</span> split_task (..., outer, &amp;shared_info, ...));
+    task_manager.join ();
+
+    <span class="cm">/* ====== inner relation split ====== */</span>
+    qfile_free_list_sector_info (&amp;thread_ref, &amp;shared_info.sector_info);  <span class="cm">/* free outer */</span>
+
+    qfile_collect_list_sector_info (&amp;thread_ref, inner-&gt;fetch_info-&gt;list_id,
+                                    &amp;shared_info.sector_info);
+    shared_info.membuf_claimed.store (<span class="kw">false</span>, <span class="kw">std</span>::memory_order_relaxed);
+    shared_info.next_sector_index.store (0);
+
+    <span class="kw">for</span> (task_index = 0; task_index &lt; task_cnt; task_index++)
+      task_manager.push_task (<span class="kw">new</span> split_task (..., inner, &amp;shared_info, ...));
+    task_manager.join ();
+
+    hjoin_clear_shared_split_info (&amp;thread_ref, manager, &amp;shared_info);
+}</code></pre>
+<h3 id="sec5-2">4.2 수집 단계: <code>qfile_collect_list_sector_info()</code> — <code>list_file.c:7085</code></h3>
+<p>Base list 하나와 그 뒤에 체인된 모든 dependent list 를 순회하면서 각 tfile 의 disk sector 정보를 한 배열로 병합한다.</p>
+<pre><code>  qfile_collect_list_sector_info (thread_p, list_id, sector_info)
+   |
+   +-- [1] Setup membuf info (first list_id only)
+   |       if (tfile_vfid-&gt;membuf != NULL &amp;&amp; tfile_vfid-&gt;membuf_last &gt;= 0)
+   |           sector_info-&gt;membuf_tfile = tfile_vfid
+   |
+   +-- [2] Traverse dependent_list_id chain to collect disk VFIDs
+   |       for (cur = list_id; cur != NULL; cur = cur-&gt;dependent_list_id)
+   |           skip if VFID_ISNULL (membuf-only list has no disk file)
+   |
+   +-- [3] For each disk VFID:
+           file_get_all_data_sectors (thread_p, &amp;cur-&gt;tfile_vfid-&gt;temp_vfid, &amp;collector)
+              -&gt; traverse partial sector table via file_extdata_apply_funcs
+              -&gt; collect FTAB / header page bits and mask them out of data bitmap
+              -&gt; fill collector.partsect_ftab[] with FILE_PARTIAL_SECTOR entries
+
+           merge into sector_info:
+              sectors [] = db_private_realloc + memcpy
+              tfiles  [] = db_private_realloc + fill with cur-&gt;tfile_vfid
+              sector_cnt += collector.nsects</code></pre>
+<p><strong>왜 partial sector table 만 보는가?</strong> Temp file 은 full sector table 을 유지하지 않는다 (§7.3 참조). 꽉 찬 섹터도 partial table 에 bitmap 이 모두 1 인 상태로 남아 있으므로, partial table 만 훑으면 모든 섹터를 얻을 수 있다.</p>
+<h3 id="sec5-3">4.3 분배 단계: <code>split_task::get_next_page()</code> — <code>px_hash_join_task_manager.cpp:562</code></h3>
+<p>Worker 마다 한 번씩 호출되어 다음 처리할 페이지를 반환한다. Phase 1 (membuf) → Phase 2 (sector) 로 진행되며, 한 번 membuf 를 claim 한 worker 는 소진될 때까지 Phase 1 을 반복하다가 자연스럽게 Phase 2 로 내려온다.</p>
+<pre><code><span class="kw">PAGE_PTR</span>
+split_task::get_next_page (cubthread::entry &amp;thread_ref)
+{
+    QFILE_LIST_SECTOR_INFO *sector_info = &amp;m_shared_info-&gt;sector_info;
+    FILE_PARTIAL_SECTOR *sectors = sector_info-&gt;sectors;
+    <span class="kw">void</span> **tfiles = sector_info-&gt;tfiles;
+
+    <span class="cm">/* ---- Phase 1 : membuf pages ---- */</span>
+    <span class="kw">if</span> (m_membuf_index &gt;= 0)                                <span class="cm">/* already owner */</span>
+      {
+        <span class="kw">if</span> (m_membuf_index &lt;= sector_info-&gt;membuf_tfile-&gt;membuf_last)
+          {
+            <span class="kw">VPID</span> vpid = { <span class="kw">NULL_VOLID</span>, m_membuf_index++ };
+            <span class="kw">return</span> qmgr_get_old_page (&amp;thread_ref, &amp;vpid,
+                                      m_split_info-&gt;fetch_info-&gt;list_id-&gt;tfile_vfid);
+          }
+        m_membuf_index = -1;                                <span class="cm">/* exhausted -&gt; go to Phase 2 */</span>
+      }
+
+    <span class="kw">if</span> (m_sector_index == -1 &amp;&amp; sector_info-&gt;membuf_tfile != <span class="kw">nullptr</span>)
+      {
+        <span class="cm">/* one-time CAS attempt: exactly one worker wins the membuf region */</span>
+        <span class="kw">bool</span> expected = <span class="kw">false</span>;
+        <span class="kw">if</span> (m_shared_info-&gt;membuf_claimed.compare_exchange_strong (
+                expected, <span class="kw">true</span>, <span class="kw">std</span>::memory_order_acq_rel))
+          {
+            m_membuf_index = 0;
+            <span class="kw">return</span> get_next_page (thread_ref);              <span class="cm">/* re-enter Phase 1 */</span>
+          }
+      }
+
+    <span class="cm">/* ---- Phase 2 : sector-based disk pages ---- */</span>
+    <span class="kw">while</span> (<span class="kw">true</span>)
+      {
+        <span class="kw">while</span> (m_current_bitmap != 0)                       <span class="cm">/* drain current sector */</span>
+          {
+            <span class="kw">int</span> bit_pos = __builtin_ctzll (m_current_bitmap);
+            m_current_bitmap &amp;= m_current_bitmap - 1;       <span class="cm">/* clear lowest set bit */</span>
+
+            <span class="kw">VPID</span> vpid = { m_current_vsid.volid,
+                          SECTOR_FIRST_PAGEID (m_current_vsid.sectid) + bit_pos };
+            QMGR_TEMP_FILE *tfile = (QMGR_TEMP_FILE *) tfiles[m_sector_index];
+
+            <span class="kw">return</span> qmgr_get_old_page (&amp;thread_ref, &amp;vpid, tfile);
+          }
+
+        <span class="cm">/* grab next sector atomically */</span>
+        <span class="kw">int</span> sector_index = m_shared_info-&gt;next_sector_index.fetch_add (
+                               1, <span class="kw">std</span>::memory_order_relaxed);
+        <span class="kw">if</span> (sector_index &gt;= sector_info-&gt;sector_cnt)
+          <span class="kw">return</span> <span class="kw">nullptr</span>;                                   <span class="cm">/* all sectors distributed */</span>
+
+        m_sector_index   = sector_index;
+        m_current_vsid   = sectors[sector_index].vsid;
+        m_current_bitmap = sectors[sector_index].page_bitmap;
+      }
+}</code></pre>
+<p><strong>Worker 별 실행 시나리오 (4 worker, 10 sector, membuf 존재)</strong></p>
+<pre><code>           time ------------------------------------------------&gt;
+
+  W 0 : [CAS win]  membuf p0..pM  |  sec 3  |  sec 7  |  done
+  W 1 : [CAS fail]    sec 0       |  sec 4  |  sec 8  |  done
+  W 2 : [CAS fail]    sec 1       |  sec 5  |  sec 9  |  done
+  W 3 : [CAS fail]    sec 2       |  sec 6  |  done</code></pre>
+<ul><li>Worker 0 은 CAS 에 성공해 membuf 를 독점 처리한 뒤 sector 분배에 뒤늦게 합류.</li><li>나머지는 곧바로 sector 분배에 참여.</li><li>섹터 할당은 work-stealing 형태 — 빨리 끝난 worker 가 더 많은 섹터를 가져간다.</li></ul>
+<hr>
+<h2 id="sec6">5. 변경 파일 상세</h2>
+<table><thead><tr><th>파일</th><th>변경 내용</th></tr></thead><tbody><tr><td><code>storage/file_manager.h</code></td><td>기존 <code>FILE_PARTIAL_SECTOR { vsid, page_bitmap }</code>, <code>FILE_FTAB_COLLECTOR</code> 를 재사용. <code>file_get_all_data_sectors()</code> 선언 추가</td></tr><tr><td><code>storage/file_manager.c</code></td><td><code>file_get_all_data_sectors()</code> 구현. <code>file_extdata_apply_funcs()</code> 콜백으로 partial (그리고 perm file 이면 full) sector table 을 한 번에 훑어, FTAB/header 페이지 비트를 마스크 아웃한 data sector 배열을 반환</td></tr><tr><td><code>query/query_list.h</code></td><td><code>QFILE_LIST_SECTOR_INFO</code> 구조체 선언 (<code>membuf_tfile</code>, <code>sectors</code>, <code>tfiles</code>, <code>sector_cnt</code>), <code>QFILE_LIST_SECTOR_INFO_INITIALIZER</code>, <code>QFILE_INIT_LIST_SECTOR_INFO</code> 매크로</td></tr><tr><td><code>query/list_file.h</code></td><td><code>qfile_collect_list_sector_info()</code>, <code>qfile_free_list_sector_info()</code> 선언</td></tr><tr><td><code>query/list_file.c</code></td><td>두 함수 구현 — base list 의 membuf 정보 세팅 + dependent_list_id chain 순회 + <code>file_get_all_data_sectors()</code> 호출 + sectors/tfiles 배열 realloc 병합</td></tr><tr><td><code>query/query_hash_join.h</code></td><td><code>HASHJOIN_SHARED_SPLIT_INFO</code> 개정: <code>scan_mutex</code>, <code>scan_position</code>, <code>next_vpid</code> 제거. <code>sector_info</code> (<code>QFILE_LIST_SECTOR_INFO</code>), <code>membuf_claimed</code> (<code>atomic&lt;bool&gt;</code>), <code>next_sector_index</code> (<code>atomic&lt;int&gt;</code>) 추가</td></tr><tr><td><code>query/query_hash_join.c</code></td><td><code>hjoin_init_shared_split_info()</code> 에서 파티션 mutex 배열 초기화. <code>hjoin_clear_shared_split_info()</code> 에서 <code>qfile_free_list_sector_info()</code> 호출</td></tr><tr><td><code>query/parallel/px_hash_join/px_hash_join.cpp</code></td><td><code>build_partitions()</code> 가 outer/inner 각각에 대해 <code>qfile_collect_list_sector_info()</code> + atomic 리셋 + <code>split_task</code> 생성/실행</td></tr><tr><td><code>query/parallel/px_hash_join/px_hash_join_task_manager.hpp</code></td><td><code>split_task</code> 에 per-thread 상태 추가: <code>m_membuf_index</code>, <code>m_sector_index</code>, <code>m_current_bitmap</code>, <code>m_current_vsid</code></td></tr><tr><td><code>query/parallel/px_hash_join/px_hash_join_task_manager.cpp</code></td><td><code>split_task::get_next_page()</code> 재작성 — Phase 1 (membuf CAS + sequential) → Phase 2 (sector bitmap lock-free). 각 페이지의 tfile 은 <code>sector_info-&gt;tfiles[m_sector_index]</code> 에서 조회</td></tr></tbody></table>
+<hr>
+<h2 id="sec7">6. 핵심 구조체</h2>
+<h3 id="sec7-1">6.1 QFILE_LIST_ID → 디스크 페이지 전체 레이아웃</h3>
+<pre><code>  QFILE_LIST_ID
+   +-- tfile_vfid --&gt; QMGR_TEMP_FILE
+   |                    +-- membuf[0..M]     (in-memory pages, volid = NULL_VOLID)
+   |                    +-- temp_vfid (VFID) (disk temp file identifier)
+   |                          |
+   |                          v
+   |   +------------------------------------------------+
+   |   |  Disk page 0 (File Header Page)                |
+   |   |                                                |
+   |   |  FILE_HEADER                                   |
+   |   |    self (VFID)                                 |
+   |   |    n_sector_total                              |
+   |   |    n_sector_partial                            |
+   |   |    n_page_free                                 |
+   |   |    offset_to_partial_ftab -----+               |
+   |   |    ...                         |               |
+   |   |                                v               |
+   |   |  FILE_EXTENSIBLE_DATA (partial ftab)           |
+   |   |    n_items = K                                 |
+   |   |    size_of_item = sizeof(FILE_PARTIAL_SECTOR)  |
+   |   |    vpid_next --&gt; (overflow page)               |
+   |   |                                                |
+   |   |    [0]  FILE_PARTIAL_SECTOR                    |
+   |   |           { vsid = {vol, sect}, page_bitmap }  |
+   |   |    [1]  FILE_PARTIAL_SECTOR                    |
+   |   |           { vsid = {vol, sect}, page_bitmap }  |
+   |   |    ...                                         |
+   |   |    [K]  FILE_PARTIAL_SECTOR                    |
+   |   +------------------------------------------------+
+   |                          |
+   |                          | vpid_next (if items overflow one page)
+   |                          v
+   |   +------------------------------------------------+
+   |   |  Disk page X (extdata overflow page)           |
+   |   |                                                |
+   |   |  FILE_EXTENSIBLE_DATA                          |
+   |   |    [K+1] FILE_PARTIAL_SECTOR                   |
+   |   |    [K+2] FILE_PARTIAL_SECTOR                   |
+   |   |    ...                                         |
+   |   |    vpid_next = NULL  (end of chain)            |
+   |   +------------------------------------------------+
+   |
+   +-- dependent_list_id --&gt; (another QFILE_LIST_ID, another temp_vfid)</code></pre>
+<p><strong>요점</strong></p>
+<ul><li>하나의 <code>VFID</code> = 하나의 <code>FILE_HEADER</code> = temp file 의 첫 번째 disk page.</li><li><code>FILE_HEADER</code> 안에 partial sector table (<code>FILE_EXTENSIBLE_DATA</code>) 의 시작점이 있음.</li><li><code>FILE_EXTENSIBLE_DATA</code> 는 <code>FILE_PARTIAL_SECTOR</code> 배열의 페이지 단위 컨테이너 — 한 페이지에 다 못 담으면 <code>vpid_next</code> 로 체이닝.</li><li>Temp file 은 full sector table 을 쓰지 않아 모든 섹터가 partial table 에 존재 (§7.3).</li></ul>
+<h3 id="sec7-2">6.2 FILE_EXTENSIBLE_DATA 순회 방식</h3>
+<p><code>file_manager.c</code> 내부에서 extdata chain 을 순회하는 두 가지 방식이 있다. 둘 다 <code>static</code>/<code>STATIC_INLINE</code> 이라 외부에서 직접 사용할 수 없고, 외부에서는 <code>file_get_all_data_sectors()</code> 가 반환한 결과만 소비한다.</p>
+<p><strong>1) 콜백 기반 — <code>file_extdata_apply_funcs()</code> (<code>file_manager.c:1886</code>)</strong></p>
+<pre><code><span class="cm">/* file_get_all_data_sectors() — file_manager.c:12516 */</span>
+FILE_HEADER_GET_PART_FTAB (fhead, extdata_ftab);
+file_extdata_apply_funcs (thread_p, extdata_ftab,
+    file_extdata_collect_ftab_pages,        <span class="cm">/* extdata callback: collect FTAB pages   */</span>
+    &amp;ftab_collector,                        <span class="cm">/* extdata callback arg                   */</span>
+    file_extdata_collect_data_sectors_part, <span class="cm">/* item callback  : collect data sectors  */</span>
+    collector_out,                          <span class="cm">/* item callback arg                      */</span>
+    <span class="kw">false</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>);</code></pre>
+<p><code>vpid_next</code> chain 전체를 자동 순회하며 각 extdata 페이지와 그 안의 item 에 콜백을 적용한다. <code>file_get_all_data_sectors()</code> 는 이 방식을 사용해 FTAB 페이지와 데이터 섹터를 동시에 수집한다.</p>
+<p><strong>2) 직접 순회 — for 루프 + <code>vpid_next</code></strong> (일부 내부 함수에서 사용)</p>
+<pre><code><span class="kw">while</span> (<span class="kw">true</span>)
+  {
+    <span class="kw">for</span> (ps = (FILE_PARTIAL_SECTOR *) file_extdata_start (extdata_iter);
+         ps &lt; (FILE_PARTIAL_SECTOR *) file_extdata_end (extdata_iter); ps++)
+      {
+        <span class="cm">/* access ps-&gt;vsid, ps-&gt;page_bitmap */</span>
+      }
+
+    vpid_next = extdata_iter-&gt;vpid_next;
+    <span class="kw">if</span> (VPID_ISNULL (&amp;vpid_next))
+      <span class="kw">break</span>;
+
+    page_iter    = pgbuf_fix (thread_p, &amp;vpid_next, ...);
+    extdata_iter = (FILE_EXTENSIBLE_DATA *) page_iter;
+  }</code></pre>
+<h3 id="sec7-3">6.3 QFILE_LIST_SECTOR_INFO / FILE_PARTIAL_SECTOR / FILE_FTAB_COLLECTOR</h3>
+<pre><code><span class="cm">/* query_list.h:534 */</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> qfile_list_sector_info QFILE_LIST_SECTOR_INFO;
+<span class="kw">struct</span> qfile_list_sector_info
+{
+  <span class="kw">struct</span> qmgr_temp_file *membuf_tfile;  <span class="cm">/* tfile owning membuf pages (NULL = none) */</span>
+  <span class="kw">struct</span> file_partial_sector *sectors;  <span class="cm">/* data page sectors (FTAB bits excluded)  */</span>
+  <span class="kw">void</span> **tfiles;                        <span class="cm">/* parallel array: tfile pointer per sector */</span>
+  <span class="kw">int</span> sector_cnt;
+};
+<span class="kw">#define QFILE_LIST_SECTOR_INFO_INITIALIZER { NULL, NULL, NULL, 0 }</span></code></pre>
+<pre><code><span class="cm">/* file_manager.h:161 */</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> file_partial_sector FILE_PARTIAL_SECTOR;
+<span class="kw">struct</span> file_partial_sector
+{
+  <span class="kw">VSID</span> vsid;                       <span class="cm">/* sector ID (volid + sectid) */</span>
+  FILE_ALLOC_BITMAP page_bitmap;   <span class="cm">/* UINT64 : bit N = 1 means page N allocated */</span>
+};</code></pre>
+<pre><code><span class="cm">/* file_manager.h:170 */</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> file_ftab_collector FILE_FTAB_COLLECTOR;
+<span class="kw">struct</span> file_ftab_collector
+{
+  <span class="kw">int</span> npages;
+  <span class="kw">int</span> nsects;
+  FILE_PARTIAL_SECTOR *partsect_ftab;
+};
+<span class="kw">#define FILE_FTAB_COLLECTOR_INITIALIZER { 0, 0, NULL }</span></code></pre>
+<p><strong>Bitmap → VPID 변환 예시</strong></p>
+<pre><code>  sector VSID  = { volid = 10, sectid = 5 }
+  page_bitmap  = 0b ... 0000 0000 0101 0011    (bits 0,1,4,6 set)
+
+  SECTOR_FIRST_PAGEID (5) = 5 * 64 = 320
+
+    bit 0 -&gt; VPID { volid = 10, pageid = 320 }
+    bit 1 -&gt; VPID { volid = 10, pageid = 321 }
+    bit 4 -&gt; VPID { volid = 10, pageid = 324 }
+    bit 6 -&gt; VPID { volid = 10, pageid = 326 }</code></pre>
+<h3 id="sec7-4">6.4 HASHJOIN_SHARED_SPLIT_INFO</h3>
+<p>모든 split_task 가 공유하는 read-mostly 상태. <code>sector_info</code> 는 수집 이후 read-only, 두 atomic 변수만 worker 들이 갱신한다.</p>
+<pre><code><span class="cm">/* query_hash_join.h:252 */</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> hashjoin_shared_split_info
+{
+  <span class="cm">// *INDENT-OFF*</span>
+  QFILE_LIST_SECTOR_INFO sector_info;    <span class="cm">/* sectors[] + tfiles[] (read-only after collect) */</span>
+  <span class="kw">std</span>::atomic&lt;<span class="kw">bool</span>&gt; membuf_claimed;      <span class="cm">/* exactly one worker wins the membuf region     */</span>
+  <span class="kw">std</span>::atomic&lt;<span class="kw">int</span>&gt;  next_sector_index;   <span class="cm">/* work-stealing cursor for sectors               */</span>
+  <span class="kw">std</span>::mutex       *part_mutexes;        <span class="cm">/* per-partition mutexes for overflow append      */</span>
+
+  hashjoin_shared_split_info ()
+    : sector_info (QFILE_LIST_SECTOR_INFO_INITIALIZER)
+    , membuf_claimed (<span class="kw">false</span>)
+    , next_sector_index (0)
+    , part_mutexes (<span class="kw">nullptr</span>)
+  {
+  }
+  <span class="cm">// *INDENT-ON*</span>
+} HASHJOIN_SHARED_SPLIT_INFO;</code></pre>
+<h3 id="sec7-5">6.5 split_task per-thread 상태</h3>
+<p>각 worker 가 자신만의 이터레이션 상태를 들고 있다. <code>m_membuf_index == -1</code> 은 &quot;membuf owner 가 아님&quot; 을, <code>m_sector_index == -1</code> 은 &quot;아직 어떤 섹터도 가져오지 않음&quot; 을 의미한다.</p>
+<pre><code><span class="cm">/* px_hash_join_task_manager.hpp:141 */</span>
+<span class="kw">class</span> split_task: <span class="kw">public</span> base_task
+{
+  HASHJOIN_INPUT_SPLIT_INFO  *m_split_info;
+  HASHJOIN_SHARED_SPLIT_INFO *m_shared_info;
+
+  <span class="cm">/* per-thread membuf iteration state:
+   *   m_membuf_index == -1 : not the membuf owner
+   *   m_membuf_index &gt;=  0 : current membuf page index to read next
+   */</span>
+  <span class="kw">int</span> m_membuf_index;
+
+  <span class="cm">/* per-thread sector iteration state */</span>
+  <span class="kw">int</span>    m_sector_index;      <span class="cm">/* current sector index (-1 = need next sector) */</span>
+  <span class="kw">UINT64</span> m_current_bitmap;    <span class="cm">/* remaining page bits in current sector        */</span>
+  <span class="kw">VSID</span>   m_current_vsid;      <span class="cm">/* current sector VSID                          */</span>
+
+  <span class="kw">PAGE_PTR</span> get_next_page (cubthread::entry &amp;thread_ref);
+};</code></pre>
+<hr>
+<h2 id="sec8">7. 주의사항</h2>
+<h3 id="sec8-1">7.1 FILE_QUERY_AREA 의 membuf_last 함정</h3>
+<p><code>qmgr_create_result_file()</code> 로 생성된 result file 은 다음과 같은 상태를 갖는다:</p>
+<pre><code>tfile_vfid-&gt;membuf_last   = PRM_ID_TEMP_MEM_BUFFER_PAGES - 1;  <span class="cm">/* &gt;= 0 */</span>
+tfile_vfid-&gt;membuf        = <span class="kw">NULL</span>;                              <span class="cm">/* NULL ! */</span>
+tfile_vfid-&gt;membuf_npages = 0;</code></pre>
+<p>즉 <strong><code>membuf_last &gt;= 0</code> 이지만 <code>membuf == NULL</code></strong> 인 케이스가 존재한다. 반드시 <code>membuf != NULL</code> 체크를 함께 수행해야 한다.</p>
+<pre><code><span class="cm">/* qfile_collect_list_sector_info() — list_file.c:7100 */</span>
+<span class="kw">if</span> (list_id-&gt;tfile_vfid-&gt;membuf != <span class="kw">NULL</span>             <span class="cm">/* &lt;-- mandatory ! */</span>
+    &amp;&amp; list_id-&gt;tfile_vfid-&gt;membuf_last &gt;= 0)
+  {
+    assert (list_id-&gt;tfile_vfid-&gt;membuf_npages &gt; 0);
+    sector_info-&gt;membuf_tfile = list_id-&gt;tfile_vfid;
+  }</code></pre>
+<p>이 체크가 누락되면 <code>qmgr_get_old_page()</code> 에서 <code>tfile-&gt;membuf[pageid]</code> 에 접근할 때 NULL 역참조로 SEGFAULT 가 발생한다:</p>
+<pre><code>  qmgr_get_old_page()  at  query_manager.c:2541
+    page_p = tfile_vfid_p-&gt;membuf[vpid_p-&gt;pageid];   /* membuf == NULL -&gt; CRASH */</code></pre>
+<h3 id="sec8-2">7.2 dependent_list_id 의 membuf 부재</h3>
+<p><code>qfile_append_list()</code> 로 연결된 dependent list 는 <strong>membuf 를 갖지 않는다</strong>. append 시 원본 list 의 tfile 이 그대로 연결되며, 모든 데이터 페이지가 disk 에 존재한다.</p>
+<pre><code>  base_list_id              (tfile A : has membuf, has disk)
+    dependent_list_id #1    (tfile B : no membuf , disk only)
+      dependent_list_id #2  (tfile C : no membuf , disk only)</code></pre>
+<p>→ 결과적으로 <strong>membuf 처리 경로는 첫 번째 list_id 에 대해서만</strong> 수행하면 된다. <code>qfile_collect_list_sector_info()</code> 도 이에 맞춰 첫 iteration 에서만 membuf 를 세팅한다.</p>
+<h3 id="sec8-3">7.3 Temp file 의 full sector 처리</h3>
+<p>Temp file 은 full sector table 을 유지하지 않는다. 꽉 찬 섹터도 partial table 에 bitmap 이 전부 1 인 상태로 남아있다. 이 설계는 <code>file_temp_alloc()</code> 의 주석에 명시되어 있다:</p>
+<pre><code><span class="cm">/* file_temp_alloc() — file_manager.c:8625 */</span>
+<span class="cm">/* how it works
+ * temporary files, compared to permanent files, have a simplified design.
+ * they do not keep two different tables (partial and full).
+ * they only keep the partial table, and when sectors become full,
+ * they remain in the partial table.
+ * the second difference is that temporary files never deallocate pages.
+ * since they are temporary, and soon to be freed (or cached for reuse),
+ * there is no point in deallocating pages.
+ * the simplified design was chosen because temporary files are never logged.
+ * and it is hard to undo changes without logging when errors happen
+ * (e.g. interrupted transaction).
+ */</span></code></pre>
+<p>반면 permanent file (<code>file_perm_alloc</code>) 은 섹터가 꽉 차면 partial table 에서 제거하고 full table 로 이동한다:</p>
+<pre><code><span class="cm">/* file_perm_alloc() — file_manager.c:5166 */</span>
+<span class="kw">if</span> (is_full)
+  {
+    <span class="cm">/* move to full table */</span>
+    vsid_full = partsect-&gt;vsid;
+    file_extdata_remove_at (extdata_part_ftab, 0, 1);                        <span class="cm">/* remove from partial */</span>
+    error_code = file_table_add_full_sector (thread_p, page_fhead, &amp;vsid_full); <span class="cm">/* add to full       */</span>
+  }</code></pre>
+<p><strong>결론:</strong> <code>QFILE_LIST_ID</code> 의 temp file 은 항상 <code>FILE_IS_TEMPORARY</code> 이므로 partial sector table 만 훑으면 모든 섹터(꽉 찬 것 포함)를 얻을 수 있다. <code>file_get_all_data_sectors()</code> 는 safety net 으로 non-temporary 일 때만 full table 도 순회한다:</p>
+<pre><code><span class="cm">/* file_get_all_data_sectors() — file_manager.c:12583 */</span>
+<span class="kw">if</span> (!FILE_IS_TEMPORARY (fhead))
+  {
+    <span class="cm">/* traverse full table too - temp file does not take this path */</span>
+    FILE_HEADER_GET_FULL_FTAB (fhead, extdata_ftab);
+    file_extdata_apply_funcs (thread_p, extdata_ftab, ...);
+  }</code></pre>
+<p>→ 결과적으로 <code>file_get_all_data_sectors()</code> 는 temp / permanent 양쪽 모두 올바르게 처리한다.</p>
+<h3 id="sec8-4">7.4 Extdata chain 이 여러 페이지에 걸치는 경우</h3>
+<p>Partial sector table 은 <code>FILE_EXTENSIBLE_DATA</code> 컨테이너로 관리되며, 섹터가 많아지면 여러 페이지에 걸쳐 <code>vpid_next</code> 로 연결된다.</p>
+<pre><code>  page 0 (file header)              page X (extdata overflow)
+  +----------------------+          +----------------------+
+  | FILE_EXTENSIBLE_DATA |          | FILE_EXTENSIBLE_DATA |
+  |   items[0..K]        |          |   items[0..J]        |
+  |   vpid_next ---------+---------&gt;|   vpid_next = NULL   |
+  +----------------------+          +----------------------+</code></pre>
+<p>→ <strong>첫 페이지만 훑으면 이후 섹터가 누락</strong>된다. <code>file_extdata_apply_funcs()</code> 는 <code>vpid_next</code> chain 전체를 자동으로 따라가므로 <code>file_get_all_data_sectors()</code> 를 쓰면 이 이슈가 자연스럽게 해결된다.</p>
+<h3 id="sec8-5">7.5 FTAB / header 페이지 비트 제거</h3>
+<p>File header 페이지와 extdata overflow 페이지는 데이터 페이지가 아니지만, 소속 섹터의 bitmap 에는 bit 가 set 되어 있다. 이를 data sector bitmap 에서 빼주지 않으면 worker 가 FTAB 페이지를 데이터로 읽어 <code>QFILE_GET_TUPLE_COUNT</code> 에서 의미 없는 값을 얻는다.</p>
+<p><code>file_get_all_data_sectors()</code> 는 이 과정을 자동화한다:</p>
+<ol><li><code>file_extdata_collect_ftab_pages</code> 콜백이 extdata chain 자체를 따라가면서 방문한 FTAB 페이지들을 <code>ftab_collector</code> 에 모은다.</li><li>수집이 끝나면 FTAB 섹터/비트를 data sector bitmap 에서 마스크 아웃한다:</li></ol>
+<pre><code><span class="cm">/* file_get_all_data_sectors() — file_manager.c:12599 */</span>
+<span class="kw">for</span> (i = 0; i &lt; ftab_collector.nsects; i++)
+  {
+    <span class="kw">for</span> (j = 0; j &lt; collector_out-&gt;nsects; j++)
+      {
+        <span class="kw">if</span> (VSID_EQ (&amp;ftab_collector.partsect_ftab[i].vsid,
+                     &amp;collector_out-&gt;partsect_ftab[j].vsid))
+          {
+            collector_out-&gt;partsect_ftab[j].page_bitmap
+              &amp;= ~ftab_collector.partsect_ftab[i].page_bitmap;
+          }
+      }
+  }</code></pre>
+<p>참고로 <code>QFILE_GET_TUPLE_COUNT == 0</code> 인 페이지는 split 루프에서 자연스럽게 skip 되므로, 설령 FTAB 비트가 남아 있어도 정확성 문제는 없다. (정확한 page count 통계가 필요한 경우에만 영향)</p>
+<h3 id="sec8-6">7.6 <code>qmgr_free_old_page</code> 의 tfile 불일치</h3>
+<p><code>split_task::execute()</code> 에서 페이지 해제 시 <code>list_id-&gt;tfile_vfid</code> (즉 base list 의 tfile) 를 사용한다. 하지만 실제 해당 페이지는 dependent list 의 tfile 에 속할 수도 있다.</p>
+<pre><code><span class="cm">/* execute() */</span>
+qmgr_free_old_page_and_init (&amp;thread_ref, page, list_id-&gt;tfile_vfid);
+<span class="cm">/*                                                ^^^^^^^^^^^^^^^^^^^
+ *                                                may differ from the
+ *                                                tfile that owns `page` */</span></code></pre>
+<p><strong>동작 상 문제는 없다.</strong> <code>qmgr_free_old_page()</code> 는 <code>qmgr_get_page_type()</code> 로 해당 페이지가 membuf 인지 disk 인지를 내부적으로 판별한다:</p>
+<ul><li>disk 페이지 : <code>pgbuf_unfix()</code> 호출 — VPID 기반이라 tfile 인자 무관</li><li>membuf 페이지 : no-op (실제 free 할 것이 없음)</li></ul>
+<p>따라서 전달되는 tfile 이 실제 소속과 다르더라도 정상 동작한다. 다만 코드 의도가 명확하지 않으므로 유지 보수 시 주의가 필요하다.</p>
+<h3 id="sec8-7">7.7 <code>tfiles[]</code> 병렬 배열을 통한 정확한 tfile 조회</h3>
+<p>반대로 <strong>페이지 fetch 시점에는 올바른 tfile 을 넘겨야 한다</strong>. <code>qmgr_get_old_page()</code> 가 disk 페이지 경로에서 VPID 만 사용하더라도, membuf 경로나 내부 검증에서 tfile 을 참조할 수 있다.</p>
+<p><code>get_next_page()</code> 는 <code>m_sector_index</code> 로 <code>tfiles[]</code> 병렬 배열을 인덱싱하여 현재 섹터가 속한 tfile 을 직접 얻는다:</p>
+<pre><code><span class="cm">/* px_hash_join_task_manager.cpp:632 */</span>
+QMGR_TEMP_FILE *tfile = (QMGR_TEMP_FILE *) tfiles[m_sector_index];
+<span class="kw">PAGE_PTR</span> page = qmgr_get_old_page (&amp;thread_ref, &amp;vpid, tfile);</code></pre>
+<p>이는 <code>qfile_collect_list_sector_info()</code> 의 수집 단계에서 각 섹터에 대응하는 tfile 을 <code>tfiles[]</code> 에 기록해두었기 때문에 가능하다:</p>
+<pre><code><span class="cm">/* list_file.c:7148 */</span>
+<span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; collector.nsects; i++)
+  {
+    sector_info-&gt;tfiles[old_cnt + i] = (<span class="kw">void</span> *) current-&gt;tfile_vfid;
+  }</code></pre>
+<p>이 패턴 덕분에 base/dependent list 가 섞여 있는 경우에도 각 섹터의 페이지를 올바른 temp file 핸들과 함께 fetch 할 수 있다.</p>
+</main>
+</div>
+<button id="to-top" aria-label="맨 위로">↑</button>
+<script>
+(function () {
+  var tocLinks = document.querySelectorAll('.toc a');
+  var headings = [];
+  tocLinks.forEach(function (a) {
+    var id = a.getAttribute('data-target');
+    var el = document.getElementById(id);
+    if (el) headings.push({ id: id, el: el, link: a });
+  });
+
+  function onScroll() {
+    var y = window.scrollY + 100;
+    var current = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].el.offsetTop <= y) current = headings[i];
+      else break;
+    }
+    tocLinks.forEach(function (a) { a.classList.remove('active'); });
+    if (current) {
+      current.link.classList.add('active');
+      // ensure active is visible inside toc
+      var toc = document.querySelector('.toc');
+      var lt = current.link.offsetTop - toc.offsetTop;
+      if (lt < toc.scrollTop || lt > toc.scrollTop + toc.clientHeight - 40) {
+        toc.scrollTop = lt - 40;
+      }
+    }
+    var btn = document.getElementById('to-top');
+    if (window.scrollY > 400) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  }
+
+  tocLinks.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('data-target');
+      var el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        window.scrollTo({ top: el.offsetTop - 16, behavior: 'smooth' });
+        history.replaceState(null, '', '#' + id);
+      }
+    });
+  });
+
+  document.getElementById('to-top').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

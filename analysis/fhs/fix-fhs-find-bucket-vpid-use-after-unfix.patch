@@ -1,0 +1,69 @@
+From: youngjinj <youngjinj@cubrid.com>
+Subject: [PATCH] Fix use-after-unfix in fhs_find_bucket_vpid_with_hash
+
+`fhs_find_bucket_vpid_with_hash()` computed a pointer into the directory
+page (`dir_record_p = dir_page_p + location`), then called
+`pgbuf_unfix_and_init` BEFORE dereferencing the pointer to read the
+bucket VPID.
+
+After `pgbuf_unfix_and_init`, the directory page's BCB becomes a victim
+candidate. Under parallel hash join (`HASH_METH_HASH_FILE` path) with
+high parallelism (parallel(16)+), another worker or the flush daemon can
+victimize the BCB and load a different page into the same memory between
+the unfix and the dereference. The dereference then reads bytes from
+whichever page now occupies that BCB, producing a garbage VPID such as
+`(25401, 99)`.
+
+The garbage VPID is then passed to `fhs_fix_old_page` -> `pgbuf_fix` ->
+`pgbuf_claim_bcb_for_fix` -> `fileio_get_volume_descriptor`, which
+returns `NULL_VOLDES` (-1) for the unmapped volid, and the subsequent
+`pread(-1, ...)` fails with `errno=EBADF`. The user observes:
+
+    An I/O error occurred while reading page <garbage> of volume
+    "(null)".... Bad file descriptor
+
+with a stack trace:
+
+    fileio_read
+      <- pgbuf_claim_bcb_for_fix
+      <- pgbuf_fix_release
+      <- fhs_fix_old_page
+      <- fhs_search
+      <- hjoin_probe_key
+      <- hjoin_probe
+      <- parallel_query::hash_join::join_task::execute
+
+Fix: read the bucket VPID FIRST (while the directory page is still
+fixed), THEN unfix the page.
+
+Reproduced and verified against demodb t1 (50M rows) self-join with
+`select /*+ parallel(16) use_hash */ count(*) from t1 a, t1 b where
+a.c1 = b.c1` running in 3 concurrent csql sessions:
+
+  before fix: hit within ~25 minutes
+  after  fix: 90 minutes / 108 iterations / 0 occurrences
+
+---
+ src/query/query_hash_scan.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/query/query_hash_scan.c b/src/query/query_hash_scan.c
+--- a/src/query/query_hash_scan.c
++++ b/src/query/query_hash_scan.c
+@@ -1775,10 +1775,14 @@ fhs_find_bucket_vpid_with_hash (THREAD_ENTRY * thread_p, FHSID * fhsid_p, void *
+     {
+       return ER_FAILED;
+     }
++  /* CBRD-26666: READ the bucket VPID while the directory page is still
++   * fixed, THEN unfix. Previously the page was unfixed before the
++   * dereference, which allowed another thread (or the flush daemon) to
++   * victimize the BCB and load a different page into the same memory,
++   * causing *out_vpid_p to contain bytes from the replacement page. */
+   dir_record_p = (FHS_DIR_RECORD *) ((char *) dir_page_p + location);
+-  pgbuf_unfix_and_init (thread_p, dir_page_p);
+-
+   *out_vpid_p = dir_record_p->bucket_vpid;
++  pgbuf_unfix_and_init (thread_p, dir_page_p);
+
+   return NO_ERROR;
+ }
