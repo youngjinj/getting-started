@@ -91,76 +91,114 @@ h4. Step 3. 재현 스크립트 (repro.sh)
 
 {code:bash}
 #!/bin/bash
-# ------------------------------------------------------------
-# repro.sh — CBRD-XXXXX reproduction script
 #
-# hash list scan (HASH_METH_HASH_FILE) 경로의 use-after-unfix
-# 재현을 위해 다수 세션을 동시 실행하여 BCB 경쟁을 유도한다.
-# 에러 감지 시 모든 세션을 즉시 종료한다.
-# ------------------------------------------------------------
+# repro.sh — CBRD-26703 reproduction script
+#
+# HASH_METH_HASH_FILE 경로의 use-after-unfix 재현을 위해
+# 다수 세션을 동시에 실행하여 BCB 경쟁을 유도한다.
+# 에러가 감지되면 실행 중인 csql 포함 모든 세션을 즉시 종료한다.
+#
 
-# --- 설정 ---
-DB="demodb"
-QUERY="select /*+ parallel(0) */ count(*) from t1 where c1 in (select c1 from t1);"
-SESSIONS=10
-ITERATIONS=100
+#
+# Configuration
+#
+readonly DB="demodb"
+readonly QUERY="select /*+ ordered parallel(0) */ count(*) from t1 a, (select /*+ no_merge */ c1 from t1 where c1 > 0) b where a.c1 = b.c1;"
+readonly SESSIONS=10
+readonly ITERATIONS=10
 
-# --- 내부 변수 ---
-LOG="$CUBRID/log/server/${DB}_latest.err"
-FLAG="/tmp/repro_stop_$$"
+: "${CUBRID:?CUBRID 환경변수가 설정되지 않았습니다}"
 
-# --- Ctrl+C / TERM 시 전체 정리 ---
+readonly LOG_DIR="$CUBRID/log/server"
+readonly FLAG="/tmp/repro_stop_$$"
+readonly ERROR_PATTERN="ERROR CODE = -13"
+
+PIDS=""
+MONITOR_PID=""
+BASELINE_ERRS=0
+
+#
+# Helpers
+#
+log() {
+  echo "$@" >&2
+}
+
+# 가장 최근 타임스탬프 err 파일 경로 (예: demodb_20260414_0127.err)
+latest_err_log() {
+  ls -1t "$LOG_DIR"/"${DB}"_[0-9]*.err 2>/dev/null | head -n 1
+}
+
+count_errors() {
+  local file n
+  file=$(latest_err_log)
+  [ -z "$file" ] && { echo 0; return; }
+  n=$(grep -c "$ERROR_PATTERN" "$file" 2>/dev/null | tr -d '\n\r')
+  echo "${n:-0}"
+}
+
 cleanup() {
   touch "$FLAG"
-  kill $(jobs -p) 2>/dev/null
+  [ -n "$PIDS" ] && kill $PIDS 2>/dev/null
+  [ -n "$MONITOR_PID" ] && kill "$MONITOR_PID" 2>/dev/null
   wait 2>/dev/null
   rm -f "$FLAG"
   exit
 }
 trap cleanup INT TERM
 
-# --- 단일 세션 루프 ---
+#
+# Worker
+#
 run_session() {
   local sid=$1
-  for i in $(seq 1 $ITERATIONS); do
+  local iter result rc total errs
+
+  for iter in $(seq 1 "$ITERATIONS"); do
     [ -f "$FLAG" ] && return 0
 
     result=$(csql -u dba "$DB" -c "$QUERY" 2>&1)
     rc=$?
-    err_cnt=$(grep -c "ERROR CODE = -13" "$LOG" 2>/dev/null || echo 0)
+    total=$(count_errors)
+    errs=$((total - BASELINE_ERRS))
 
-    echo "[S$sid #$i $(date +%H:%M:%S) rc=$rc err=$err_cnt]" >&2
+    log "[S${sid} #${iter} $(date +%H:%M:%S) rc=${rc} err=${errs}]"
 
-    if [ $rc -ne 0 ] || [ "$err_cnt" -gt 0 ]; then
-      echo "*** REPRODUCED — session=$sid iter=$i ***" >&2
-      echo "$result" >&2
+    if [ "$rc" -ne 0 ] || [ "$errs" -gt 0 ]; then
+      log "*** REPRODUCED — session=${sid} iter=${iter} ***"
+      log "$result"
       touch "$FLAG"
       return 1
     fi
   done
 }
 
-# --- 메인 ---
-echo "Starting $SESSIONS sessions x $ITERATIONS iterations ..." >&2
+#
+# Main
+#
+INITIAL_LOG=$(latest_err_log)
+BASELINE_ERRS=$(count_errors)
+log "Monitoring err log: ${INITIAL_LOG:-<none>}"
+log "Baseline error count: ${BASELINE_ERRS}"
+log "Starting ${SESSIONS} sessions x ${ITERATIONS} iterations ..."
 
-for n in $(seq 1 $SESSIONS); do
+for n in $(seq 1 "$SESSIONS"); do
   run_session "$n" &
+  PIDS="$PIDS $!"
 done
 
-# 2초마다 FLAG 확인 → 재현 감지 시 즉시 종료
-while [ "$(jobs -rp | wc -l)" -gt 0 ]; do
-  if [ -f "$FLAG" ]; then
-    echo "Error detected — stopping all sessions." >&2
-    kill $(jobs -p) 2>/dev/null
-    wait 2>/dev/null
-    break
-  fi
-  sleep 2
-done
+# FLAG 감지 시 실행 중인 csql 포함 모든 세션 즉시 종료
+(
+  while [ ! -f "$FLAG" ]; do sleep 1; done
+  kill $PIDS 2>/dev/null
+) &
+MONITOR_PID=$!
 
+wait $PIDS 2>/dev/null
+kill "$MONITOR_PID" 2>/dev/null
 wait 2>/dev/null
 rm -f "$FLAG"
-echo "=== done ===" >&2
+log "=== done ==="
 {code}
 
 * 동시 세션이 많을수록 buffer pool 경쟁이 커져 재현 확률 상승

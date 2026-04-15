@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"/home/cubrid/github/getting-started/analysis/px_hash_join/sector_based_page_distribution_20260325.html\",\"offset\":200,\"limit\":500}",
+  "error": "File content (15771 tokens) exceeds maximum allowed tokens (10000). Use offset and limit parameters to read specific portions of the file, or search for specific content instead of reading the whole file.",
+  "timestamp": "2026-04-07T04:45:58.737Z",
+  "retry_count": 2
+}

@@ -1,0 +1,118 @@
+
+Time: 03/13/25 14:06:38.935 - DEBUG *** file /home/cubrid/github/upstream_develop/src/transaction/boot_cl.c, line 1132
+boot_restart_client: register client { type 2 db demodb user dba password (null) program csql login cubrid host youngjinj pid 3075401 }
+
+Time: 03/13/25 14:06:38.936 - DEBUG *** file /home/cubrid/github/upstream_develop/src/sp/pl_connection.cpp, line 185
+pl_connection_pool: connection retire (0)
+
+Time: 03/13/25 14:06:41.021 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/log/demodb_dwb
+
+Time: 03/13/25 14:06:41.022 - DEBUG *** file /home/cubrid/github/upstream_develop/src/transaction/log_manager.c, line 1064
+LOG INITIALIZE
+	db_fullname = /home/cubrid/CUBRID/databases/demodb/demodb 
+	logpath = /home/cubrid/CUBRID/databases/demodb/log 
+	prefix_logname = demodb 
+	ismedia_crash = 0 
+
+Time: 03/13/25 14:06:41.178 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2743
+Destroyed volume /home/cubrid/CUBRID/databases/demodb/log/demodb_lgar_t
+
+Time: 03/13/25 14:06:41.178 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/log/demodb_lgar_t
+
+Time: 03/13/25 14:06:41.181 - DEBUG *** file /home/cubrid/github/upstream_develop/src/transaction/log_manager.c, line 1501
+log_initialize_internal: end of log initializaton, append_lsa = (146|16272) 
+
+Time: 03/13/25 14:06:41.203 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/query/vacuum.c, line 993  CODE = -1190, Tran = -1, EID = 1
+Stand-alone vacuum execution is started.
+
+Time: 03/13/25 14:06:41.203 - DEBUG *** file /home/cubrid/github/upstream_develop/src/query/vacuum.c, line 994
+Stand-alone vacuum start.
+
+Time: 03/13/25 14:06:41.203 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/query/vacuum.c, line 1086  CODE = -1191, Tran = -1, EID = 2
+Stand-alone vacuum execution is ended.
+
+Time: 03/13/25 14:06:41.203 - DEBUG *** file /home/cubrid/github/upstream_develop/src/query/vacuum.c, line 1087
+Stand-alone vacuum end.
+
+Time: 03/13/25 14:06:41.217 - DEBUG *** file /home/cubrid/github/upstream_develop/src/sp/pl_connection.cpp, line 185
+pl_connection_pool: connection retire (1)
+
+Time: 03/13/25 14:06:41.222 - DEBUG *** file /home/cubrid/github/upstream_develop/src/sp/pl_connection.cpp, line 185
+pl_connection_pool: connection retire (2)
+
+Time: 03/13/25 14:06:41.222 - DEBUG *** file /home/cubrid/github/upstream_develop/src/query/partition.c, line 717
+creating partition cache
+
+Time: 03/13/25 14:06:41.222 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/boot_sr.c, line 239  CODE = -973, Tran = -1, EID = 3
+Server status is UP.
+
+Time: 03/13/25 14:08:06.912 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/demodb_t32766
+
+Time: 03/13/25 14:08:22.697 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 5860  CODE = -974, Tran = 1, EID = 5
+Archive log "/home/cubrid/CUBRID/databases/demodb/log/demodb_lgar000" is created to archive pages from 0 to 4093.
+
+Time: 03/13/25 14:08:22.697 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/log/demodb_lgar_t
+
+Time: 03/13/25 14:08:31.043 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 6072  CODE = -614, Tran = 1, EID = 6
+Number of active log archives has been exceeded the max desired number of 0.
+
+Time: 03/13/25 14:08:31.255 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 5860  CODE = -974, Tran = 1, EID = 7
+Archive log "/home/cubrid/CUBRID/databases/demodb/log/demodb_lgar001" is created to archive pages from 4094 to 8187.
+
+Time: 03/13/25 14:08:31.255 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/log/demodb_lgar_t
+
+Time: 03/13/25 14:08:47.993 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 6072  CODE = -614, Tran = 1, EID = 8
+Number of active log archives has been exceeded the max desired number of 0.
+
+Time: 03/13/25 14:08:48.014 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 5860  CODE = -974, Tran = 1, EID = 9
+Archive log "/home/cubrid/CUBRID/databases/demodb/log/demodb_lgar002" is created to archive pages from 8188 to 12281.
+
+Time: 03/13/25 14:08:48.014 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/log/demodb_lgar_t
+
+Time: 03/13/25 14:09:23.929 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 6072  CODE = -614, Tran = 1, EID = 10
+Number of active log archives has been exceeded the max desired number of 0.
+
+Time: 03/13/25 14:09:24.083 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 5860  CODE = -974, Tran = 1, EID = 11
+Archive log "/home/cubrid/CUBRID/databases/demodb/log/demodb_lgar003" is created to archive pages from 12282 to 16375.
+
+Time: 03/13/25 14:09:24.084 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/log/demodb_lgar_t
+
+Time: 03/13/25 14:09:57.553 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 6072  CODE = -614, Tran = 1, EID = 12
+Number of active log archives has been exceeded the max desired number of 0.
+
+Time: 03/13/25 14:09:57.568 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/log_page_buffer.c, line 5860  CODE = -974, Tran = 1, EID = 13
+Archive log "/home/cubrid/CUBRID/databases/demodb/log/demodb_lgar004" is created to archive pages from 16376 to 20469.
+
+Time: 03/13/25 14:09:57.569 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2179
+Created volume /home/cubrid/CUBRID/databases/demodb/log/demodb_lgar_t
+
+Time: 03/13/25 16:13:42.713 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2743
+Destroyed volume /home/cubrid/CUBRID/databases/demodb/demodb_t32766
+
+Time: 03/13/25 16:13:42.714 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/page_buffer.c, line 9970
+flushing page 0|193 to disk without logging.
+
+Time: 03/13/25 16:13:42.714 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/page_buffer.c, line 9970
+flushing page 0|1345 to disk without logging.
+
+Time: 03/13/25 16:13:42.714 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/page_buffer.c, line 9970
+flushing page 0|1473 to disk without logging.
+
+Time: 03/13/25 16:13:42.714 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/page_buffer.c, line 9970
+flushing page 0|1665 to disk without logging.
+
+Time: 03/13/25 16:13:43.001 - DEBUG *** file /home/cubrid/github/upstream_develop/src/storage/file_io.c, line 2743
+Destroyed volume /home/cubrid/CUBRID/databases/demodb/log/demodb_dwb
+
+Time: 03/13/25 16:13:43.003 - NOTIFICATION *** file /home/cubrid/github/upstream_develop/src/transaction/boot_sr.c, line 239  CODE = -973, Tran = 1, EID = 14
+Server status is DOWN.
+
+Time: 03/13/25 16:13:43.003 - DEBUG *** file /home/cubrid/github/upstream_develop/src/query/partition.c, line 752
+deleting partition cache

@@ -17,14 +17,20 @@ fi
 cat <<EOF >> ${TARGET_PATH}/.gitignore
 
 ## Youngjinj
-build/
 external/
 jdbc/
 java/
-.vscode/
-cscope.files
-cscope.out
-tags
 csql.access
 csql.err
+
+# Never commit sensitive credentials to git
+*.key
+*.pem
+*.cert
+
+### OMC (Open Model Context) Specific ###
+.omc/sessions/
+.omc/state/
+.omc/*.log
+.omc/cache/
 EOF
