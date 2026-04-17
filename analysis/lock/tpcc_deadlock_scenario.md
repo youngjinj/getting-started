@@ -326,6 +326,199 @@ find_unique_helper.lock_mode =
     (scan_op_type == S_SELECT_WITH_LOCK) ? S_LOCK : X_LOCK;
 ```
 
+## CUBRID MVCC UPDATE 흐름 — 레코드 먼저, lock은 나중
+
+### 전통적 2PL vs MVCC
+
+```
+전통적 2PL:   lock → read → modify          (읽기에도 lock 필요)
+MVCC(CUBRID): read(snapshot) → lock → modify (읽기는 lock 불필요)
+```
+
+MVCC에서는 snapshot이 consistent read를 보장하므로 스캔 단계에서 row lock 없이
+후보 행을 수집한다. lock은 실제로 수정할 때 비로소 획득한다.
+
+### UPDATE 실행 흐름
+
+```
+UPDATE district SET d_next_o_id = d_next_o_id + 1 WHERE d_w_id = ? AND d_id = ?
+  │
+  ├─ [스캔 단계] scan_manager.c
+  │    MVCC snapshot으로 WHERE 조건 만족하는 OID 수집
+  │    → row lock 없음 (snapshot이 visibility 보장)
+  │
+  └─ [수정 단계] locator_update_force() — need_locking=true
+       │
+       ├─ locator_decide_update_lock()
+       │    PK 유무 + 변경 컬럼이 키인지 판단
+       │    → 비키 UPDATE: WX_LOCK
+       │    → 키 변경 or PK 없음: X_LOCK
+       │
+       └─ locator_lock_and_get_object_with_evaluation()
+            lock 획득 + 최신 버전 fetch + WHERE 재평가(reevaluation)
+```
+
+### 왜 reevaluation이 필요한가
+
+```
+t1  스캔: OID=100 발견, WHERE 조건 일치 (snapshot 기준) — lock 없이 반환
+t2  다른 TX가 OID=100 수정 후 COMMIT
+t3  update_force: OID=100에 WX_LOCK 획득
+    → reevaluation: 최신 버전으로 WHERE 재확인
+      → 여전히 일치? → 수정 진행
+      → 조건 불만족?  → skip (V_FALSE)
+```
+
+스캔 시점과 lock 획득 시점 사이에 다른 TX가 row를 바꿀 수 있기 때문에,
+lock 획득 후 반드시 최신 버전으로 조건을 재평가한다.
+
+### need_locking == false 경우
+
+스캔 기반이 아닌 **직접 OID 지정 UPDATE** (클라이언트가 `SELECT FOR UPDATE` 등으로
+이미 lock을 보유한 경우). 코드에서 assert로 보장한다:
+
+```c
+/* locator_sr.c:7582 */
+assert ((lock_get_object_lock (oid, &class_oid) >= X_LOCK)
+        || (lock_get_object_lock (&class_oid, oid_Root_class_oid) >= X_LOCK));
+```
+
+lock이 이미 있으므로 reevaluation도 불필요하다 (`mvcc_reev_data = NULL`).
+
+### mvcc_select_lock_needed — SELECT FOR UPDATE 전용 플래그
+
+`scan_id->mvcc_select_lock_needed`는 일반 UPDATE 흐름과 무관하다.
+
+```
+mvcc_select_lock_needed = true  조건:
+  1. SELECT ... FOR UPDATE  (ACCESS_SPEC_FLAG_FOR_UPDATE 세트)
+  2. click counter (INCR/DECR 연산, force_select_lock=true)
+
+→ scan 단계에서 X_LOCK을 먼저 획득
+→ locator_update_force 호출 시 instances_locked=true → need_locking=false
+```
+
+일반 UPDATE(`UPDATE district SET ...`)는 `mvcc_select_lock_needed=false`이다.
+스캔은 lock 없이 진행되고, `locator_update_force`에서 `need_locking=true`로
+`locator_decide_update_lock()`이 호출되어 WX_LOCK 또는 X_LOCK이 결정된다.
+
+```
+mvcc_select_lock_needed=true (SELECT FOR UPDATE / click counter):
+  scan ─→ X_LOCK(row) ─→ locator_update_force(need_locking=false)
+             ↑ scan이 lock 보유                ↑ 재획득 불필요
+
+mvcc_select_lock_needed=false (일반 UPDATE):
+  scan ─→ OID 수집(no lock) ─→ locator_update_force(need_locking=true)
+                                  → locator_decide_update_lock()
+                                  → WX_LOCK or X_LOCK 결정 후 획득
+```
+
+WX_LOCK 최적화(FK deadlock fix)는 `mvcc_select_lock_needed=false` 경로,
+즉 일반 UPDATE에서만 동작한다.
+
+---
+
+## Isolation Level과 WS_LOCK / WX_LOCK
+
+### lock과 isolation level의 역할 분리
+
+```
+RC / RR / SERIALIZABLE 공통:
+  읽기 일관성  → MVCC snapshot 담당
+  쓰기 충돌 방지 → 2PL lock 담당
+
+WS_LOCK / WX_LOCK은 "쓰기 충돌 방지" 역할 → isolation level과 무관하게 유효
+```
+
+`lock_object`로 획득한 WS_LOCK은 트랜잭션 커밋까지 유지된다(2PL).
+RR로 올라간다고 해서 S_LOCK으로 업그레이드해야 할 이유가 없다.
+
+### RR에서 WS_LOCK이 보장하는 것
+
+```
+New-Order TX (RR, FK check):
+  WS_LOCK(warehouse) 획득 → commit까지 유지
+
+  WS_LOCK이 차단:
+    ✅ X_LOCK(warehouse) — 부모 키 삭제/변경 방지
+    ✅ WX_LOCK(warehouse) — 비키 컬럼 수정은 FK에 영향 없으므로 허용
+
+  RR 반복 읽기 보장:
+    → MVCC snapshot이 담당 (WS_LOCK 역할 아님)
+```
+
+WS_LOCK을 S_LOCK으로 올리면 Payment의 X_LOCK(warehouse)과 비호환 → deadlock 재발.
+
+### PostgreSQL과 비교
+
+| 항목 | CUBRID (WS/WX) | PostgreSQL |
+|---|---|---|
+| FK check lock | WS_LOCK | FOR KEY SHARE |
+| 비키 UPDATE lock | WX_LOCK | FOR NO KEY UPDATE |
+| 두 lock 호환 | ✅ YES | ✅ YES |
+| RC에서 lock 유지 | commit까지 | commit까지 |
+| RR에서 lock 유지 | commit까지 | commit까지 |
+| RR 읽기 일관성 | MVCC snapshot | MVCC snapshot |
+| SERIALIZABLE | MVCC (≒ RR) | SSI + predicate lock |
+
+PG도 RR에서 FOR KEY SHARE를 S_LOCK으로 올리지 않는다.
+반복 읽기는 snapshot의 몫, FK 보호는 key share lock의 몫으로 역할이 분리되어 있다.
+CUBRID WS_LOCK과 PG FOR KEY SHARE는 설계 의도가 동일하다.
+
+---
+
+## U_LOCK과 WS_LOCK의 관계
+
+### 기존 데드락의 실제 lock 패턴
+
+기존 데드락은 **U_LOCK → S_LOCK** 패턴이 아니라 **X_LOCK → S_LOCK** 패턴이다.
+
+```
+TX (Payment):  X_LOCK(warehouse)  보유  ← P1 UPDATE warehouse
+TX (New-Order): S_LOCK(warehouse)  요청  ← N3 FK 검사
+                                    ⛔ X vs S = 비호환
+```
+
+U_LOCK은 `SELECT ... FOR UPDATE` 커서 스캔 단계에서만 사용된다.
+FK 검사가 실행되는 시점(`locator_update_force` → `locator_check_foreign_key`)에는
+이미 X_LOCK으로 업그레이드된 상태이므로 U_LOCK은 데드락에 직접 관여하지 않는다.
+
+```
+New-Order TX 흐름:
+  N2  SELECT district FOR UPDATE  → U_LOCK(district)   ← U_LOCK 사용
+  N3  UPDATE district             → X_LOCK(district)   ← U → X 업그레이드
+        └─ FK 검사 진입           → S_LOCK(warehouse) 요청  ← 이 시점에 U 없음
+```
+
+### WS+U=NO / U+WS=YES 비대칭의 설계 근거
+
+WS_LOCK과 U_LOCK의 비대칭은 기존 S+U 비대칭과 동일한 논리로 설계된 것이다.
+
+```
+기존:   S + U = YES  (읽기 중에 update 예약 허용)
+        U + S = NO   (update 예약 중에 새 읽기 차단)
+
+신규:   U + WS = YES (update 예약 중에 기존 FK 검사는 공존 허용)
+        WS + U = NO  (FK 검사 중에 새 update 예약 차단)
+```
+
+U_LOCK이 FK 검사(WS_LOCK)를 보유 중인 행에 나중에 요청되는 경우:
+
+```
+TX1: FK check → WS_LOCK(parent.row1) 보유
+TX2: SELECT parent FOR UPDATE → U_LOCK(parent.row1) 요청
+     → WS+U=NO 규칙으로 차단
+
+TX2가 U를 X로 업그레이드하면 X+WS=NO이므로 여전히 차단.
+TX1의 FK 검사가 끝나면 WS 해제 → TX2 진행.
+```
+
+이 규칙이 실제로 작동하는 방향은 주로 **"WS 보유 중 U 요청 차단"** 이다.
+"U 보유 중 WS 요청"은 같은 TX 내부에서 발생할 수 있으나 (`lock_conv[WS][U] = U`),
+다른 TX 간에서는 FK 검사 대상 행에 SELECT FOR UPDATE를 하는 드문 패턴에서만 나타난다.
+
+---
+
 ## CUBRID 서버 로그 에러 코드
 
 ```
@@ -347,20 +540,23 @@ CODE = -1124: Query execution error (ERROR_CODE = -72)
 
 ## 결론
 
-| | CUBRID (S_LOCK) | PG (FOR KEY SHARE) |
-|---|---|---|
-| FK 검사 lock | S_LOCK | FOR KEY SHARE |
-| UPDATE lock (non-key) | X_LOCK | FOR NO KEY UPDATE |
-| FK lock vs UPDATE lock | S vs X = **비호환** | KEY SHARE vs NO KEY UPDATE = **호환** |
-| TPC-C 200 terminals | deadlock **9,079건** | deadlock **0건** |
-| 근본 원인 | lock 세분화 부족 (2단계) | 4단계 lock으로 불필요한 충돌 회피 |
+| | CUBRID (수정 전) | CUBRID (수정 후, CBRD-26664) | PG |
+|---|---|---|---|
+| FK 검사 lock | S_LOCK | WS_LOCK | FOR KEY SHARE |
+| UPDATE lock (non-key) | X_LOCK | WX_LOCK | FOR NO KEY UPDATE |
+| FK lock vs UPDATE lock | S vs X = **비호환** | WS vs WX = **호환** | KEY SHARE vs NO KEY UPDATE = **호환** |
+| TPC-C 200 terminals | deadlock **9,079건** | deadlock **0건** (예상) | deadlock **0건** |
+| 근본 원인/해결 | lock 세분화 부족 (2단계) | WS/WX 2단계 추가 (4단계) | 4단계 lock 기본 제공 |
 
 PG의 FOR KEY SHARE는 PostgreSQL 9.3 (2013)에서 도입되었다.
 도입 목적이 정확히 이 문제 — FK 검사와 일반 UPDATE 간 불필요한 lock 충돌 제거.
+CBRD-26664는 동일한 설계를 CUBRID에 적용한다.
 
-## 개선 방안
+## 구현 요약 (CBRD-26664)
 
-1. **PG 방식 도입**: FK 검사 시 S_LOCK 대신 KEY SHARE 수준의 가벼운 lock 사용
-   - `btree.c:24769`에서 FK 전용 lock 모드 추가 필요
-2. **FK 제거**: 벤치마크 한정으로 FK를 제거하면 deadlock 해소 (공정성 이슈)
-3. **lock_timeout 설정**: 무한 대기(-1) 대신 짧은 timeout 후 재시도 (근본 해결 아님)
+- `lock_table.h`: `WS_LOCK = 12`, `WX_LOCK = 13` 추가
+- `lock_table.c`: 호환성/변환 행렬에 WS/WX 행·열 추가 (WS+WX = 호환)
+- `storage_common.h`: `S_SELECT_WITH_KEY_SHARE_LOCK = 2` 추가 (직렬화 안전을 위해 명시적 값)
+- `btree.c`: FK 검사 시 `S_SELECT_WITH_KEY_SHARE_LOCK` → `WS_LOCK` 결정
+- `locator_sr.c`: `locator_decide_update_lock()` — 비키 UPDATE → `WX_LOCK`
+- `lock_manager.c`: `WS_LOCK` 이하 lock에 대한 분기 조건 반영
