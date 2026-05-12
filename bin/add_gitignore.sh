@@ -30,3 +30,4 @@ csql.err
 
 ### OMC (Open Model Context) Specific ###
 .omc/
+EOF
