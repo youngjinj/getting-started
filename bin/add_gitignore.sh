@@ -29,8 +29,4 @@ csql.err
 *.cert
 
 ### OMC (Open Model Context) Specific ###
-.omc/sessions/
-.omc/state/
-.omc/*.log
-.omc/cache/
-EOF
+.omc/
