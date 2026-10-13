@@ -1,4 +1,1 @@
-select /*+ recompile use_idx */ count (*)
-from t1 a, t1 b
-where a.c1 = b.c1 and b.c2 = 0;
-
+select count(*) from t111 where col3 = 1;

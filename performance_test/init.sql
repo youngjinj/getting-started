@@ -1,15 +1,10 @@
-drop table if exists t1;
+drop table if exists t1, t2;
 
-create table t1 (c1 int, c2 int);
-create index i1 on t1 (c1, c2);
-insert into t1
-  select rownum, 0
-  from
-    table ({0, 1, 2, 3, 4, 5, 6, 7, 8, 9}) a (c),
-    table ({0, 1, 2, 3, 4, 5, 6, 7, 8, 9}) b (c),
-    table ({0, 1, 2, 3, 4, 5, 6, 7, 8, 9}) c (c),
-    table ({0, 1, 2, 3, 4, 5, 6, 7, 8, 9}) d (c),
-    table ({0, 1, 2, 3, 4, 5, 6, 7, 8, 9}) e (c)
-  limit 100000;
+create table t1 (c1 int, index i1 (c1));
+insert into t1 values (1);
 
-update statistics on t1 with fullscan;
+create table t2 (c1 int, c2 int, index i1 (c1, c2));
+insert into t2
+  select 1, rownum from db_class a, db_class b, db_class c, db_class d, db_class e limit 12000;
+ 
+update statistics on t1, t2 with fullscan;

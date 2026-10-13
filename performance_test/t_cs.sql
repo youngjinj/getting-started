@@ -1,3 +1,3 @@
-select /*+ recompile use_idx */ count (*)
-from t1 a, t1 b
-where a.c1 = b.c1 and b.c2 = 0;
+select /*+ recompile use_idx */ b.c2
+from t1 a, t2 b
+where a.c1 = b.c1;
